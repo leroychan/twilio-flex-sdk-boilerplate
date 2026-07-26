@@ -1,0 +1,5 @@
+{
+  "title": "Example CRM Panel",
+  "description": "Disabled example plugin. Copy src/plugins/example to build your own.",
+  "storeKeys": "Store slices available: {count}"
+}

@@ -20,6 +20,16 @@ const eslintConfig = [
     ],
   },
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    files: ['src/**/*.{ts,tsx}'],
+    ignores: ['src/**/*.test.{ts,tsx}', 'src/**/__tests__/**'],
+    rules: {
+      'react/jsx-no-literals': [
+        'error',
+        { noStrings: false, ignoreProps: true, noAttributeStrings: false, allowedStrings: [] },
+      ],
+    },
+  },
 ];
 
 export default eslintConfig;

@@ -1,22 +1,25 @@
-import type { Metadata } from "next";
-import { fontVariables } from "@/theme/fonts";
-import { ThemeProvider } from "@/components/theme/ThemeProvider";
-import "./globals.css";
+import type { Metadata } from 'next';
+import { NextIntlClientProvider } from 'next-intl';
+import { getLocale, getMessages } from 'next-intl/server';
+import { fontVariables } from '@/theme/fonts';
+import { ThemeProvider } from '@/components/theme/ThemeProvider';
+import './globals.css';
 
 export const metadata: Metadata = {
-  title: "Twilio Flex SDK Boilerplate",
-  description: "Next.js + TypeScript agent desktop foundation.",
+  title: 'Twilio Flex SDK Boilerplate',
+  description: 'Next.js + TypeScript agent desktop foundation.',
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="en" className={`${fontVariables}`} suppressHydrationWarning>
+    <html lang={locale} className={fontVariables} suppressHydrationWarning>
       <body className="font-sans">
-        <ThemeProvider>{children}</ThemeProvider>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <ThemeProvider>{children}</ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
