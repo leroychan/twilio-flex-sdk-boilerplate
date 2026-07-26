@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { EventEmitter } from 'node:events';
 import { useFlexStore } from '@/store';
 import type { FlexClient } from '../client';

@@ -1,49 +1,60 @@
 'use client';
 import { useEffect } from 'react';
 import { AddVoiceEventListener } from '@twilio/flex-sdk/actions/Voice';
+import { getFlexClient } from '@/lib/flex/client';
 import { useFlexStore } from '@/store';
-import type { VoiceParticipant } from '@/store/slices/voice';
 
-interface RawVoiceEvent {
-  type: string;
-  taskSid?: string;
-  callSid?: string;
-  participants?: VoiceParticipant[];
-}
+type Unsub = () => void;
+const asRecord = (v: unknown): Record<string, unknown> => (v ?? {}) as Record<string, unknown>;
 
-// NOTE (integration): the real SDK exposes AddVoiceEventListener as an Action class —
-// `client.execute(new AddVoiceEventListener(VoiceClientEvent.X, listener))` — resolving to
-// `{ unsubscribe }`, registering ONE event type per instance. This hook uses the simplified
-// callback shape for the boilerplate; when wiring a live account, register one listener per
-// VoiceClientEvent and collect the unsubscribes here. Exercising these events requires a live
-// session, so this bridge is validated against real Twilio, not in unit tests.
-const register = AddVoiceEventListener as unknown as (
-  cb: (e: RawVoiceEvent) => void,
-) => (() => void) | void;
-
+/**
+ * Bridges Flex voice-device events into the store. The real SDK exposes AddVoiceEventListener
+ * as an Action executed per event via `client.execute(new AddVoiceEventListener(eventName,
+ * listener))`, resolving to `{ unsubscribe }`. We register the device-level `incoming` event
+ * and, from the delivered VoiceCall, follow its accept/disconnect to drive call status.
+ * No-ops without a live client (stub/demo mode or tests), so it never throws.
+ */
 export function useVoiceEvents(): void {
   const setCall = useFlexStore((s) => s.setCall);
   const resetCall = useFlexStore((s) => s.resetCall);
-  const setParticipants = useFlexStore((s) => s.setParticipants);
 
   useEffect(() => {
-    const unsubscribe = register((e: RawVoiceEvent) => {
-      switch (e.type) {
-        case 'callRinging':
-          setCall({ status: 'ringing', taskSid: e.taskSid ?? null, callSid: e.callSid ?? null });
-          break;
-        case 'callConnected':
-          setCall({ status: 'connected', startedAt: Date.now() });
-          break;
-        case 'callDisconnected':
+    const client = getFlexClient();
+    if (!client) return;
+
+    const unsubs: Unsub[] = [];
+    let cancelled = false;
+
+    const register = async (eventName: string, listener: (payload: unknown) => void) => {
+      try {
+        const action = new AddVoiceEventListener(eventName as never, listener as never);
+        const res = (await client.execute(action)) as { unsubscribe?: Unsub } | undefined;
+        if (res?.unsubscribe) {
+          if (cancelled) res.unsubscribe();
+          else unsubs.push(res.unsubscribe);
+        }
+      } catch {
+        // Best-effort: registration requires a registered voice device.
+      }
+    };
+
+    void register('incoming', (call) => {
+      const c = asRecord(call);
+      const params = asRecord(c.parameters);
+      setCall({ status: 'ringing', callSid: String(params.CallSid ?? '') || null });
+      const on = c.on as ((ev: string, cb: (...a: unknown[]) => void) => void) | undefined;
+      if (typeof on === 'function') {
+        on('accept', () => setCall({ status: 'connected', startedAt: Date.now() }));
+        on('disconnect', () => {
           setCall({ status: 'ended' });
           resetCall();
-          break;
-        case 'participantsUpdated':
-          if (e.participants) setParticipants(e.participants);
-          break;
+        });
       }
     });
-    return () => { if (typeof unsubscribe === 'function') unsubscribe(); };
-  }, [setCall, resetCall, setParticipants]);
+
+    return () => {
+      cancelled = true;
+      unsubs.forEach((u) => u());
+    };
+  }, [setCall, resetCall]);
 }

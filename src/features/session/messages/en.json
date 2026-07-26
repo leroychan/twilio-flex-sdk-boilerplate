@@ -1,11 +1,13 @@
 {
-  "session": {
-    "title": "Sign in to Flex",
-    "subtitle": "Authenticate to start your agent session.",
-    "demoMode": "Continue in demo mode",
-    "ssoSignIn": "Sign in with SSO",
-    "identityLabel": "Agent identity",
-    "signingIn": "Signing in…",
-    "error": "Sign-in failed. Please try again."
+  "title": "Sign in to Flex",
+  "subtitle": "Authenticate to start your agent session.",
+  "demoMode": "Continue in demo mode",
+  "ssoSignIn": "Sign in with SSO",
+  "identityLabel": "Agent identity",
+  "signingIn": "Signing in…",
+  "error": "Sign-in failed. Please try again.",
+  "desktop": {
+    "dial": "Dial",
+    "signOut": "Sign out"
   }
 }

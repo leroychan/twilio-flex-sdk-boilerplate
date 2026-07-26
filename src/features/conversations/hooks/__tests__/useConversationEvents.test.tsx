@@ -1,17 +1,34 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { renderHook } from '@testing-library/react';
 
-const addListener = vi.fn();
+const getFlexClient = vi.fn();
+const execute = vi.fn();
+vi.mock('@/lib/flex/client', () => ({ getFlexClient: () => getFlexClient() }));
 vi.mock('@twilio/flex-sdk/actions/Conversation', () => ({
-  AddConversationEventListener: (cb: (e: unknown) => void) => { addListener(cb); return () => {}; },
+  AddConversationEventListener: class {
+    constructor(
+      public name: string,
+      public listener: unknown,
+    ) {}
+  },
 }));
 import { useConversationEvents } from '../useConversationEvents';
 
-beforeEach(() => addListener.mockReset());
+beforeEach(() => {
+  getFlexClient.mockReset();
+  execute.mockReset().mockResolvedValue({ unsubscribe: () => {} });
+});
 
 describe('useConversationEvents', () => {
-  it('registers a conversation event listener on mount', () => {
+  it('registers conversationJoined, messageAdded and conversationRemoved via client.execute', () => {
+    getFlexClient.mockReturnValue({ execute });
     renderHook(() => useConversationEvents());
-    expect(addListener).toHaveBeenCalledOnce();
+    expect(execute).toHaveBeenCalledTimes(3);
+  });
+
+  it('no-ops (never throws) when there is no live client', () => {
+    getFlexClient.mockReturnValue(null);
+    expect(() => renderHook(() => useConversationEvents())).not.toThrow();
+    expect(execute).not.toHaveBeenCalled();
   });
 });
