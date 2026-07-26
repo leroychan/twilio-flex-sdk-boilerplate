@@ -1,0 +1,21 @@
+{
+  "title": "Conversations",
+  "composerPlaceholder": "Type a message…",
+  "send": "Send",
+  "pause": "Park",
+  "resume": "Resume",
+  "leave": "Leave",
+  "transfer": "Transfer",
+  "pausedTitle": "Parked conversations",
+  "noPaused": "No parked conversations",
+  "templates": "Templates",
+  "email": {
+    "new": "New email",
+    "to": "To",
+    "subject": "Subject",
+    "body": "Message",
+    "send": "Send email",
+    "addParticipant": "Add participant"
+  },
+  "empty": "No active conversation"
+}

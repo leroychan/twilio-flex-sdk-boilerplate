@@ -1,12 +1,27 @@
 import { create } from 'zustand';
 import { createSessionSlice, type SessionSlice } from './slices/session';
+import { createPresenceSlice, type PresenceSlice } from './slices/presence';
+import { createTasksSlice, type TasksSlice } from './slices/tasks';
+import { createVoiceSlice, type VoiceSlice } from './slices/voice';
+import { createConversationsSlice, type ConversationsSlice } from './slices/conversations';
+import { createSupervisorSlice, type SupervisorSlice } from './slices/supervisor';
 
-// Composition pattern — later feature parts extend the store like so:
+// Composition pattern — each feature part contributes one slice:
 //   1. Add `& <Name>Slice` to FlexStore below.
 //   2. Spread `...create<Name>Slice(...a)` into the initializer.
-// Slice creators must be typed `StateCreator<TSlice, [], [], TSlice>`.
-export type FlexStore = SessionSlice;
+// Slice creators are typed `StateCreator<TSlice, [], [], TSlice>`.
+export type FlexStore = SessionSlice &
+  PresenceSlice &
+  TasksSlice &
+  VoiceSlice &
+  ConversationsSlice &
+  SupervisorSlice;
 
 export const useFlexStore = create<FlexStore>()((...a) => ({
   ...createSessionSlice(...a),
+  ...createPresenceSlice(...a),
+  ...createTasksSlice(...a),
+  ...createVoiceSlice(...a),
+  ...createConversationsSlice(...a),
+  ...createSupervisorSlice(...a),
 }));

@@ -1,0 +1,23 @@
+{
+  "title": "Call",
+  "incoming": "Incoming call",
+  "accept": "Accept",
+  "reject": "Reject",
+  "mute": "Mute",
+  "unmute": "Unmute",
+  "hold": "Hold",
+  "unhold": "Resume",
+  "hangup": "Hang up",
+  "endForAll": "End for all",
+  "transfer": "Transfer",
+  "cancelTransfer": "Cancel transfer",
+  "addParticipant": "Add participant",
+  "dialpad": "Dialpad",
+  "dial": "Call",
+  "phonePlaceholder": "Enter a number",
+  "devices": "Audio devices",
+  "microphone": "Microphone",
+  "speaker": "Speaker",
+  "idle": "No active call",
+  "onHold": "On hold"
+}

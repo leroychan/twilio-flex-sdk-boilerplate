@@ -1,0 +1,18 @@
+{
+  "empty": "No active tasks",
+  "listLabel": "Task list",
+  "accept": "Accept",
+  "reject": "Reject",
+  "wrapUp": "Wrap up",
+  "complete": "Complete",
+  "status": {
+    "pending": "Pending",
+    "accepted": "Accepted",
+    "wrapping": "Wrapping up",
+    "completed": "Completed",
+    "rejected": "Rejected",
+    "canceled": "Canceled",
+    "rescinded": "Rescinded",
+    "timeout": "Timed out"
+  }
+}
