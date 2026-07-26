@@ -15,7 +15,7 @@ export function PluginRoot({ children }: { children: React.ReactNode }) {
   const registryRef = useRef<PluginRegistry | null>(null);
   if (registryRef.current === null) {
     registryRef.current = initPlugins({
-      getState: () => useFlexStore.getState() as Readonly<Record<string, unknown>>,
+      getState: () => useFlexStore.getState() as unknown as Readonly<Record<string, unknown>>,
       subscribe: (listener) => useFlexStore.subscribe(listener),
     });
   }

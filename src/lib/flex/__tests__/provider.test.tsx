@@ -3,7 +3,10 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { useFlexStore } from '@/store';
 
 const initFlexClient = vi.fn();
-const registerSessionListeners = vi.fn(() => vi.fn());
+const registerSessionListeners = vi.fn((...a: unknown[]) => {
+  void a;
+  return vi.fn();
+});
 
 vi.mock('@/lib/flex/client', () => ({
   initFlexClient: (...a: unknown[]) => initFlexClient(...a),

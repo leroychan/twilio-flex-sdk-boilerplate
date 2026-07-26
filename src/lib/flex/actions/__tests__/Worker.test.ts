@@ -29,18 +29,18 @@ describe('Worker action wrappers', () => {
     getFlexClient.mockReturnValue({ execute });
     await setCurrentActivity('WA123');
     expect(execute).toHaveBeenCalledTimes(1);
-    const action = execute.mock.calls[0][0];
+    const action = execute.mock.calls[0]![0];
     expect(action).toBeInstanceOf(SetCurrentActivity);
-    expect(action.args).toEqual({ activitySid: 'WA123' });
+    expect(action.args).toEqual('WA123');
   });
 
   it('setAttributes executes SetAttributes via the client', async () => {
     const execute = vi.fn().mockResolvedValue(undefined);
     getFlexClient.mockReturnValue({ execute });
     await setAttributes({ team: 'blue' });
-    const action = execute.mock.calls[0][0];
+    const action = execute.mock.calls[0]![0];
     expect(action).toBeInstanceOf(SetAttributes);
-    expect(action.args).toEqual({ attributes: { team: 'blue' } });
+    expect(action.args).toEqual({ team: 'blue' });
   });
 
   it('throws a client_not_initialized error when there is no client', async () => {

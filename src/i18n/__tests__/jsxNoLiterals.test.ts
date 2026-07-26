@@ -7,9 +7,9 @@ async function ruleIds(code: string): Promise<string[]> {
   const results = await eslint.lintText(code, {
     filePath: 'src/__lint_fixtures__/Sample.tsx',
   });
-  return results[0].messages
+  return (results[0]?.messages ?? [])
     .map((m) => m.ruleId)
-    .filter((id): id is string => id !== null);
+    .filter((id): id is string => id != null);
 }
 
 describe('react/jsx-no-literals enforcement', () => {

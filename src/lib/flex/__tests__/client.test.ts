@@ -54,7 +54,7 @@ describe('flex client singleton', () => {
     expect(createClient).toHaveBeenCalledWith(
       'tok',
       expect.objectContaining({
-        session: { autoUpdateToken: true, refreshToken: 'r1', ssoProfileSid: 'sso1' },
+        session: { autoUpdateToken: true, isConsoleLogin: false, refreshToken: 'r1', ssoProfileSid: 'sso1' },
       }),
     );
   });

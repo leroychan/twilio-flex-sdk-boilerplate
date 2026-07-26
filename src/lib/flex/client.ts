@@ -18,14 +18,23 @@ export async function initFlexClient(
   if (client) return client;
   if (initPromise) return initPromise;
 
+  // The SDK's SessionOptions is a discriminated union: SSO sessions require
+  // autoUpdateToken:true + isConsoleLogin:false + refreshToken + ssoProfileSid;
+  // otherwise we use the default (non-refreshing) session.
+  const session =
+    opts.refreshToken && opts.ssoProfileSid
+      ? {
+          autoUpdateToken: true as const,
+          isConsoleLogin: false as const,
+          refreshToken: opts.refreshToken,
+          ssoProfileSid: opts.ssoProfileSid,
+        }
+      : { autoUpdateToken: false as const };
+
   initPromise = createClient(token, {
     logger: { level: opts.logLevel ?? 'info' },
     voiceOptions: { autoAcceptIncomingCalls: opts.autoAcceptIncomingCalls ?? false },
-    session: {
-      autoUpdateToken: opts.autoUpdateToken ?? Boolean(opts.refreshToken),
-      ...(opts.refreshToken ? { refreshToken: opts.refreshToken } : {}),
-      ...(opts.ssoProfileSid ? { ssoProfileSid: opts.ssoProfileSid } : {}),
-    },
+    session,
   })
     .then((c: FlexClient) => {
       client = c;

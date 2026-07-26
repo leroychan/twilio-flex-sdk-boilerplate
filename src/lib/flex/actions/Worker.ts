@@ -4,7 +4,7 @@
 // actions/Conversation.ts, actions/Supervisor.ts following this exact shape:
 //   1. import the action classes from '@twilio/flex-sdk/actions/<Domain>'
 //   2. get the singleton client via getFlexClient()
-//   3. client.execute(new <Action>({ ...args }))
+//   3. client.execute(new <Action>(...positionalArgs))  // match the SDK's constructor
 //   4. funnel every failure through normalizeFlexError()
 import { SetCurrentActivity, SetAttributes } from '@twilio/flex-sdk/actions/Worker';
 import { getFlexClient } from '../client';
@@ -26,7 +26,7 @@ function requireClient() {
 export async function setCurrentActivity(activitySid: string): Promise<void> {
   const client = requireClient();
   try {
-    await client.execute(new SetCurrentActivity({ activitySid }));
+    await client.execute(new SetCurrentActivity(activitySid));
   } catch (err) {
     throw normalizeFlexError(err);
   }
@@ -35,7 +35,7 @@ export async function setCurrentActivity(activitySid: string): Promise<void> {
 export async function setAttributes(attributes: Record<string, unknown>): Promise<void> {
   const client = requireClient();
   try {
-    await client.execute(new SetAttributes({ attributes }));
+    await client.execute(new SetAttributes(attributes));
   } catch (err) {
     throw normalizeFlexError(err);
   }
