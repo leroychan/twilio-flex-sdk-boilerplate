@@ -1,8 +1,10 @@
+@import "../theme/tokens.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  background: #ffffff;
-  color: #171717;
+  background: var(--color-bg);
+  color: var(--color-text);
 }

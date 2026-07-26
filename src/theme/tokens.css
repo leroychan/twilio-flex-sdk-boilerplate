@@ -1,0 +1,44 @@
+:root {
+  /* Raw brand scales (verbatim from spec §8) */
+  --red-50:#FFF1F1; --red-100:#FFD6DC; --red-200:#FFA7AD; --red-300:#FF7681;
+  --red-400:#F84050; --red-500:#DD1020; --red-600:#B20E22; --red-700:#890A1E;
+  --red-800:#5D0A18; --red-900:#240206; --brand-red:#F22F46; --red-450:#EF223A;
+  --blue-50:#E4F7FF; --blue-100:#A9EAFF; --blue-200:#3ACEFA; --blue-300:#0CAEE1;
+  --blue-400:#0E8CDF; --blue-500:#1866EE; --blue-600:#1953B9; --blue-700:#0E3E92;
+  --blue-800:#0B2A60; --blue-900:#000D25;
+  --neutral-50:#F3F4F7; --neutral-100:#DDE0E6; --neutral-200:#BCBECC; --neutral-300:#99A2B0;
+  --neutral-400:#7E879C; --neutral-500:#676E88; --neutral-600:#52567B; --neutral-700:#3F4062;
+  --neutral-800:#282A48; --neutral-900:#000D25; --white:#FFFFFF;
+  --green-success:#14804A; --amber-warning:#F0B429;
+
+  /* Semantic — LIGHT theme */
+  --color-bg: var(--neutral-50);
+  --color-surface: var(--white);
+  --color-surface-2: var(--neutral-50);
+  --color-border: var(--neutral-100);
+  --color-text: var(--neutral-900);
+  --color-text-muted: var(--neutral-500);
+  --color-brand: var(--brand-red);
+  --color-primary: var(--blue-500);
+  --color-primary-hover: var(--blue-600);
+  --color-danger: var(--red-500);
+  --color-success: var(--green-success);
+  --color-warning: var(--amber-warning);
+  --color-info: var(--blue-400);
+}
+
+.dark {
+  --color-bg: var(--neutral-900);
+  --color-surface: var(--neutral-800);
+  --color-surface-2: var(--neutral-700);
+  --color-border: var(--neutral-700);
+  --color-text: var(--neutral-50);
+  --color-text-muted: var(--neutral-300);
+  --color-brand: var(--brand-red);
+  --color-primary: var(--blue-300);
+  --color-primary-hover: var(--blue-200);
+  --color-danger: var(--red-400);
+  --color-success: var(--green-success);
+  --color-warning: var(--amber-warning);
+  --color-info: var(--blue-300);
+}
