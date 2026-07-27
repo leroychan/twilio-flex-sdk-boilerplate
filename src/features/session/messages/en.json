@@ -29,5 +29,10 @@
     "teams": "Teams",
     "dialpad": "Dialpad",
     "queues": "Queues Stats"
+  },
+  "workspace": {
+    "tabs": { "call": "Call", "conversation": "Conversation", "notes": "Notes", "info": "Info" },
+    "views": "Task views",
+    "status": { "incoming": "Incoming", "live": "Live", "wrapping": "Wrap-up", "connecting": "Connecting" }
   }
 }

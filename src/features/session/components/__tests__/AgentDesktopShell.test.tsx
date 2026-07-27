@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { useFlexStore } from '@/store';
+import { INITIAL_CALL } from '@/store/slices/voice';
 import { loadMessages } from '@/i18n/loadMessages';
 
 const replace = vi.fn();
@@ -14,6 +15,19 @@ vi.mock('@/lib/flex/provider', () => ({
 import { AgentDesktopShell } from '../AgentDesktopShell';
 
 const messages = loadMessages('en');
+
+// A stand-in SDK worker that satisfies the presence/task event bridges (they
+// call worker.activities/reservations/on/off) so mounting the shell won't throw.
+const fakeWorker = (attributes: Record<string, unknown>) =>
+  ({
+    attributes,
+    sid: 'WK-test',
+    activities: new Map(),
+    activity: undefined,
+    reservations: new Map(),
+    on: vi.fn(),
+    off: vi.fn(),
+  }) as never;
 function renderShell() {
   return render(
     <NextIntlClientProvider locale="en" messages={messages}>
@@ -24,9 +38,32 @@ function renderShell() {
 
 describe('AgentDesktopShell', () => {
   beforeEach(() => {
-    useFlexStore.setState({ token: null, worker: null, connectionState: 'disconnected' });
+    useFlexStore.setState({
+      token: null,
+      worker: null,
+      connectionState: 'disconnected',
+      call: { ...INITIAL_CALL },
+      tasks: [],
+      activeTaskSid: null,
+    });
     replace.mockReset();
   });
+
+  const acceptedVoiceTask = {
+    reservationSid: 'WR1',
+    taskSid: 'WT1',
+    taskChannelUniqueName: 'voice',
+    attributes: {},
+    status: 'accepted' as const,
+  };
+
+  const pendingVoiceTask = {
+    reservationSid: 'WR0',
+    taskSid: 'WT0',
+    taskChannelUniqueName: 'voice',
+    attributes: { from: '+15623197825' },
+    status: 'pending' as const,
+  };
 
   it('redirects to /login when there is no token', async () => {
     renderShell();
@@ -38,5 +75,62 @@ describe('AgentDesktopShell', () => {
     renderShell();
     expect(screen.getByTestId('agent-desktop')).toBeInTheDocument();
     expect(replace).not.toHaveBeenCalled();
+  });
+
+  it('hides the call panel when there is no active call', () => {
+    useFlexStore.setState({ token: 'tok-1', call: { ...INITIAL_CALL, status: 'idle' } });
+    renderShell();
+    expect(screen.queryByRole('button', { name: 'Hang up' })).toBeNull();
+  });
+
+  it('shows the call panel when the selected voice task is connected', () => {
+    useFlexStore.setState({
+      token: 'tok-1',
+      tasks: [acceptedVoiceTask],
+      activeTaskSid: 'WT1',
+      call: { ...INITIAL_CALL, status: 'connected', taskSid: 'WT1', callSid: 'CA1' },
+    });
+    renderShell();
+    expect(screen.getByRole('button', { name: 'Hang up' })).toBeInTheDocument();
+  });
+
+  it('shows a connecting placeholder for an accepted voice task before the call connects', () => {
+    useFlexStore.setState({
+      token: 'tok-1',
+      tasks: [acceptedVoiceTask],
+      activeTaskSid: 'WT1',
+      call: { ...INITIAL_CALL, status: 'idle' },
+    });
+    renderShell();
+    expect(screen.queryByRole('button', { name: 'Hang up' })).toBeNull();
+    // TaskWorkspace shows a spinner in the body and a "Connecting" status badge in the header.
+    expect(screen.getByText('Connecting')).toBeInTheDocument();
+  });
+
+  it('shows the incoming accept/reject surface for a selected pending voice task', () => {
+    useFlexStore.setState({
+      token: 'tok-1',
+      tasks: [pendingVoiceTask],
+      activeTaskSid: 'WT0',
+      call: { ...INITIAL_CALL, status: 'idle' },
+    });
+    renderShell();
+    // The formatted caller number is unique to the center incoming panel.
+    expect(screen.getByText('+1 562-319-7825')).toBeInTheDocument();
+    // Accept/Reject appear on both the task card and the incoming panel.
+    expect(screen.getAllByRole('button', { name: 'Accept' }).length).toBeGreaterThanOrEqual(2);
+    expect(screen.getAllByRole('button', { name: 'Reject' }).length).toBeGreaterThanOrEqual(2);
+  });
+
+  it('hides the supervisor toggle for a non-supervisor worker', () => {
+    useFlexStore.setState({ token: 'tok-1', worker: fakeWorker({ roles: ['agent'] }) });
+    renderShell();
+    expect(screen.queryByRole('button', { name: 'Supervisor' })).toBeNull();
+  });
+
+  it('offers the supervisor drawer for a supervisor worker', () => {
+    useFlexStore.setState({ token: 'tok-1', worker: fakeWorker({ roles: ['supervisor'] }) });
+    renderShell();
+    expect(screen.getByRole('button', { name: 'Supervisor' })).toBeInTheDocument();
   });
 });
