@@ -1,5 +1,6 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { NextIntlClientProvider } from 'next-intl';
 import { useFlexStore } from '@/store';
 import { INITIAL_CALL } from '@/store/slices/voice';
@@ -47,6 +48,15 @@ describe('AgentDesktopShell', () => {
       activeTaskSid: null,
     });
     replace.mockReset();
+    // QueuesView polls /api/queue-stats on mount when shown; keep it deterministic.
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({ ok: true, json: async () => ({ configured: false }) }),
+    );
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
   });
 
   const acceptedVoiceTask = {
@@ -122,15 +132,31 @@ describe('AgentDesktopShell', () => {
     expect(screen.getAllByRole('button', { name: 'Reject' }).length).toBeGreaterThanOrEqual(2);
   });
 
-  it('hides the supervisor toggle for a non-supervisor worker', () => {
+  it('hides the rail Teams entry for a non-supervisor worker', () => {
     useFlexStore.setState({ token: 'tok-1', worker: fakeWorker({ roles: ['agent'] }) });
     renderShell();
-    expect(screen.queryByRole('button', { name: 'Supervisor' })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Teams' })).toBeNull();
   });
 
-  it('offers the supervisor drawer for a supervisor worker', () => {
+  it('offers the rail Teams entry for a supervisor worker', () => {
     useFlexStore.setState({ token: 'tok-1', worker: fakeWorker({ roles: ['supervisor'] }) });
     renderShell();
-    expect(screen.getByRole('button', { name: 'Supervisor' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Teams' })).toBeInTheDocument();
+  });
+
+  it('renders the icon rail and switches to Queues Stats', async () => {
+    useFlexStore.setState({ token: 'tok-1' });
+    renderShell();
+    const railQueues = screen.getByRole('button', { name: 'Queues Stats' });
+    await userEvent.click(railQueues);
+    // QueuesView (unconfigured in test — fetch mocked to { configured:false }) shows its title.
+    expect(await screen.findByText('Queues Stats')).toBeInTheDocument();
+  });
+
+  it('exposes the dial affordance as the rail Dialpad button (not a header button)', () => {
+    useFlexStore.setState({ token: 'tok-1' });
+    renderShell();
+    expect(screen.getByRole('button', { name: 'Dialpad' })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Dial' })).toBeNull();
   });
 });
