@@ -1,10 +1,48 @@
 {
   "empty": "No active tasks",
   "listLabel": "Task list",
+  "elapsed": "Time elapsed",
   "accept": "Accept",
   "reject": "Reject",
   "wrapUp": "Wrap up",
   "complete": "Complete",
+  "incomingCall": "Incoming call…",
+  "incomingChat": "Incoming chat request",
+  "unknownCaller": "Unknown caller",
+  "acceptHintVoice": "Reviewing customer info won't answer the call. Accept to connect.",
+  "acceptHintChat": "Reviewing customer info won't join the chat. Accept to start the conversation.",
+  "channel": {
+    "voice": "Voice",
+    "whatsapp": "WhatsApp",
+    "sms": "SMS",
+    "messenger": "Messenger",
+    "chat": "Chat",
+    "web": "Web Chat",
+    "email": "Email",
+    "other": "Message"
+  },
+  "info": {
+    "empty": "No task attributes"
+  },
+  "notes": {
+    "label": "Notes",
+    "placeholder": "Add notes about this task…",
+    "saved": "Saved"
+  },
+  "wrapUpForm": {
+    "title": "Wrap up",
+    "dispositionLabel": "Disposition",
+    "notesLabel": "Wrap-up notes",
+    "notesPlaceholder": "Summarize the outcome…",
+    "complete": "Complete",
+    "completing": "Completing…",
+    "disposition": {
+      "resolved": "Resolved",
+      "unresolved": "Unresolved",
+      "callback": "Callback scheduled",
+      "other": "Other"
+    }
+  },
   "status": {
     "pending": "Pending",
     "accepted": "Accepted",
