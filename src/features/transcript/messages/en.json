@@ -1,0 +1,25 @@
+{
+  "title": "Transcript",
+  "empty": {
+    "noCall": "No active call.",
+    "notConfigured": "Live transcript isn't configured.",
+    "notConfiguredHint": "Set TWILIO_SYNC_SERVICE_SID and enable transcription to stream results into the per-call Sync stream.",
+    "waiting": "Waiting for transcription…"
+  },
+  "speaker": {
+    "agent": "Agent",
+    "customer": "Customer",
+    "other": "Speaker"
+  },
+  "settings": {
+    "title": "Transcription",
+    "enabled": "Enable live transcription",
+    "language": "Language",
+    "engine": "Engine",
+    "speechModel": "Speech model",
+    "partialResults": "Partial (interim) results",
+    "profanityFilter": "Profanity filter",
+    "punctuation": "Automatic punctuation",
+    "hints": "Hints (comma-separated)"
+  }
+}
