@@ -40,7 +40,7 @@ export function IconRail({
   return (
     <nav
       aria-label={t('rail.label')}
-      className="flex w-14 shrink-0 flex-col border-r border-border bg-surface py-2"
+      className="flex w-14 shrink-0 flex-col border-r border-border bg-surface pb-2"
     >
       {ACTIONS.filter((a) => a.key !== 'teams' || showTeams).map(({ key, labelKey, Icon, view }) => {
         const isActive = view !== undefined && view === activeView;

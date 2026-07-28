@@ -17,7 +17,6 @@ const asRecord = (v: unknown): Record<string, unknown> => (v ?? {}) as Record<st
  */
 export function useConversationEvents(): void {
   const upsertConversation = useFlexStore((s) => s.upsertConversation);
-  const addMessage = useFlexStore((s) => s.addMessage);
   const removeConversation = useFlexStore((s) => s.removeConversation);
 
   useEffect(() => {
@@ -44,25 +43,14 @@ export function useConversationEvents(): void {
       const conv = asRecord(c);
       const sid = String(conv.sid ?? '');
       if (sid) {
+        // Lifecycle placeholder so the conversation appears in the tab list.
+        // Messages are owned/hydrated by useConversation for the selected task.
         upsertConversation({
           sid,
+          taskSid: String(asRecord(conv.task).sid ?? conv.taskSid ?? ''),
           friendlyName: String(conv.friendlyName ?? sid),
           messages: [],
           type: 'chat',
-        });
-      }
-    });
-
-    void register('messageAdded', (m) => {
-      const msg = asRecord(m);
-      const convSid = String(asRecord(msg.conversation).sid ?? msg.conversationSid ?? '');
-      if (convSid) {
-        addMessage(convSid, {
-          sid: String(msg.sid ?? `m-${Date.now()}`),
-          author: String(msg.author ?? ''),
-          body: String(msg.body ?? ''),
-          dateCreated: String(msg.dateCreated ?? ''),
-          isMine: false,
         });
       }
     });
@@ -76,5 +64,5 @@ export function useConversationEvents(): void {
       cancelled = true;
       unsubs.forEach((u) => u());
     };
-  }, [upsertConversation, addMessage, removeConversation]);
+  }, [upsertConversation, removeConversation]);
 }

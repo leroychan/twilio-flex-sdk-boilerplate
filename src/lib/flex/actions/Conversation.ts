@@ -16,9 +16,16 @@ import {
   AddEmailParticipant,
   RemoveEmailParticipant,
   ParticipantLevel,
+  GetConversationByTask,
+  GetConversationBySid,
+  GetConversationsUser,
 } from '@twilio/flex-sdk/actions/Conversation';
+import type { Conversation } from '@twilio/flex-sdk/actions/Conversation';
+import type { ConversationsUser } from '@twilio/flex-sdk';
 import { getFlexClient } from '@/lib/flex/client';
 import { normalizeFlexError } from '@/lib/flex/errors';
+
+export type { Conversation, ConversationsUser };
 
 export interface PausedConversation { sid: string; friendlyName: string; pausedAt: string }
 export interface ConversationTransfer { sid: string; to: string; mode: 'WARM' | 'COLD'; status: string }
@@ -69,8 +76,24 @@ export const startOutboundEmailTask = (input: OutboundEmailInput) =>
   );
 
 // Real SDK: AddEmailParticipant(taskSid, email, level, options?) — level is required.
-export const addEmailParticipant = (sid: string, address: string) =>
-  run<void>(new AddEmailParticipant(sid, address, ParticipantLevel.To));
+export type EmailParticipantLevel = 'to' | 'cc';
+const toSdkLevel = (level: EmailParticipantLevel) =>
+  level === 'cc' ? ParticipantLevel.CC : ParticipantLevel.To;
+export const addEmailParticipant = (sid: string, address: string, level: EmailParticipantLevel = 'to') =>
+  run<void>(new AddEmailParticipant(sid, address, toSdkLevel(level)));
 
 export const removeEmailParticipant = (sid: string, participantSid: string) =>
   run<void>(new RemoveEmailParticipant(sid, participantSid));
+
+// Fetch the live SDK Conversation for a task (exposes sendMessage/getMessages/
+// sendTyping and the underlying `.conversation` emitter). The returned handle is
+// stored in the module registry by the useConversation hook — NOT in Zustand.
+export const getConversationByTask = (taskSid: string) =>
+  run<Conversation>(new GetConversationByTask(taskSid));
+
+export const getConversationBySid = (conversationSid: string) =>
+  run<Conversation>(new GetConversationBySid(conversationSid));
+
+/** Fetch a conversations user (for customer online/offline presence). */
+export const getConversationsUser = (identity: string) =>
+  run<ConversationsUser>(new GetConversationsUser(identity));

@@ -43,6 +43,7 @@ describe('AgentDesktopShell', () => {
       token: null,
       worker: null,
       connectionState: 'disconnected',
+      hasHydrated: true,
       call: { ...INITIAL_CALL },
       tasks: [],
       activeTaskSid: null,
@@ -125,8 +126,9 @@ describe('AgentDesktopShell', () => {
       call: { ...INITIAL_CALL, status: 'idle' },
     });
     renderShell();
-    // The formatted caller number is unique to the center incoming panel.
-    expect(screen.getByText('+1 562-319-7825')).toBeInTheDocument();
+    // The formatted caller number now appears on both the task card and the
+    // center incoming panel, so assert it renders at least once.
+    expect(screen.getAllByText('+1 562-319-7825').length).toBeGreaterThanOrEqual(1);
     // Accept/Reject appear on both the task card and the incoming panel.
     expect(screen.getAllByRole('button', { name: 'Accept' }).length).toBeGreaterThanOrEqual(2);
     expect(screen.getAllByRole('button', { name: 'Reject' }).length).toBeGreaterThanOrEqual(2);
@@ -151,6 +153,16 @@ describe('AgentDesktopShell', () => {
     await userEvent.click(railQueues);
     // QueuesView (unconfigured in test — fetch mocked to { configured:false }) shows its title.
     expect(await screen.findByText('Queues Stats')).toBeInTheDocument();
+  });
+
+  it('does not redirect before the store has rehydrated, even with no token', async () => {
+    useFlexStore.setState({ token: null, hasHydrated: false });
+    const { container } = renderShell();
+    // Nothing rendered and no redirect while we wait for rehydration.
+    expect(container).toBeEmptyDOMElement();
+    // Give any (unwanted) effects a chance to fire.
+    await new Promise((r) => setTimeout(r, 0));
+    expect(replace).not.toHaveBeenCalled();
   });
 
   it('exposes the dial affordance as the rail Dialpad button (not a header button)', () => {

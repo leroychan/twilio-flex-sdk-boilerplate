@@ -80,6 +80,33 @@ describe('Task action wrappers', () => {
     expect(action.args).toEqual(['WT1']);
   });
 
+  it('completeTask resolves (idempotent) when the reservation is already completed', async () => {
+    const execute = vi.fn().mockRejectedValue({
+      code: 400,
+      severity: 'error',
+      message:
+        'Reservation WR1 was in incorrect state completed, should be in states wrapping,accepted',
+    });
+    getFlexClient.mockReturnValue({ execute });
+    await expect(completeTask('WT1')).resolves.toBeUndefined();
+  });
+
+  it('completeTask still throws for unrelated failures', async () => {
+    const execute = vi.fn().mockRejectedValue({ code: 500, message: 'boom' });
+    getFlexClient.mockReturnValue({ execute });
+    await expect(completeTask('WT1')).rejects.toMatchObject({ code: '500', message: 'boom' });
+  });
+
+  it('wrapUpTask resolves (idempotent) when the reservation already left the accepted state', async () => {
+    const execute = vi.fn().mockRejectedValue({
+      code: 400,
+      severity: 'error',
+      message: 'Reservation WR1 was in incorrect state wrapping, should be in states accepted',
+    });
+    getFlexClient.mockReturnValue({ execute });
+    await expect(wrapUpTask('WT1')).resolves.toBeUndefined();
+  });
+
   it('endTask executes EndTask with only the task sid (SDK EndTask takes no reason)', async () => {
     const execute = vi.fn().mockResolvedValue(undefined);
     getFlexClient.mockReturnValue({ execute });

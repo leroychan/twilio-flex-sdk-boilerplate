@@ -19,10 +19,11 @@ import * as V from '../Voice';
 beforeEach(() => execute.mockReset());
 
 describe('Voice action wrappers', () => {
-  it('startOutboundCall returns the call sid', async () => {
-    execute.mockResolvedValue({ callSid: 'CA1' });
+  it('startOutboundCall returns the live VoiceCall handle', async () => {
+    const voiceCall = { call: {}, device: {} };
+    execute.mockResolvedValue(voiceCall);
     const out = await V.startOutboundCall('+15551234567');
-    expect(out.callSid).toBe('CA1');
+    expect(out).toBe(voiceCall);
     expect(execute).toHaveBeenCalledOnce();
   });
 
@@ -32,10 +33,11 @@ describe('Voice action wrappers', () => {
     expect(execute).toHaveBeenCalledOnce();
   });
 
-  it('getCallByTask returns the executed result', async () => {
-    execute.mockResolvedValue({ callSid: 'CA1', status: 'in-progress' });
+  it('getCallByTask returns the live VoiceCall handle', async () => {
+    const voiceCall = { call: { parameters: { CallSid: 'CA1' } } };
+    execute.mockResolvedValue(voiceCall);
     const out = await V.getCallByTask('WT1');
-    expect(out?.status).toBe('in-progress');
+    expect(out).toBe(voiceCall);
   });
 
   // Real FlexSdkErrors are Error instances carrying a numeric `code`, which normalizeFlexError

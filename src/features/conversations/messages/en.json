@@ -6,15 +6,32 @@
   "resume": "Resume",
   "leave": "Leave",
   "transfer": "Transfer",
+  "warm": "Warm",
+  "cold": "Cold",
+  "online": "Online",
+  "offline": "Offline",
+  "conversationFallback": "Conversation",
   "pausedTitle": "Parked conversations",
   "noPaused": "No parked conversations",
   "templates": "Templates",
+  "attach": "Attach file",
+  "media": {
+    "title": "Send attachment",
+    "choose": "Choose a file",
+    "send": "Send",
+    "cancel": "Cancel",
+    "download": "Download attachment",
+    "fileMeta": "{name} ({size} KB)"
+  },
   "email": {
     "new": "New email",
     "to": "To",
+    "cc": "Cc",
     "subject": "Subject",
+    "subjectPrefix": "Subject: ",
     "body": "Message",
     "send": "Send email",
+    "reply": "Reply",
     "addParticipant": "Add participant"
   },
   "empty": "No active conversation"

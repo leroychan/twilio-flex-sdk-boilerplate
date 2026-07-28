@@ -1,24 +1,30 @@
 'use client';
 import { useEffect } from 'react';
 import { AddVoiceEventListener } from '@twilio/flex-sdk/actions/Voice';
+import type { VoiceCall } from '@twilio/flex-sdk/actions/Voice';
 import { getFlexClient } from '@/lib/flex/client';
 import { useFlexStore } from '@/store';
+import { adoptVoiceCall } from '../lib/adoptVoiceCall';
 
 type Unsub = () => void;
-const asRecord = (v: unknown): Record<string, unknown> => (v ?? {}) as Record<string, unknown>;
 
 /**
  * Bridges Flex voice-device events into the store. The real SDK exposes AddVoiceEventListener
  * as an Action executed per event via `client.execute(new AddVoiceEventListener(eventName,
  * listener))`, resolving to `{ unsubscribe }`. We register the device-level `incoming` event
  * and, from the delivered VoiceCall, follow its accept/disconnect to drive call status.
- * No-ops without a live client (stub/demo mode or tests), so it never throws.
+ *
+ * The registration is keyed off the store `worker`, NOT bare mount: `initFlexClient` is async,
+ * so at first render `getFlexClient()` is still null. The provider sets the worker only after
+ * the client is ready, so waiting for the worker guarantees the client exists — and, crucially,
+ * the SDK requires this listener to be registered BEFORE a voice task is accepted (otherwise
+ * AcceptTask fails to create the conference). No-ops without a live client, so it never throws.
  */
 export function useVoiceEvents(): void {
-  const setCall = useFlexStore((s) => s.setCall);
-  const resetCall = useFlexStore((s) => s.resetCall);
+  const worker = useFlexStore((s) => s.worker);
 
   useEffect(() => {
+    if (!worker) return;
     const client = getFlexClient();
     if (!client) return;
 
@@ -38,23 +44,11 @@ export function useVoiceEvents(): void {
       }
     };
 
-    void register('incoming', (call) => {
-      const c = asRecord(call);
-      const params = asRecord(c.parameters);
-      setCall({ status: 'ringing', callSid: String(params.CallSid ?? '') || null });
-      const on = c.on as ((ev: string, cb: (...a: unknown[]) => void) => void) | undefined;
-      if (typeof on === 'function') {
-        on('accept', () => setCall({ status: 'connected', startedAt: Date.now() }));
-        on('disconnect', () => {
-          setCall({ status: 'ended' });
-          resetCall();
-        });
-      }
-    });
+    void register('incoming', (call) => adoptVoiceCall(call as VoiceCall));
 
     return () => {
       cancelled = true;
       unsubs.forEach((u) => u());
     };
-  }, [setCall, resetCall]);
+  }, [worker]);
 }

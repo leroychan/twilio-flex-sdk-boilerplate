@@ -8,13 +8,13 @@ beforeEach(() => useTest.setState({ conversations: {}, pausedConversations: [] }
 
 describe('conversationsSlice', () => {
   it('upserts a conversation and adds messages', () => {
-    useTest.getState().upsertConversation({ sid: 'CH1', friendlyName: 'Chat', messages: [], type: 'chat' });
+    useTest.getState().upsertConversation({ sid: 'CH1', taskSid: 'WT1', friendlyName: 'Chat', messages: [], type: 'chat' });
     useTest.getState().addMessage('CH1', { sid: 'M1', author: 'cust', body: 'hi', dateCreated: 'now', isMine: false });
     expect(useTest.getState().conversations['CH1']!.messages).toHaveLength(1);
   });
 
   it('removes a conversation', () => {
-    useTest.getState().upsertConversation({ sid: 'CH1', friendlyName: 'Chat', messages: [], type: 'chat' });
+    useTest.getState().upsertConversation({ sid: 'CH1', taskSid: 'WT1', friendlyName: 'Chat', messages: [], type: 'chat' });
     useTest.getState().removeConversation('CH1');
     expect(useTest.getState().conversations['CH1']).toBeUndefined();
   });

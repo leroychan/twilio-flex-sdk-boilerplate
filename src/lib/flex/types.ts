@@ -6,6 +6,11 @@ export interface TokenResponse {
   identity: string;
   /** true when the app minted a mock token because live Twilio creds were absent. */
   stub: boolean;
+  /**
+   * TaskRouter activities prefetched server-side (live mode only) so the UI can
+   * seed the activity selector before the browser SDK worker hydrates.
+   */
+  activities?: { sid: string; name: string; available: boolean }[];
 }
 
 export interface FlexClientOptions {

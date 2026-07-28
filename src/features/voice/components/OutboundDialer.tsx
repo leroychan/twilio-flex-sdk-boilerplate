@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/Button';
 import { startOutboundCall } from '@/lib/flex/actions/Voice';
+import { adoptVoiceCall } from '../lib/adoptVoiceCall';
 
 export function OutboundDialer({ open, onClose }: { open: boolean; onClose: () => void }) {
   const t = useTranslations('voice');
@@ -11,7 +12,10 @@ export function OutboundDialer({ open, onClose }: { open: boolean; onClose: () =
   const submit = async () => {
     const to = number.trim();
     if (!to) return;
-    await startOutboundCall(to, undefined);
+    // StartOutboundCall resolves the live VoiceCall — adopt it so the call panel,
+    // recording and audio controls have a handle (the reservation bridge links its taskSid).
+    const call = await startOutboundCall(to);
+    adoptVoiceCall(call);
     onClose();
   };
   return (

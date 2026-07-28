@@ -152,12 +152,14 @@ function DesktopBody() {
  */
 export function AgentDesktopShell() {
   const token = useFlexStore((s) => s.token);
+  const hasHydrated = useFlexStore((s) => s.hasHydrated);
   const router = useRouter();
 
   useEffect(() => {
-    if (!token) router.replace('/login');
-  }, [token, router]);
+    if (hasHydrated && !token) router.replace('/login');
+  }, [hasHydrated, token, router]);
 
+  if (!hasHydrated) return null; // wait for rehydration before deciding
   if (!token) return null;
 
   return (

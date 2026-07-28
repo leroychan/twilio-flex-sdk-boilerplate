@@ -15,8 +15,10 @@ export default function LoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const setToken = useFlexStore((s) => s.setToken);
+  const setActivities = useFlexStore((s) => s.setActivities);
   const [busy, setBusy] = useState(false);
-  const [error, setError] = useState(false);
+  const [username, setUsername] = useState('');
+  const [errorCode, setErrorCode] = useState<string | null>(null);
 
   // SSO OAuth callback: exchange ?code&state for an access token, then continue.
   useEffect(() => {
@@ -36,31 +38,51 @@ export default function LoginPage() {
         router.push('/agent-desktop');
       })
       .catch(() => {
-        setError(true);
+        setErrorCode('token_request_failed');
         setBusy(false);
       });
   }, [searchParams, router, setToken]);
 
   async function handleCustomToken() {
     setBusy(true);
-    setError(false);
+    setErrorCode(null);
     try {
-      const { token } = await requestToken();
-      setToken(token);
+      const res = await requestToken(username.trim() || undefined);
+      setToken(res.token);
+      if (res.activities?.length) setActivities(res.activities);
       router.push('/agent-desktop');
-    } catch {
-      setError(true);
+    } catch (e) {
+      setErrorCode((e as Error).message || 'token_request_failed');
       setBusy(false);
     }
   }
+
+  const errorText =
+    errorCode === 'flex_user_not_found'
+      ? t('errors.userNotFound')
+      : errorCode === 'username_required'
+        ? t('errors.usernameRequired')
+        : errorCode
+          ? t('error')
+          : null;
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-bg text-text">
       <Card className="w-full max-w-sm">
         <h1 className="font-display text-2xl font-extrabold">{t('title')}</h1>
         <p className="mt-1 text-muted">{t('subtitle')}</p>
-        {error && <p className="mt-3 text-danger">{t('error')}</p>}
+        {errorText && <p className="mt-3 text-danger">{errorText}</p>}
         <div className="mt-6 flex flex-col gap-3">
+          <label className="flex flex-col gap-1 text-sm text-text">
+            <span>{t('usernameLabel')}</span>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder={t('usernamePlaceholder')}
+              className="rounded-md border border-border bg-surface px-3 py-2 text-text"
+            />
+          </label>
           <Button onClick={handleCustomToken} disabled={busy}>
             {busy ? t('signingIn') : t('demoMode')}
           </Button>

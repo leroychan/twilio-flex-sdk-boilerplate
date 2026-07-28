@@ -1,5 +1,5 @@
 'use client';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useFlexStore } from '@/store';
 import {
   monitorCall,
@@ -8,6 +8,7 @@ import {
   setWorkerActivity,
   setWorkerAttributes,
 } from '@/lib/flex/actions/Supervisor';
+import { fetchWorkersList } from '@/lib/flex/workspace';
 import type { SupervisorMode } from '@/store/slices/supervisor';
 
 function messageOf(error: unknown): string {
@@ -22,6 +23,29 @@ export function useSupervisor() {
   const supervisorError = useFlexStore((s) => s.supervisorError);
   const setActiveMonitor = useFlexStore((s) => s.setActiveMonitor);
   const setSupervisorError = useFlexStore((s) => s.setSupervisorError);
+  const setWorkers = useFlexStore((s) => s.setWorkers);
+
+  // Load the worker roster once. Best-effort: an empty list (no client / failure)
+  // simply leaves the roster empty.
+  useEffect(() => {
+    let cancelled = false;
+    void fetchWorkersList().then((list) => {
+      if (cancelled) return;
+      setWorkers(
+        list.map((w) => ({
+          sid: w.sid,
+          friendlyName: w.name,
+          activitySid: w.activitySid,
+          activityName: w.activityName,
+          available: w.available,
+          attributes: w.attributes,
+        })),
+      );
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [setWorkers]);
 
   const startMode = useCallback(
     async (taskSid: string, mode: SupervisorMode) => {

@@ -5,14 +5,19 @@ export interface VoiceParticipant { sid: string; label: string; onHold: boolean;
 export interface CallState {
   taskSid: string | null;
   callSid: string | null;
+  /** The remote party — caller number (inbound) or dialed number (outbound). */
+  from: string | null;
   status: CallStatus;
   muted: boolean;
   startedAt: number | null;
   participants: VoiceParticipant[];
+  recordingEnabled: boolean;
+  recordingPaused: boolean;
 }
 
 export const INITIAL_CALL: CallState = {
-  taskSid: null, callSid: null, status: 'idle', muted: false, startedAt: null, participants: [],
+  taskSid: null, callSid: null, from: null, status: 'idle', muted: false, startedAt: null,
+  participants: [], recordingEnabled: false, recordingPaused: false,
 };
 
 export interface VoiceSlice {
