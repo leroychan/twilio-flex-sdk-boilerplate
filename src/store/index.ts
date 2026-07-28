@@ -6,7 +6,11 @@ import { createTasksSlice, type TasksSlice } from './slices/tasks';
 import { createVoiceSlice, type VoiceSlice } from './slices/voice';
 import { createConversationsSlice, type ConversationsSlice } from './slices/conversations';
 import { createSupervisorSlice, type SupervisorSlice } from './slices/supervisor';
-import { createSettingsSlice, type SettingsSlice } from './slices/settings';
+import {
+  createSettingsSlice,
+  DEFAULT_TRANSCRIPTION_SETTINGS,
+  type SettingsSlice,
+} from './slices/settings';
 
 // Composition pattern — each feature part contributes one slice:
 //   1. Add `& <Name>Slice` to FlexStore below.
@@ -34,9 +38,23 @@ export const useFlexStore = create<FlexStore>()(
     {
       name: 'flex-session',
       storage: createJSONStorage(() => localStorage),
-      // Persist the token and transcription settings. `worker` is a live
-      // non-serializable SDK object and must not be persisted.
-      partialize: (state) => ({ token: state.token, transcription: state.transcription }),
+      // v1: default engine→deepgram, speechModel→nova-3. Reset any persisted
+      // transcription settings so stale combos (e.g. deepgram + 'telephony',
+      // which Twilio rejects) don't survive in a returning browser.
+      version: 1,
+      migrate: (persisted) => {
+        const p = (persisted ?? {}) as Partial<FlexStore>;
+        return { ...p, transcription: { ...DEFAULT_TRANSCRIPTION_SETTINGS } };
+      },
+      // Persist the token, its minting identity, and transcription settings.
+      // `identity` is needed so the custom-token refresh loop can re-mint after
+      // a reload. `worker` is a live non-serializable SDK object and must not
+      // be persisted.
+      partialize: (state) => ({
+        token: state.token,
+        identity: state.identity,
+        transcription: state.transcription,
+      }),
       onRehydrateStorage: () => (state) => {
         state?.setHasHydrated(true);
       },

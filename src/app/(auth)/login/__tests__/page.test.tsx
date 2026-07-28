@@ -37,6 +37,8 @@ describe('LoginPage', () => {
     await userEvent.click(screen.getByRole('button', { name: 'demoMode' }));
 
     await waitFor(() => expect(useFlexStore.getState().token).toBe('STUB.abc.STUB'));
+    // The minting identity is persisted so the refresh loop can replay it.
+    expect(useFlexStore.getState().identity).toBe('demo-agent');
     expect(push).toHaveBeenCalledWith('/agent-desktop');
   });
 

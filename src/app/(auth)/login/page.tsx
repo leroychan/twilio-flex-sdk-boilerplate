@@ -15,6 +15,7 @@ export default function LoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const setToken = useFlexStore((s) => s.setToken);
+  const setIdentity = useFlexStore((s) => s.setIdentity);
   const setActivities = useFlexStore((s) => s.setActivities);
   const [busy, setBusy] = useState(false);
   const [username, setUsername] = useState('');
@@ -49,6 +50,9 @@ export default function LoginPage() {
     try {
       const res = await requestToken(username.trim() || undefined);
       setToken(res.token);
+      // Persist the minting identity so the custom-token refresh loop can replay
+      // the mint before the token expires (and after a reload).
+      setIdentity(res.identity);
       if (res.activities?.length) setActivities(res.activities);
       router.push('/agent-desktop');
     } catch (e) {

@@ -22,6 +22,13 @@ describe('flex store persistence', () => {
     expect(persisted.state.token).toBe('tok-xyz');
   });
 
+  it('persists the minting identity alongside the token', () => {
+    useFlexStore.getState().setIdentity('agent-1');
+
+    const persisted = readPersisted();
+    expect(persisted.state.identity).toBe('agent-1');
+  });
+
   it('does not persist the live worker object (partialize excludes it)', () => {
     // A live SDK worker is non-serializable — it must never be written to storage.
     useFlexStore.getState().setWorker({} as never);
