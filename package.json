@@ -1,5 +1,5 @@
 {
-  "name": "twilio-horizon-flex-sdk",
+  "name": "twilio-flex-sdk-boilerplate",
   "version": "0.1.0",
   "private": true,
   "scripts": {
