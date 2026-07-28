@@ -15,6 +15,7 @@ The app boots **offline in stub mode** with no Twilio credentials, so you can ex
 - **i18n** — every user-facing string is translatable (next-intl, cookie-based, switchable at runtime without reload). `en` is complete; `es` is a partial stub.
 - **Theming** — first-class light and dark modes over CSS variables (next-themes).
 - **Plugins** — extensible from day one; ships with none enabled.
+- **Live transcript** — real-time voice transcription streamed into the right-column Transcript tab during active calls. See [Live transcript setup](#live-transcript-setup) below.
 - **Session persistence** — the login token is persisted so a page refresh keeps you signed in.
 
 ## Getting Started
@@ -41,6 +42,15 @@ Copy `.env.example` to `.env.local` and fill in your Twilio values to switch fro
 | `TWILIO_WORKSPACE_SID` | TaskRouter workspace SID. Used for activity prefetch and queue stats. |
 | `TWILIO_AUTH_TOKEN` | Account auth token. Required (with `ACCOUNT_SID` + `WORKSPACE_SID`) for **Queue Stats**. |
 | `NEXT_PUBLIC_FLEX_SSO_PROFILE_SID` | SSO connection/profile SID for the OAuth login callback. |
+| `TWILIO_SYNC_SERVICE_SID` | Sync service SID for live transcript streams. Required for live transcript. |
+| `PUBLIC_BASE_URL` | Publicly reachable base URL for Twilio transcription callbacks (e.g. ngrok tunnel in dev). Required for live transcript. |
+| `TRANSCRIPTION_LANGUAGE` | Default transcription language (e.g. `en-US`). Overridable per-agent in-app. |
+| `TRANSCRIPTION_ENGINE` | Default transcription engine (`google` or `deepgram`). |
+| `TRANSCRIPTION_SPEECH_MODEL` | Default speech model (e.g. `telephony`). |
+| `TRANSCRIPTION_PARTIAL_RESULTS` | Emit partial (interim) results (`true`/`false`). |
+| `TRANSCRIPTION_PROFANITY_FILTER` | Enable profanity filter (`true`/`false`). |
+| `TRANSCRIPTION_PUNCTUATION` | Enable automatic punctuation (`true`/`false`). |
+| `TRANSCRIPTION_HINTS` | Comma-separated transcription hints/vocabulary. |
 
 > **Secrets:** `.env` and `.env.local` are gitignored — never commit real credentials.
 
@@ -93,6 +103,44 @@ Palette, typography, and logo follow Twilio's real brand guidelines (primary red
 ## Plugins
 
 A plugin is a `PluginManifest` (`src/plugins/types.ts`) whose `register(host)` contributes into one of five slots: `nav-item`, `side-panel`, `task-panel`, `header-action`, `settings-page`. Plugins get **read-only** store access via `host.store` and must not import `@/store` directly. See `src/plugins/README.md` and `src/plugins/example/`.
+
+## Live transcript setup
+
+When configured, the right column of the agent desktop shows a **Transcript** tab that streams the live voice transcription of the active call in real time.
+
+### How it works
+
+1. A voice call connects and the agent's browser POSTs to `/api/transcription/start` with the `CallSid`.
+2. The route calls the Twilio Real-Time Transcription API to start transcription on that call, posting results to `/api/transcription/callback` on your server.
+3. The callback route validates the Twilio signature and publishes `{ type: 'transcription', text, role, isFinal }` events to a per-call Sync stream named `session-<CallSid>`.
+4. The `TranscriptPanel` in the right column subscribes to that stream via `twilio-sync` and renders each utterance as it arrives.
+
+### Required environment variables
+
+| Variable | Purpose |
+| --- | --- |
+| `TWILIO_SYNC_SERVICE_SID` | Sync service that holds the per-call transcript streams. |
+| `PUBLIC_BASE_URL` | Publicly reachable base URL Twilio posts callback events to. Use an ngrok tunnel in local dev (e.g. `https://<subdomain>.ngrok.app`). No trailing slash. |
+| `TWILIO_AUTH_TOKEN` | Used to validate the Twilio callback request signature (shared with Queue Stats). |
+
+Optional `TRANSCRIPTION_*` variables set server-side defaults; agents can override language, engine, model, and filters from the in-app settings popover (gear icon in the header).
+
+### Local development
+
+A public tunnel is required so Twilio can POST callback events to your machine:
+
+```bash
+ngrok http 3000
+# Copy the https URL and set PUBLIC_BASE_URL=https://<subdomain>.ngrok.app in .env.local
+```
+
+### Stub mode
+
+When `TWILIO_SYNC_SERVICE_SID` is absent, the Transcript tab shows a "not configured" placeholder and the rest of the app continues to function normally. No errors are thrown.
+
+### In-app settings
+
+The gear icon (Transcription) in the desktop header opens a popover where agents can toggle live transcription on/off and override language, engine, speech model, partial results, profanity filter, punctuation, and hints. Changes are saved to the browser (persisted) and take effect on the next call.
 
 ## Testing
 

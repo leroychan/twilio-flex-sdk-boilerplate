@@ -11,7 +11,7 @@ import { Logo } from '@/components/ui/Logo';
 import { Separator } from '@/components/ui/Separator';
 import { IconRail, type DesktopView } from '@/components/layout/IconRail';
 import { ResizableColumns } from '@/components/layout/ResizableColumns';
-import { CrmPanel } from '@/components/layout/CrmPanel';
+import { RightPanel } from '@/components/layout/RightPanel';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
 import { LocaleSwitcher } from '@/components/i18n/LocaleSwitcher';
 import { ActivitySelector } from '@/features/presence/components/ActivitySelector';
@@ -28,6 +28,7 @@ import {
   useVoiceEvents,
 } from '@/features/voice';
 import { useConversationEvents } from '@/features/conversations';
+import { TranscriptionSettingsMenu, useTranscriptionStarter } from '@/features/transcript';
 import { SupervisorPanel } from '@/features/supervisor';
 import { QueuesView } from '@/features/queues';
 import { useIsSupervisor } from '../hooks/useIsSupervisor';
@@ -44,6 +45,7 @@ function DesktopBody() {
   useTaskEvents();
   useVoiceEvents();
   useConversationEvents();
+  useTranscriptionStarter();
 
   const call = useFlexStore((s) => s.call);
   const taskParticipantsMap = useFlexStore((s) => s.taskParticipants);
@@ -78,8 +80,9 @@ function DesktopBody() {
             <LocaleSwitcher />
             <Separator />
 
-            {/* audio devices (dial + teams now live in the rail) */}
+            {/* audio devices + transcription (dial + teams now live in the rail) */}
             <AudioSettingsMenu />
+            <TranscriptionSettingsMenu />
             <Separator />
 
             {/* presence */}
@@ -129,7 +132,7 @@ function DesktopBody() {
                     <PluginSlot name="task-panel" />
                   </div>
                 }
-                right={<CrmPanel />}
+                right={<RightPanel />}
               />
             )}
           </div>

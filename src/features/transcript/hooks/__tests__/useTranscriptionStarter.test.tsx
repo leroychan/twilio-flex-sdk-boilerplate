@@ -24,7 +24,7 @@ describe('useTranscriptionStarter', () => {
     const { rerender } = renderHook(() => useTranscriptionStarter());
     rerender();
     expect(fetch).toHaveBeenCalledTimes(1);
-    const [, init] = (fetch as unknown as ReturnType<typeof vi.fn>).mock.calls[0];
+    const [, init] = (fetch as unknown as ReturnType<typeof vi.fn>).mock.calls[0]!;
     expect(JSON.parse((init as RequestInit).body as string)).toMatchObject({ callSid: 'CA1', language: 'es-MX' });
   });
 

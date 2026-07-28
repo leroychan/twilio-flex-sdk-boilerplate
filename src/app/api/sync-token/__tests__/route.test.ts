@@ -20,7 +20,7 @@ function setLive() {
   process.env.TWILIO_SYNC_SERVICE_SID = 'ISxxxx';
 }
 function decode(jwt: string): Record<string, unknown> {
-  return JSON.parse(Buffer.from(jwt.split('.')[1], 'base64').toString('utf8'));
+  return JSON.parse(Buffer.from(jwt.split('.')[1]!, 'base64').toString('utf8'));
 }
 
 describe('POST /api/sync-token', () => {

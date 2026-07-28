@@ -27,7 +27,7 @@ describe('useLiveTranscript', () => {
     await waitFor(() => expect(result.current.status).toBe('listening'));
     act(() => handler({ type: 'transcription', text: 'Hello', role: 'customer' }));
     await waitFor(() => expect(result.current.entries).toHaveLength(1));
-    expect(result.current.entries[0].text).toBe('Hello');
+    expect(result.current.entries[0]!.text).toBe('Hello');
   });
 
   it('reports not_configured when the client is unconfigured', async () => {
