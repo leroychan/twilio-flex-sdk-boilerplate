@@ -10,14 +10,30 @@
   "hangup": "Hang up",
   "endForAll": "End for all",
   "transfer": "Transfer",
+  "warm": "Warm",
+  "cold": "Cold",
   "cancelTransfer": "Cancel transfer",
   "addParticipant": "Add participant",
   "dialpad": "Dialpad",
   "dial": "Call",
   "phonePlaceholder": "Enter a number",
   "devices": "Audio devices",
+  "audioSettings": "Audio settings",
+  "noAudioDevices": "No audio devices found.",
   "microphone": "Microphone",
   "speaker": "Speaker",
   "idle": "No active call",
-  "onHold": "On hold"
+  "live": "Live",
+  "rec": "REC",
+  "onHold": "On hold",
+  "participants": "Participants",
+  "remove": "Remove",
+  "pauseRecording": "Pause recording",
+  "resumeRecording": "Resume recording",
+  "roles": {
+    "customer": "Customer",
+    "agent": "Agent",
+    "external": "External",
+    "unknown": "Participant"
+  }
 }

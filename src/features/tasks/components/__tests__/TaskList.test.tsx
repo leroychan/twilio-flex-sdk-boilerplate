@@ -48,6 +48,6 @@ describe('TaskList', () => {
     vi.mocked(useTasks).mockReturnValue({ tasks: [task], ...noopCommands() });
     renderWithIntl(<TaskList />);
     expect(screen.getAllByRole('listitem')).toHaveLength(1);
-    expect(screen.getByText('chat')).toBeInTheDocument();
+    expect(screen.getByText('Chat')).toBeInTheDocument();
   });
 });

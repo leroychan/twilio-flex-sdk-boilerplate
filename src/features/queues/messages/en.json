@@ -1,0 +1,17 @@
+{
+  "title": "Queues Stats",
+  "subtitle": "Real-time TaskRouter queue monitoring",
+  "notConfigured": "Queue stats require Twilio account credentials (TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_WORKSPACE_SID).",
+  "error": "Failed to load queue stats",
+  "empty": "No queues found",
+  "updatedAt": "Updated {time}",
+  "columns": {
+    "queue": "Queue",
+    "waiting": "Waiting",
+    "active": "Active",
+    "longestWait": "Longest Wait",
+    "available": "Available",
+    "eligible": "Eligible",
+    "avgWait": "Avg Wait (30m)"
+  }
+}

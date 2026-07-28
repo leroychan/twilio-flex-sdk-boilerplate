@@ -12,9 +12,19 @@ import {
   CompleteTask,
   EndTask,
   SetTaskAttributes,
+  GetTaskParticipants,
+  AddTaskParticipantListener,
+  GetChannelsForTask,
 } from '@twilio/flex-sdk/actions/Task';
+import type { TaskParticipant, TaskChannel } from '@twilio/flex-sdk/actions/Task';
+import type { Task } from '@twilio/flex-sdk';
 import { getFlexClient } from '../client';
 import { normalizeFlexError, type NormalizedFlexError } from '../errors';
+
+export type TaskParticipantEventName =
+  | 'participantAdded'
+  | 'participantModified'
+  | 'participantRemoved';
 
 function requireClient() {
   const client = getFlexClient();
@@ -49,23 +59,41 @@ export async function rejectTask(taskSid: string): Promise<void> {
   }
 }
 
-/** Move an accepted task into wrap-up. */
+/**
+ * True when a reservation state-transition failed only because the reservation
+ * has already reached (or passed) the target state. The Flex API reports this as
+ * a 400 REQUEST_INVALID naming the reservation's *current* state, e.g.
+ * "...was in incorrect state completed, should be in states wrapping,accepted".
+ * These transitions are idempotent: the desired end state is already satisfied,
+ * so we treat such a failure as a no-op. This absorbs the unavoidable race where
+ * the reservation completes server-side (e.g. the voice conference ending) or via
+ * a duplicate click between our request and the reservation's own lifecycle event.
+ */
+function isAlreadyInState(err: NormalizedFlexError, ...states: string[]): boolean {
+  return states.some((s) => new RegExp(`incorrect state ${s}\\b`, 'i').test(err.message));
+}
+
+/** Move an accepted task into wrap-up. Idempotent if already wrapping/completed. */
 export async function wrapUpTask(taskSid: string): Promise<void> {
   const client = requireClient();
   try {
     await client.execute(new WrapUpTask(taskSid));
   } catch (err) {
-    throw normalizeFlexError(err);
+    const normalized = normalizeFlexError(err);
+    if (isAlreadyInState(normalized, 'wrapping', 'completed')) return;
+    throw normalized;
   }
 }
 
-/** Complete a wrapping-up task. */
+/** Complete a wrapping-up task. Idempotent if the reservation is already completed. */
 export async function completeTask(taskSid: string): Promise<void> {
   const client = requireClient();
   try {
     await client.execute(new CompleteTask(taskSid));
   } catch (err) {
-    throw normalizeFlexError(err);
+    const normalized = normalizeFlexError(err);
+    if (isAlreadyInState(normalized, 'completed')) return;
+    throw normalized;
   }
 }
 
@@ -91,6 +119,46 @@ export async function setTaskAttributes(
   const client = requireClient();
   try {
     await client.execute(new SetTaskAttributes(taskSid, attributes));
+  } catch (err) {
+    throw normalizeFlexError(err);
+  }
+}
+
+/** Fetch the current participants of a task. */
+export async function getTaskParticipants(taskSid: string): Promise<TaskParticipant[]> {
+  const client = requireClient();
+  try {
+    return (await client.execute(new GetTaskParticipants(taskSid))) as TaskParticipant[];
+  } catch (err) {
+    throw normalizeFlexError(err);
+  }
+}
+
+/**
+ * Subscribe to a single task-participant event type. `AddTaskParticipantListener`
+ * is an Action class (one instance per event type); the resolved value carries an
+ * `unsubscribe` to remove the listener.
+ */
+export async function addTaskParticipantListener(
+  taskSid: string,
+  eventName: TaskParticipantEventName,
+  listener: (task: Task, participant: TaskParticipant) => void,
+): Promise<{ unsubscribe: () => void }> {
+  const client = requireClient();
+  try {
+    return (await client.execute(
+      new AddTaskParticipantListener(taskSid, eventName, listener),
+    )) as { unsubscribe: () => void };
+  } catch (err) {
+    throw normalizeFlexError(err);
+  }
+}
+
+/** List the channels attached to a task. */
+export async function getChannelsForTask(taskSid: string): Promise<TaskChannel[]> {
+  const client = requireClient();
+  try {
+    return (await client.execute(new GetChannelsForTask(taskSid))) as TaskChannel[];
   } catch (err) {
     throw normalizeFlexError(err);
   }

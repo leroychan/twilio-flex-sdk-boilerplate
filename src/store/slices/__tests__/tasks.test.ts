@@ -52,4 +52,43 @@ describe('tasks slice', () => {
     store.getState().removeTask('WR1');
     expect(store.getState().tasks).toEqual([]);
   });
+
+  describe('selection', () => {
+    it('auto-selects the first task when none is selected', () => {
+      const store = makeStore();
+      expect(store.getState().activeTaskSid).toBeNull();
+      store.getState().upsertTask(baseTask);
+      expect(store.getState().activeTaskSid).toBe('WT1');
+    });
+
+    it('keeps the current selection when another task arrives', () => {
+      const store = makeStore();
+      store.getState().upsertTask(baseTask);
+      store.getState().upsertTask({ ...baseTask, reservationSid: 'WR2', taskSid: 'WT2' });
+      expect(store.getState().activeTaskSid).toBe('WT1');
+    });
+
+    it('setActiveTaskSid selects a task explicitly', () => {
+      const store = makeStore();
+      store.getState().upsertTask(baseTask);
+      store.getState().upsertTask({ ...baseTask, reservationSid: 'WR2', taskSid: 'WT2' });
+      store.getState().setActiveTaskSid('WT2');
+      expect(store.getState().activeTaskSid).toBe('WT2');
+    });
+
+    it('reselects a remaining task when the active one is removed', () => {
+      const store = makeStore();
+      store.getState().upsertTask(baseTask); // WT1 (active)
+      store.getState().upsertTask({ ...baseTask, reservationSid: 'WR2', taskSid: 'WT2' });
+      store.getState().removeTask('WR1');
+      expect(store.getState().activeTaskSid).toBe('WT2');
+    });
+
+    it('clears the selection when the last task is removed', () => {
+      const store = makeStore();
+      store.getState().upsertTask(baseTask);
+      store.getState().removeTask('WR1');
+      expect(store.getState().activeTaskSid).toBeNull();
+    });
+  });
 });

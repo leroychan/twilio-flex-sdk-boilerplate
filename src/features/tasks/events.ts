@@ -1,5 +1,8 @@
 import { useFlexStore } from '@/store';
 import type { ReservationStatus, TaskView, TasksSlice } from '@/store/slices/tasks';
+import type { VoiceSlice } from '@/store/slices/voice';
+import { subscribeTaskParticipants } from './participantEvents';
+import { resolveActiveVoiceCall } from '@/features/voice/lib/resolveActiveCall';
 
 export interface ReservationLike {
   sid: string;
@@ -14,13 +17,15 @@ export interface ReservationLike {
 }
 
 export interface TasksWorkerLike {
+  sid?: string;
   reservations: Map<string, ReservationLike>;
   on: (event: 'reservationCreated', listener: (reservation: ReservationLike) => void) => void;
   off: (event: 'reservationCreated', listener: (reservation: ReservationLike) => void) => void;
 }
 
 type TasksStore = {
-  getState: () => Pick<TasksSlice, 'upsertTask' | 'updateTaskStatus' | 'removeTask'>;
+  getState: () => Pick<TasksSlice, 'upsertTask' | 'updateTaskStatus' | 'removeTask'> &
+    Partial<Pick<VoiceSlice, 'setCall'>>;
 };
 
 function parseAttributes(raw: Record<string, unknown> | string): Record<string, unknown> {
@@ -63,6 +68,7 @@ function toTaskView(reservation: ReservationLike): TaskView {
     taskChannelUniqueName: reservation.task.taskChannelUniqueName,
     attributes: parseAttributes(reservation.task.attributes),
     status: toStatus(reservation.status),
+    createdAt: Date.now(),
   };
 }
 
@@ -79,7 +85,33 @@ export function subscribeReservations(
   const register = (reservation: ReservationLike) => {
     store.getState().upsertTask(toTaskView(reservation));
 
-    const onAccepted = () => store.getState().updateTaskStatus(reservation.sid, 'accepted');
+    // On accept, fetch + live-track the task's participants (voice conference
+    // tiles, hold/kick, chat authors). Best-effort: no-ops without a worker sid.
+    const subscribeParticipants = () => {
+      if (!worker.sid) return;
+      void subscribeTaskParticipants(reservation.task.sid, worker.sid)
+        .then((unsub) => cleanups.push(unsub))
+        .catch(() => undefined);
+    };
+
+    // Link the active voice call to its task and resolve the live media call so
+    // the CallPanel + controls light up. The reservation is the authoritative
+    // trigger (the device-level `incoming` event never carries the taskSid, and
+    // the conference's media leg lands a beat after `accepted`). resolveActiveVoiceCall
+    // retries GetCallByTask, then flips call.status → connected. No-op without a
+    // live SDK client (stub/demo/tests).
+    const linkVoiceTask = () => {
+      if (reservation.task.taskChannelUniqueName === 'voice') {
+        store.getState().setCall?.({ taskSid: reservation.task.sid });
+        void resolveActiveVoiceCall(reservation.task.sid);
+      }
+    };
+
+    const onAccepted = () => {
+      store.getState().updateTaskStatus(reservation.sid, 'accepted');
+      subscribeParticipants();
+      linkVoiceTask();
+    };
     const onWrapup = () => store.getState().updateTaskStatus(reservation.sid, 'wrapping');
     const onRemove = () => store.getState().removeTask(reservation.sid);
 
@@ -90,6 +122,12 @@ export function subscribeReservations(
     reservation.on('canceled', onRemove);
     reservation.on('rescinded', onRemove);
     reservation.on('timeout', onRemove);
+
+    // Already-accepted reservations at init won't re-fire 'accepted'.
+    if (reservation.status === 'accepted') {
+      subscribeParticipants();
+      linkVoiceTask();
+    }
 
     cleanups.push(() => {
       reservation.off('accepted', onAccepted);

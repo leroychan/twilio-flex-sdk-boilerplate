@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { create } from 'zustand';
 import { createTasksSlice, type TasksSlice } from '@/store/slices/tasks';
 import { subscribeReservations, type ReservationLike, type TasksWorkerLike } from '../events';
@@ -80,6 +80,58 @@ describe('subscribeReservations', () => {
     expect(store.getState().tasks.find((t) => t.reservationSid === 'WR2')?.attributes).toEqual({
       channel: 'web',
     });
+  });
+
+  it('links a voice task to the active call when it is accepted', () => {
+    const setCall = vi.fn();
+    const base = create<TasksSlice>()(createTasksSlice);
+    const store = { getState: () => ({ ...base.getState(), setCall }) };
+
+    const workerEmitter = makeEmitter();
+    const worker: TasksWorkerLike = {
+      reservations: new Map(),
+      on: workerEmitter.on as TasksWorkerLike['on'],
+      off: workerEmitter.off as TasksWorkerLike['off'],
+    };
+    subscribeReservations(worker, store as never);
+
+    const resEmitter = makeEmitter();
+    workerEmitter.emit('reservationCreated', {
+      sid: 'WR9',
+      status: 'pending',
+      task: { sid: 'WT9', taskChannelUniqueName: 'voice', attributes: {} },
+      on: resEmitter.on,
+      off: resEmitter.off,
+    } satisfies ReservationLike);
+
+    resEmitter.emit('accepted');
+    expect(setCall).toHaveBeenCalledWith({ taskSid: 'WT9' });
+  });
+
+  it('does not link non-voice tasks to the call', () => {
+    const setCall = vi.fn();
+    const base = create<TasksSlice>()(createTasksSlice);
+    const store = { getState: () => ({ ...base.getState(), setCall }) };
+
+    const workerEmitter = makeEmitter();
+    const worker: TasksWorkerLike = {
+      reservations: new Map(),
+      on: workerEmitter.on as TasksWorkerLike['on'],
+      off: workerEmitter.off as TasksWorkerLike['off'],
+    };
+    subscribeReservations(worker, store as never);
+
+    const resEmitter = makeEmitter();
+    workerEmitter.emit('reservationCreated', {
+      sid: 'WR10',
+      status: 'pending',
+      task: { sid: 'WT10', taskChannelUniqueName: 'chat', attributes: {} },
+      on: resEmitter.on,
+      off: resEmitter.off,
+    } satisfies ReservationLike);
+
+    resEmitter.emit('accepted');
+    expect(setCall).not.toHaveBeenCalled();
   });
 
   it('seeds reservations already present on the worker', () => {

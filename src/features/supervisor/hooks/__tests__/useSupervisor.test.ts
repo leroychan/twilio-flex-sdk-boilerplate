@@ -8,6 +8,7 @@ import {
   setWorkerAttributes,
 } from '@/lib/flex/actions/Supervisor';
 import { useSupervisor } from '../useSupervisor';
+import { fetchWorkersList } from '@/lib/flex/workspace';
 
 const { store } = vi.hoisted(() => ({
   store: {
@@ -18,6 +19,7 @@ const { store } = vi.hoisted(() => ({
     supervisorError: null as string | null,
     setActiveMonitor: vi.fn(),
     setSupervisorError: vi.fn(),
+    setWorkers: vi.fn(),
   },
 }));
 
@@ -30,6 +32,9 @@ vi.mock('@/lib/flex/actions/Supervisor', () => ({
   bargeCall: vi.fn(),
   setWorkerActivity: vi.fn(),
   setWorkerAttributes: vi.fn(),
+}));
+vi.mock('@/lib/flex/workspace', () => ({
+  fetchWorkersList: vi.fn().mockResolvedValue([]),
 }));
 
 beforeEach(() => {
@@ -92,5 +97,17 @@ describe('useSupervisor', () => {
       await result.current.updateWorkerAttributes('WK1', { role: 'lead' });
     });
     expect(setWorkerAttributes).toHaveBeenCalledWith('WK1', { role: 'lead' });
+  });
+
+  it('loads the worker roster on mount and maps it to MonitoredWorker', async () => {
+    vi.mocked(fetchWorkersList).mockResolvedValueOnce([
+      { sid: 'WK1', name: 'Ada', activitySid: 'WA1', activityName: 'Available', available: true, attributes: { role: 'lead' } },
+    ]);
+    await act(async () => {
+      renderHook(() => useSupervisor());
+    });
+    expect(store.setWorkers).toHaveBeenCalledWith([
+      { sid: 'WK1', friendlyName: 'Ada', activitySid: 'WA1', activityName: 'Available', available: true, attributes: { role: 'lead' } },
+    ]);
   });
 });

@@ -1,12 +1,11 @@
 import { NextResponse } from 'next/server';
-import twilio from 'twilio';
 import type { TokenResponse } from '@/lib/flex/types';
+import { mintFlexUserToken, listActivities, FlexTokenError } from '@/lib/flex/server/flexToken';
 
-// This route runs on the server. It mints a Flex access token from env vars.
-// STUB-READY: when live creds are absent it returns a clearly-marked mock token
-// so the UI and plugins are developable without a live Twilio account. Swapping
-// in real creds (see .env.example) requires no code changes elsewhere.
-
+// Runs on the server. Live mode mints a real Flex-issued token via Flex SDK
+// Authentication Option 3 (see src/lib/flex/server/flexToken.ts). When live
+// creds are absent it returns a clearly-marked STUB token so the UI is
+// developable offline.
 export const runtime = 'nodejs';
 
 function readEnv() {
@@ -14,47 +13,62 @@ function readEnv() {
     accountSid: process.env.TWILIO_ACCOUNT_SID,
     apiKey: process.env.TWILIO_API_KEY,
     apiSecret: process.env.TWILIO_API_SECRET,
+    instanceSid: process.env.TWILIO_FLEX_INSTANCE_SID,
+    defaultUsername: process.env.TWILIO_FLEX_USERNAME,
     workspaceSid: process.env.TWILIO_WORKSPACE_SID,
-    workerSid: process.env.TWILIO_WORKER_SID,
   };
 }
 
 function hasLiveCreds(env: ReturnType<typeof readEnv>): boolean {
-  return Boolean(env.accountSid && env.apiKey && env.apiSecret && env.workspaceSid);
+  return Boolean(env.accountSid && env.apiKey && env.apiSecret);
 }
 
 function stubToken(identity: string): string {
   const payload = Buffer.from(
     JSON.stringify({ identity, stub: true, iat: Date.now() }),
   ).toString('base64url');
-  // TODO: replace by providing live creds in .env.local — see .env.example.
   return `STUB.${payload}.STUB`;
 }
 
 export async function POST(request: Request): Promise<Response> {
   const body = (await request.json().catch(() => ({}))) as {
+    username?: string;
     identity?: string;
-    workerSid?: string;
   };
-  const identity = body.identity && body.identity.trim() ? body.identity.trim() : 'demo-agent';
   const env = readEnv();
+  const requested = (body.username ?? body.identity ?? '').trim();
 
   if (!hasLiveCreds(env)) {
+    const identity = requested || 'demo-agent';
     const stub: TokenResponse = { token: stubToken(identity), identity, stub: true };
     return NextResponse.json(stub);
   }
 
-  const AccessToken = twilio.jwt.AccessToken;
-  const TaskRouterGrant = AccessToken.TaskRouterGrant;
-  const token = new AccessToken(env.accountSid!, env.apiKey!, env.apiSecret!, { identity });
-  token.addGrant(
-    new TaskRouterGrant({
-      workspaceSid: env.workspaceSid!,
-      workerSid: body.workerSid ?? env.workerSid ?? env.workspaceSid!,
-      role: 'worker',
-    }),
-  );
+  const username = requested || (env.defaultUsername ?? '').trim();
+  if (!username) {
+    return NextResponse.json({ error: 'username_required' }, { status: 400 });
+  }
 
-  const live: TokenResponse = { token: token.toJwt(), identity, stub: false };
-  return NextResponse.json(live);
+  try {
+    const { token, identity } = await mintFlexUserToken(
+      {
+        accountSid: env.accountSid!,
+        apiKey: env.apiKey!,
+        apiSecret: env.apiSecret!,
+        instanceSid: env.instanceSid,
+      },
+      username,
+    );
+    const activities = await listActivities(
+      { apiKey: env.apiKey!, apiSecret: env.apiSecret! },
+      env.workspaceSid,
+    );
+    const live: TokenResponse = { token, identity, stub: false, activities };
+    return NextResponse.json(live);
+  } catch (err) {
+    if (err instanceof FlexTokenError) {
+      return NextResponse.json({ error: err.code }, { status: err.status });
+    }
+    return NextResponse.json({ error: 'flex_token_mint_failed' }, { status: 502 });
+  }
 }

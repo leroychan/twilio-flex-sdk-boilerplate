@@ -4,10 +4,35 @@
   "demoMode": "Continue in demo mode",
   "ssoSignIn": "Sign in with SSO",
   "identityLabel": "Agent identity",
+  "usernameLabel": "Flex username",
+  "usernamePlaceholder": "Your Flex username",
   "signingIn": "Signing in…",
+  "signIn": "Sign in",
   "error": "Sign-in failed. Please try again.",
+  "errors": {
+    "userNotFound": "No Flex user found with that username.",
+    "usernameRequired": "Please enter your Flex username."
+  },
   "desktop": {
     "dial": "Dial",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "noSelection": "Select a task to see its details.",
+    "voiceIncoming": "Incoming call — accept to connect.",
+    "voiceConnecting": "Connecting to the call…",
+    "voiceWrapping": "Call ended — complete to finish.",
+    "chatIncoming": "Incoming conversation — accept to connect.",
+    "chatWrapping": "Conversation ended — complete to finish."
+  },
+  "rail": {
+    "label": "Primary navigation",
+    "desktop": "Agent Desktop",
+    "teams": "Teams",
+    "dialpad": "Dialpad",
+    "queues": "Queues Stats"
+  },
+  "workspace": {
+    "tabs": { "call": "Call", "conversation": "Conversation", "notes": "Notes", "info": "Info" },
+    "views": "Task views",
+    "status": { "incoming": "Incoming", "live": "Live", "wrapping": "Wrap-up", "connecting": "Connecting" }
   }
 }

@@ -25,6 +25,14 @@
   --color-success: var(--green-success);
   --color-warning: var(--amber-warning);
   --color-info: var(--blue-400);
+
+  /* Soft tints — translucent so a single definition reads correctly over either
+     theme's surfaces (Tailwind opacity modifiers can't apply to our var() colors). */
+  --color-primary-soft: rgba(24, 102, 238, 0.12);
+  --color-success-soft: rgba(20, 128, 74, 0.16);
+  --color-warning-soft: rgba(240, 180, 41, 0.20);
+  --color-info-soft: rgba(14, 140, 223, 0.16);
+  --color-danger-soft: rgba(221, 16, 32, 0.14);
 }
 
 .dark {

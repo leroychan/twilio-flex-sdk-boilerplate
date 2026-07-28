@@ -1,4 +1,6 @@
 export { ConversationPanel } from './components/ConversationPanel';
+export { ConversationTabs } from './components/ConversationTabs';
+export { ConversationTabView } from './components/ConversationTabView';
 export { PausedConversationsModal } from './components/PausedConversationsModal';
 export { TransferModal } from './components/TransferModal';
 export { ContentTemplatePicker } from './components/ContentTemplatePicker';
@@ -6,4 +8,5 @@ export { OutboundEmailModal } from './components/OutboundEmailModal';
 export { MessageList } from './components/MessageList';
 export { MessageComposer } from './components/MessageComposer';
 export { useConversationEvents } from './hooks/useConversationEvents';
+export { useConversation } from './hooks/useConversation';
 export * as conversationActions from '@/lib/flex/actions/Conversation';

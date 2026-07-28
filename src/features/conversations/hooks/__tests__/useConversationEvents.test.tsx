@@ -20,10 +20,11 @@ beforeEach(() => {
 });
 
 describe('useConversationEvents', () => {
-  it('registers conversationJoined, messageAdded and conversationRemoved via client.execute', () => {
+  it('registers conversationJoined and conversationRemoved via client.execute', () => {
+    // messageAdded is owned per-task by useConversation, not this global bridge.
     getFlexClient.mockReturnValue({ execute });
     renderHook(() => useConversationEvents());
-    expect(execute).toHaveBeenCalledTimes(3);
+    expect(execute).toHaveBeenCalledTimes(2);
   });
 
   it('no-ops (never throws) when there is no live client', () => {
