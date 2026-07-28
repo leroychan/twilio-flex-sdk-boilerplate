@@ -62,11 +62,12 @@ function toStatus(raw: string): ReservationStatus {
 }
 
 function toTaskView(reservation: ReservationLike): TaskView {
+  const attributes = parseAttributes(reservation.task.attributes);
   return {
     reservationSid: reservation.sid,
     taskSid: reservation.task.sid,
     taskChannelUniqueName: reservation.task.taskChannelUniqueName,
-    attributes: parseAttributes(reservation.task.attributes),
+    attributes,
     status: toStatus(reservation.status),
     createdAt: Date.now(),
   };

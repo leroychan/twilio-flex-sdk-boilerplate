@@ -25,7 +25,12 @@
     "other": "메시지"
   },
   "info": {
-    "empty": "작업 속성 없음"
+    "empty": "작업 속성 없음",
+    "viewJson": "JSON 보기",
+    "payloadTitle": "작업 페이로드",
+    "close": "닫기",
+    "copy": "복사",
+    "copied": "복사됨"
   },
   "notes": {
     "label": "메모",

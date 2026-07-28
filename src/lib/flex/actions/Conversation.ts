@@ -46,7 +46,8 @@ async function run<T>(action: unknown): Promise<T> {
   }
 }
 
-export const pauseConversation = (sid: string) => run<void>(new PauseConversation(sid));
+// Real SDK: PauseConversation(taskSid) — keyed by the task, NOT the conversation SID.
+export const pauseConversation = (taskSid: string) => run<void>(new PauseConversation(taskSid));
 
 // Real SDK: ResumeConversation takes Pick<PausedConversation, 'interactionSid' | 'sid'>.
 // The feature-facing signature stays `(sid: string)`; we build the required object.
@@ -54,13 +55,16 @@ export const resumeConversation = (sid: string) =>
   run<void>(new ResumeConversation({ sid, interactionSid: sid }));
 
 export const getPausedConversations = () => run<PausedConversation[]>(new GetPausedConversations());
-export const leaveConversation = (sid: string) => run<void>(new LeaveConversation(sid));
+
+// Real SDK: LeaveConversation(taskSid) — keyed by the task, NOT the conversation SID.
+// Passing a CH… conversation SID triggers "Reservation for task CH… not found".
+export const leaveConversation = (taskSid: string) => run<void>(new LeaveConversation(taskSid));
 
 // Real SDK: StartConversationTransfer(taskSid, to) — no mode param. `mode` is kept in
 // the wrapper signature for feature/API compatibility but is not forwarded.
-export const startConversationTransfer = (sid: string, target: string, mode: 'WARM' | 'COLD') => {
+export const startConversationTransfer = (taskSid: string, target: string, mode: 'WARM' | 'COLD') => {
   void mode;
-  return run<void>(new StartConversationTransfer(sid, target));
+  return run<void>(new StartConversationTransfer(taskSid, target));
 };
 
 export const getConversationTransfers = (sid: string) => run<ConversationTransfer[]>(new GetConversationTransfers(sid));

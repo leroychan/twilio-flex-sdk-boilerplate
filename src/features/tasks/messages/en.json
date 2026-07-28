@@ -25,7 +25,12 @@
     "other": "Message"
   },
   "info": {
-    "empty": "No task attributes"
+    "empty": "No task attributes",
+    "viewJson": "View JSON",
+    "payloadTitle": "Task payload",
+    "close": "Close",
+    "copy": "Copy",
+    "copied": "Copied"
   },
   "notes": {
     "label": "Notes",

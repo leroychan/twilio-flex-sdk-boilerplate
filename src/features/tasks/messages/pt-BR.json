@@ -25,7 +25,12 @@
     "other": "Mensagem"
   },
   "info": {
-    "empty": "Nenhum atributo de tarefa"
+    "empty": "Nenhum atributo de tarefa",
+    "viewJson": "Ver JSON",
+    "payloadTitle": "Payload da tarefa",
+    "close": "Fechar",
+    "copy": "Copiar",
+    "copied": "Copiado"
   },
   "notes": {
     "label": "Notas",

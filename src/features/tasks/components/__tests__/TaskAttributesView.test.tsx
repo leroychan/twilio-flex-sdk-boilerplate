@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { describe, it, expect } from 'vitest';
 import { NextIntlClientProvider } from 'next-intl';
 import messages from '@/features/tasks/messages/en.json';
@@ -29,5 +30,20 @@ describe('TaskAttributesView', () => {
   it('shows the empty message when there are no attributes', () => {
     renderWithIntl(<TaskAttributesView attributes={{}} />);
     expect(screen.getByText('No task attributes')).toBeInTheDocument();
+  });
+
+  it('opens a dialog showing the full formatted JSON payload', async () => {
+    renderWithIntl(<TaskAttributesView attributes={{ from: '+15551234567', customers: { name: 'Ada' } }} />);
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: 'View JSON' }));
+    const dialog = screen.getByRole('dialog');
+    // The payload is rendered pretty-printed (2-space indent).
+    expect(dialog).toHaveTextContent('"from": "+15551234567"');
+    expect(dialog).toHaveTextContent('"name": "Ada"');
+  });
+
+  it('does not render the View JSON button when there are no attributes', () => {
+    renderWithIntl(<TaskAttributesView attributes={{}} />);
+    expect(screen.queryByRole('button', { name: 'View JSON' })).not.toBeInTheDocument();
   });
 });

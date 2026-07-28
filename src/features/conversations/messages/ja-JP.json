@@ -5,7 +5,9 @@
   "pause": "保留",
   "resume": "再開",
   "leave": "退出",
+  "end": "チャットを終了",
   "transfer": "転送",
+  "more": "その他",
   "warm": "ウォーム",
   "cold": "コールド",
   "online": "オンライン",
@@ -34,5 +36,6 @@
     "reply": "返信",
     "addParticipant": "参加者を追加"
   },
-  "empty": "アクティブな会話はありません"
+  "empty": "アクティブな会話はありません",
+  "complete": "完了"
 }

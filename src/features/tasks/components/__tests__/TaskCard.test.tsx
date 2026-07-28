@@ -107,4 +107,19 @@ describe('TaskCard', () => {
     renderWithIntl(<TaskCard task={{ ...base, status: 'accepted' }} {...handlers()} />);
     expect(screen.getByText('Live call')).toBeInTheDocument();
   });
+
+  it('prefers the resolved contactName over an anonymous webchat identity', () => {
+    renderWithIntl(
+      <TaskCard
+        task={{
+          ...base,
+          taskChannelUniqueName: 'chat',
+          attributes: { channelType: 'web', customerName: 'FX' + '0'.repeat(32) },
+          contactName: 'Leroy',
+        }}
+        {...handlers()}
+      />,
+    );
+    expect(screen.getByText('Leroy')).toBeInTheDocument();
+  });
 });

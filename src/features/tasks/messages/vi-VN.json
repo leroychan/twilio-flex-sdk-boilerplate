@@ -25,7 +25,12 @@
     "other": "Tin nhắn"
   },
   "info": {
-    "empty": "Không có thuộc tính tác vụ"
+    "empty": "Không có thuộc tính tác vụ",
+    "viewJson": "Xem JSON",
+    "payloadTitle": "Dữ liệu tác vụ",
+    "close": "Đóng",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép"
   },
   "notes": {
     "label": "Ghi chú",

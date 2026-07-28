@@ -25,7 +25,12 @@
     "other": "消息"
   },
   "info": {
-    "empty": "暂无任务属性"
+    "empty": "暂无任务属性",
+    "viewJson": "查看 JSON",
+    "payloadTitle": "任务负载",
+    "close": "关闭",
+    "copy": "复制",
+    "copied": "已复制"
   },
   "notes": {
     "label": "备注",

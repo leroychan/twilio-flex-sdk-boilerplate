@@ -8,11 +8,16 @@ import {
 } from '@/lib/flex/registry';
 import { useFlexStore } from '@/store';
 import { toMessageView, type SdkMessageLike } from '../messageView';
+import { resolveConversationName } from '../conversationName';
 
 interface UnderlyingEmitter {
   on?: (event: string, listener: (m: unknown) => void) => void;
   removeListener?: (event: string, listener: (m: unknown) => void) => void;
   friendlyName?: string | null;
+  // Custom attributes of the Conversation resource (a parsed JSON object). For
+  // webchat this carries `pre_engagement_data.friendlyName` — the customer's real
+  // name, which the task/participant identity (an anonymous `FX…` SID) lacks.
+  attributes?: unknown;
 }
 interface ConversationHandle {
   sid: string;
@@ -58,10 +63,16 @@ export function useConversation(taskSid: string | null): {
 
         const task = useFlexStore.getState().tasks.find((t) => t.taskSid === taskSid);
         const type = task?.taskChannelUniqueName === 'email' ? 'email' : 'chat';
-        const friendlyName =
-          conv.conversation?.friendlyName ??
-          (task?.attributes.name as string | undefined) ??
-          conv.sid;
+        const convAttributes =
+          conv.conversation?.attributes && typeof conv.conversation.attributes === 'object'
+            ? (conv.conversation.attributes as Record<string, unknown>)
+            : null;
+        const friendlyName = resolveConversationName(
+          conv.conversation?.friendlyName,
+          task?.attributes,
+          conv.sid,
+          convAttributes,
+        );
         upsertConversation({ sid: conv.sid, taskSid, friendlyName, messages: [], type });
 
         // Ingest a message: build the view-model, resolve any attached-media

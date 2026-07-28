@@ -111,14 +111,23 @@ export async function endTask(taskSid: string, _reason?: string): Promise<void> 
   }
 }
 
-/** Replace the task's attributes. */
+/**
+ * Set the task's attributes. By default this replaces the attributes; pass
+ * `{ merge: true }` to shallow-merge into the existing set (SDK `mergeExisting`),
+ * used by wrap-up to add disposition/notes without clobbering routing attributes.
+ */
 export async function setTaskAttributes(
   taskSid: string,
   attributes: Record<string, unknown>,
+  options?: { merge?: boolean },
 ): Promise<void> {
   const client = requireClient();
   try {
-    await client.execute(new SetTaskAttributes(taskSid, attributes));
+    await client.execute(
+      options?.merge
+        ? new SetTaskAttributes(taskSid, attributes, { mergeExisting: true })
+        : new SetTaskAttributes(taskSid, attributes),
+    );
   } catch (err) {
     throw normalizeFlexError(err);
   }

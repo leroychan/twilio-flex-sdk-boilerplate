@@ -5,7 +5,9 @@
   "pause": "보류",
   "resume": "재개",
   "leave": "나가기",
+  "end": "채팅 종료",
   "transfer": "전환",
+  "more": "더보기",
   "warm": "웜",
   "cold": "콜드",
   "online": "온라인",
@@ -34,5 +36,6 @@
     "reply": "답장",
     "addParticipant": "참가자 추가"
   },
-  "empty": "활성 대화 없음"
+  "empty": "활성 대화 없음",
+  "complete": "완료"
 }

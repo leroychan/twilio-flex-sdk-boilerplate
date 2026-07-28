@@ -5,7 +5,9 @@
   "pause": "挂起",
   "resume": "恢复",
   "leave": "离开",
+  "end": "结束聊天",
   "transfer": "转接",
+  "more": "更多",
   "warm": "协商转接",
   "cold": "直接转接",
   "online": "在线",
@@ -34,5 +36,6 @@
     "reply": "回复",
     "addParticipant": "添加参与者"
   },
-  "empty": "暂无活跃对话"
+  "empty": "暂无活跃对话",
+  "complete": "完成"
 }

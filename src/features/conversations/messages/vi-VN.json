@@ -5,7 +5,9 @@
   "pause": "Tạm dừng",
   "resume": "Tiếp tục",
   "leave": "Rời",
+  "end": "Kết thúc trò chuyện",
   "transfer": "Chuyển",
+  "more": "Thêm",
   "warm": "Ấm",
   "cold": "Lạnh",
   "online": "Trực tuyến",
@@ -34,5 +36,6 @@
     "reply": "Trả lời",
     "addParticipant": "Thêm người tham gia"
   },
-  "empty": "Không có hội thoại đang hoạt động"
+  "empty": "Không có hội thoại đang hoạt động",
+  "complete": "Hoàn tất"
 }

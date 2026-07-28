@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useFlexStore } from '@/store';
+import { resolveTaskContact } from '@/features/tasks/lib/taskContact';
 import { ConversationTabView } from './ConversationTabView';
 
 /**
@@ -35,7 +36,9 @@ export function ConversationTabs() {
     const conv = Object.values(conversations).find((c) => c.taskSid === taskSid);
     const task = chatTasks.find((x) => x.taskSid === taskSid);
     return (
-      conv?.friendlyName ?? (task?.attributes.name as string | undefined) ?? t('conversationFallback')
+      conv?.friendlyName ??
+      resolveTaskContact(task?.attributes).name ??
+      t('conversationFallback')
     );
   };
 

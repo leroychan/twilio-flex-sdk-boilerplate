@@ -19,6 +19,7 @@ import { usePresence } from '@/features/presence/hooks/usePresence';
 import { usePresenceEvents } from '@/features/presence/hooks/usePresenceEvents';
 import { TaskList } from '@/features/tasks/components/TaskList';
 import { useTaskEvents } from '@/features/tasks/hooks/useTaskEvents';
+import { useTaskContactNames } from '@/features/tasks/hooks/useTaskContactNames';
 import {
   CallPanel,
   OutboundDialer,
@@ -43,6 +44,7 @@ function DesktopBody() {
   const tSup = useTranslations('supervisor');
   usePresenceEvents();
   useTaskEvents();
+  useTaskContactNames();
   useVoiceEvents();
   useConversationEvents();
   useTranscriptionStarter();
@@ -110,25 +112,30 @@ function DesktopBody() {
               <ResizableColumns
                 left={<TaskList />}
                 middle={
-                  <div className="flex flex-col gap-4 p-4">
-                    <SelectedTaskDetail
-                      callPanel={
-                        <CallPanel
-                          call={call}
-                          onMuteToggle={controls.toggleMute}
-                          onHoldToggle={() => void controls.toggleHold()}
-                          onHangup={() => void controls.hangup()}
-                          onEndForAll={() => void controls.endForAll()}
-                          onTransfer={() => setVoiceTransferOpen(true)}
-                          participants={callParticipants}
-                          workerNames={workerNames}
-                          onHoldParticipant={(sid) => void controls.toggleParticipantHold(sid)}
-                          onKickParticipant={(sid) => void controls.removeParticipant(sid)}
-                          onAddParticipant={(to) => void controls.addParticipant(to)}
-                          onToggleRecording={() => void controls.toggleRecording()}
-                        />
-                      }
-                    />
+                  // h-full + min-h-0 give the workspace a bounded height so its
+                  // inner tab panels (Info/Notes) scroll internally instead of
+                  // overflowing the column.
+                  <div className="flex h-full min-h-0 flex-col gap-4 p-4">
+                    <div className="min-h-0 flex-1">
+                      <SelectedTaskDetail
+                        callPanel={
+                          <CallPanel
+                            call={call}
+                            onMuteToggle={controls.toggleMute}
+                            onHoldToggle={() => void controls.toggleHold()}
+                            onHangup={() => void controls.hangup()}
+                            onEndForAll={() => void controls.endForAll()}
+                            onTransfer={() => setVoiceTransferOpen(true)}
+                            participants={callParticipants}
+                            workerNames={workerNames}
+                            onHoldParticipant={(sid) => void controls.toggleParticipantHold(sid)}
+                            onKickParticipant={(sid) => void controls.removeParticipant(sid)}
+                            onAddParticipant={(to) => void controls.addParticipant(to)}
+                            onToggleRecording={() => void controls.toggleRecording()}
+                          />
+                        }
+                      />
+                    </div>
                     <PluginSlot name="task-panel" />
                   </div>
                 }

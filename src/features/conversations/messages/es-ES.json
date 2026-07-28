@@ -5,7 +5,9 @@
   "pause": "Aparcar",
   "resume": "Reanudar",
   "leave": "Salir",
+  "end": "Finalizar chat",
   "transfer": "Transferir",
+  "more": "Más",
   "warm": "Cálida",
   "cold": "Fría",
   "online": "En línea",
@@ -34,5 +36,6 @@
     "reply": "Responder",
     "addParticipant": "Añadir participante"
   },
-  "empty": "Sin conversación activa"
+  "empty": "Sin conversación activa",
+  "complete": "Completar"
 }

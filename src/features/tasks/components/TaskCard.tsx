@@ -77,6 +77,7 @@ export function TaskCard({
 
   const contact = resolveTaskContact(task.attributes);
   const primary =
+    task.contactName ??
     contact.name ??
     (contact.phone ? formatPhone(contact.phone) : t(`channel.${channelLabelKey(channel)}`));
 

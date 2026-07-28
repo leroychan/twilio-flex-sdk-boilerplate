@@ -25,7 +25,12 @@
     "other": "Pesan"
   },
   "info": {
-    "empty": "Tidak ada atribut tugas"
+    "empty": "Tidak ada atribut tugas",
+    "viewJson": "Lihat JSON",
+    "payloadTitle": "Payload tugas",
+    "close": "Tutup",
+    "copy": "Salin",
+    "copied": "Tersalin"
   },
   "notes": {
     "label": "Catatan",

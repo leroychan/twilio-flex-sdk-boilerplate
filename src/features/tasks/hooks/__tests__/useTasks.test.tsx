@@ -46,13 +46,13 @@ describe('useTasks', () => {
     await result.current.wrapUp('WT1');
     await result.current.complete('WT1');
     await result.current.end('WT1', 'done');
-    await result.current.setAttributes('WT1', { priority: 'high' });
+    await result.current.setAttributes('WT1', { priority: 'high' }, { merge: true });
 
     expect(TaskActions.acceptTask).toHaveBeenCalledWith('WT1');
     expect(TaskActions.rejectTask).toHaveBeenCalledWith('WT1');
     expect(TaskActions.wrapUpTask).toHaveBeenCalledWith('WT1');
     expect(TaskActions.completeTask).toHaveBeenCalledWith('WT1');
     expect(TaskActions.endTask).toHaveBeenCalledWith('WT1', 'done');
-    expect(TaskActions.setTaskAttributes).toHaveBeenCalledWith('WT1', { priority: 'high' });
+    expect(TaskActions.setTaskAttributes).toHaveBeenCalledWith('WT1', { priority: 'high' }, { merge: true });
   });
 });

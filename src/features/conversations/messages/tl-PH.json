@@ -5,7 +5,9 @@
   "pause": "I-park",
   "resume": "Ituloy",
   "leave": "Umalis",
+  "end": "Tapusin ang chat",
   "transfer": "I-transfer",
+  "more": "Higit pa",
   "warm": "Warm",
   "cold": "Cold",
   "online": "Online",
@@ -34,5 +36,6 @@
     "reply": "Tumugon",
     "addParticipant": "Magdagdag ng kalahok"
   },
-  "empty": "Walang aktibong usapan"
+  "empty": "Walang aktibong usapan",
+  "complete": "Kumpletuhin"
 }

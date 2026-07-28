@@ -20,7 +20,8 @@ export function Popover({
   portal = false,
 }: {
   trigger: (state: { open: boolean; toggle: () => void; id: string }) => React.ReactNode;
-  children: React.ReactNode;
+  /** Panel content. Pass a function to receive a `close()` (e.g. menu items that dismiss on click). */
+  children: React.ReactNode | ((state: { close: () => void }) => React.ReactNode);
   align?: 'left' | 'right';
   className?: string;
   portal?: boolean;
@@ -70,6 +71,7 @@ export function Popover({
   }, [portal, open, align]);
 
   const panelClass = `z-50 min-w-64 rounded-xl border border-border bg-surface p-3 shadow-lg ${className}`;
+  const body = typeof children === 'function' ? children({ close: () => setOpen(false) }) : children;
 
   return (
     <div ref={ref} className="relative">
@@ -84,7 +86,7 @@ export function Popover({
               style={{ position: 'fixed', top: pos.top, left: pos.left, right: pos.right }}
               className={panelClass}
             >
-              {children}
+              {body}
             </div>,
             document.body,
           )
@@ -95,7 +97,7 @@ export function Popover({
             role="dialog"
             className={`absolute top-[calc(100%+0.5rem)] ${align === 'right' ? 'right-0' : 'left-0'} ${panelClass}`}
           >
-            {children}
+            {body}
           </div>
         ))}
     </div>

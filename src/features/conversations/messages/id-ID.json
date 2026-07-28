@@ -5,7 +5,9 @@
   "pause": "Parkir",
   "resume": "Lanjutkan",
   "leave": "Tinggalkan",
+  "end": "Akhiri obrolan",
   "transfer": "Transfer",
+  "more": "Lainnya",
   "warm": "Warm",
   "cold": "Cold",
   "online": "Online",
@@ -34,5 +36,6 @@
     "reply": "Balas",
     "addParticipant": "Tambah peserta"
   },
-  "empty": "Tidak ada percakapan aktif"
+  "empty": "Tidak ada percakapan aktif",
+  "complete": "Selesai"
 }

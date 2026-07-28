@@ -5,7 +5,9 @@
   "pause": "暫存",
   "resume": "繼續",
   "leave": "離開",
+  "end": "結束聊天",
   "transfer": "轉接",
+  "more": "更多",
   "warm": "暖轉",
   "cold": "冷轉",
   "online": "在線",
@@ -34,5 +36,6 @@
     "reply": "回覆",
     "addParticipant": "新增參與者"
   },
-  "empty": "沒有進行中的對話"
+  "empty": "沒有進行中的對話",
+  "complete": "完成"
 }

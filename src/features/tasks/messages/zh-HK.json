@@ -25,7 +25,12 @@
     "other": "訊息"
   },
   "info": {
-    "empty": "沒有工作屬性"
+    "empty": "沒有工作屬性",
+    "viewJson": "查看 JSON",
+    "payloadTitle": "任務負載",
+    "close": "關閉",
+    "copy": "複製",
+    "copied": "已複製"
   },
   "notes": {
     "label": "備註",

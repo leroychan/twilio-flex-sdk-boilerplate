@@ -19,6 +19,12 @@ export interface TaskView {
   status: ReservationStatus;
   /** When this task first entered the desktop (ms epoch), for the elapsed timer. */
   createdAt?: number;
+  /**
+   * Human-readable contact name resolved out-of-band (e.g. a webchat customer's
+   * pre-engagement name from the Conversation resource, which the task attributes
+   * carry only as an anonymous `FX…` identity). Populated by useTaskContactNames.
+   */
+  contactName?: string;
 }
 
 /** Serializable projection of an SDK TaskParticipant, keyed under a taskSid. */
@@ -40,6 +46,7 @@ export interface TasksSlice {
   setActiveTaskSid: (taskSid: string | null) => void;
   updateTaskStatus: (reservationSid: string, status: ReservationStatus) => void;
   updateTaskAttributes: (taskSid: string, attributes: Record<string, unknown>) => void;
+  setTaskContactName: (taskSid: string, contactName: string) => void;
   removeTask: (reservationSid: string) => void;
   setTaskParticipants: (taskSid: string, participants: TaskParticipantView[]) => void;
   upsertTaskParticipant: (taskSid: string, participant: TaskParticipantView) => void;
@@ -67,6 +74,10 @@ export const createTasksSlice: StateCreator<TasksSlice, [], [], TasksSlice> = (s
   updateTaskAttributes: (taskSid, attributes) =>
     set((state) => ({
       tasks: state.tasks.map((t) => (t.taskSid === taskSid ? { ...t, attributes } : t)),
+    })),
+  setTaskContactName: (taskSid, contactName) =>
+    set((state) => ({
+      tasks: state.tasks.map((t) => (t.taskSid === taskSid ? { ...t, contactName } : t)),
     })),
   removeTask: (reservationSid) =>
     set((state) => {

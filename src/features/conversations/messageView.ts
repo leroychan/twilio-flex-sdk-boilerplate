@@ -21,7 +21,7 @@ export interface SdkMessageLike {
 }
 
 // Anonymous conversation user SIDs look like FX… (34 chars). Show a friendly label.
-function isAnonymousUserSid(author: string | null | undefined): boolean {
+export function isAnonymousUserSid(author: string | null | undefined): boolean {
   return Boolean(author && author.startsWith('FX') && author.length === 34);
 }
 

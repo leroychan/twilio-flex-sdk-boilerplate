@@ -18,27 +18,32 @@ function renderPanel() {
     </NextIntlClientProvider>,
   );
 }
-function mockCallSid(sid: string | null) {
-  useFlexStore.setState({ call: { ...INITIAL_CALL, callSid: sid } });
+function mockActiveCall() {
+  useFlexStore.setState({ call: { ...INITIAL_CALL, callSid: 'CA1', status: 'connected' } });
+}
+function mockNoCall() {
+  useFlexStore.setState({ call: { ...INITIAL_CALL } });
 }
 
 beforeEach(() => useFlexStore.setState({ call: { ...INITIAL_CALL } }));
 
 describe('RightPanel', () => {
-  it('auto-selects Transcript when a call is active', () => {
-    mockCallSid('CA1');
+  it('shows and auto-selects the Transcript tab when a call is active', () => {
+    mockActiveCall();
     renderPanel();
     expect(screen.getByRole('tab', { name: 'Real-time transcription' })).toHaveAttribute('aria-selected', 'true');
   });
 
-  it('defaults to CRM when no call is active', () => {
-    mockCallSid(null);
+  it('hides the Transcript tab and defaults to CRM when no call is active', () => {
+    mockNoCall();
     renderPanel();
+    expect(screen.queryByRole('tab', { name: 'Real-time transcription' })).toBeNull();
+    expect(screen.queryByTestId('transcript-panel')).toBeNull();
     expect(screen.getByRole('tab', { name: 'CRM' })).toHaveAttribute('aria-selected', 'true');
   });
 
-  it('keeps both panels mounted and switches on click', async () => {
-    mockCallSid('CA1');
+  it('keeps both panels mounted during a call and switches on click', async () => {
+    mockActiveCall();
     renderPanel();
     // both mounted regardless of active tab
     expect(screen.getByTestId('transcript-panel')).toBeInTheDocument();

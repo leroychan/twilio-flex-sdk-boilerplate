@@ -10,7 +10,11 @@ export interface UseTasksResult {
   wrapUp: (taskSid: string) => Promise<void>;
   complete: (taskSid: string) => Promise<void>;
   end: (taskSid: string, reason?: string) => Promise<void>;
-  setAttributes: (taskSid: string, attributes: Record<string, unknown>) => Promise<void>;
+  setAttributes: (
+    taskSid: string,
+    attributes: Record<string, unknown>,
+    options?: { merge?: boolean },
+  ) => Promise<void>;
 }
 
 export function useTasks(): UseTasksResult {
@@ -25,8 +29,8 @@ export function useTasks(): UseTasksResult {
     [],
   );
   const setAttributes = useCallback(
-    (taskSid: string, attributes: Record<string, unknown>) =>
-      TaskActions.setTaskAttributes(taskSid, attributes),
+    (taskSid: string, attributes: Record<string, unknown>, options?: { merge?: boolean }) =>
+      TaskActions.setTaskAttributes(taskSid, attributes, options),
     [],
   );
 

@@ -5,7 +5,9 @@
   "pause": "Park",
   "resume": "Resume",
   "leave": "Leave",
+  "end": "End chat",
   "transfer": "Transfer",
+  "more": "More",
   "warm": "Warm",
   "cold": "Cold",
   "online": "Online",
@@ -34,5 +36,6 @@
     "reply": "Reply",
     "addParticipant": "Add participant"
   },
-  "empty": "No active conversation"
+  "empty": "No active conversation",
+  "complete": "Complete"
 }

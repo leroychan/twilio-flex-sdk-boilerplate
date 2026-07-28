@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/Button';
 import { startConversationTransfer } from '@/lib/flex/actions/Conversation';
 import { useDirectory, TransferTargetSelect } from '@/features/directory';
 
-export function TransferModal({ open, conversationSid, onClose }: { open: boolean; conversationSid: string; onClose: () => void }) {
+export function TransferModal({ open, taskSid, onClose }: { open: boolean; taskSid: string; onClose: () => void }) {
   const t = useTranslations('conversations');
   const { queues, workers } = useDirectory();
   const [target, setTarget] = useState('');
@@ -13,7 +13,7 @@ export function TransferModal({ open, conversationSid, onClose }: { open: boolea
   if (!open) return null;
   const submit = async () => {
     if (!target) return;
-    await startConversationTransfer(conversationSid, target, mode);
+    await startConversationTransfer(taskSid, target, mode);
     onClose();
   };
   return (

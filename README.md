@@ -27,8 +27,8 @@ The app boots **offline in stub mode** with no Twilio credentials, so you can ex
 ## Features
 
 - **Voice** — inbound/outbound calls with a modern softphone panel (mute, hold, recording, transfer, add-participant), a dialpad, an outbound dialer, and an audio-device settings menu. Live calls are resolved through the SDK conference model.
-- **Tasks** — a tabbed task workspace with a dense incoming-task list that surfaces the caller's number and channel, plus task attributes, notes, and a wrap-up form.
-- **Conversations** — chat/SMS/email messaging with tabbed conversation views, transfers, outbound email, a rich-text email composer, content-template and media pickers, and a paused-conversations view.
+- **Tasks** — a tabbed task workspace with a dense incoming-task list that surfaces the contact's name (resolved from webchat pre-engagement data), number, and channel, plus a scrollable task-attributes Info tab with a full pretty-printed JSON payload viewer, notes, and a wrap-up form.
+- **Conversations** — chat/SMS/email messaging with tabbed conversation views, transfers, outbound email, a rich-text email composer, content-template and media pickers, and a paused-conversations view. The composer supports press-Enter-to-send (Shift+Enter for a newline) and is read-only while previewing a pending task or during wrap-up. Ending a chat is a two-step lifecycle: **End chat** moves the task into wrap-up, then **Complete** finishes it.
 - **Presence** — activity/availability switching backed by TaskRouter activities (prefetched server-side for a fast first paint).
 - **Queues** — a live queue view.
 - **Supervisor** — worker roster, worker cards, activity/attribute editing, and live call monitoring controls.

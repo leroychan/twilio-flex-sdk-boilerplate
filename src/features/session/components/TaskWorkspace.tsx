@@ -46,7 +46,7 @@ export function TaskWorkspace({ callPanel }: { callPanel: ReactNode }) {
   if (!task) return null;
 
   const { name, phone } = resolveTaskContact(task.attributes);
-  const contact = name || phone || task.taskSid;
+  const contact = task.contactName || name || phone || task.taskSid;
   const primaryTabId: TabId = isVoice ? 'call' : 'conversation';
   const effectiveTab: TabId = tabs.some((tab) => tab.id === activeTab) ? activeTab : primaryTabId;
 
@@ -59,9 +59,20 @@ export function TaskWorkspace({ callPanel }: { callPanel: ReactNode }) {
           ? t('workspace.status.connecting')
           : t('workspace.status.live');
 
-  const onComplete = async (_values: WrapUpValues) => {
+  const onComplete = async (values: WrapUpValues) => {
     setCompleting(true);
     try {
+      // Persist the disposition/notes onto the task before completing, mirroring
+      // flex-template-builder (SetTaskAttributes with mergeExisting → CompleteTask).
+      await setAttributes(
+        task.taskSid,
+        {
+          conversations: { outcome: values.disposition, content: values.notes },
+          wrapup_disposition: values.disposition,
+          wrapup_notes: values.notes,
+        },
+        { merge: true },
+      );
       await complete(task.taskSid);
     } catch {
       setCompleting(false);

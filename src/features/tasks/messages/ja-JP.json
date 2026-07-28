@@ -25,7 +25,12 @@
     "other": "メッセージ"
   },
   "info": {
-    "empty": "タスク属性はありません"
+    "empty": "タスク属性はありません",
+    "viewJson": "JSON を表示",
+    "payloadTitle": "タスクペイロード",
+    "close": "閉じる",
+    "copy": "コピー",
+    "copied": "コピーしました"
   },
   "notes": {
     "label": "メモ",

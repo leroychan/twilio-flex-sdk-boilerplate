@@ -25,7 +25,12 @@
     "other": "Mensaje"
   },
   "info": {
-    "empty": "No hay atributos de tarea"
+    "empty": "No hay atributos de tarea",
+    "viewJson": "Ver JSON",
+    "payloadTitle": "Carga de la tarea",
+    "close": "Cerrar",
+    "copy": "Copiar",
+    "copied": "Copiado"
   },
   "notes": {
     "label": "Notas",

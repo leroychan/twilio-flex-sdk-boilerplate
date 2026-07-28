@@ -25,7 +25,12 @@
     "other": "Mensahe"
   },
   "info": {
-    "empty": "Walang mga katangian ng gawain"
+    "empty": "Walang mga katangian ng gawain",
+    "viewJson": "Tingnan ang JSON",
+    "payloadTitle": "Payload ng gawain",
+    "close": "Isara",
+    "copy": "Kopyahin",
+    "copied": "Nakopya"
   },
   "notes": {
     "label": "Mga Tala",

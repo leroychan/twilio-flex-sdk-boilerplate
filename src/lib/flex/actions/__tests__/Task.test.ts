@@ -125,6 +125,14 @@ describe('Task action wrappers', () => {
     expect(action.args).toEqual(['WT1', { priority: 'high' }]);
   });
 
+  it('setTaskAttributes forwards mergeExisting when merge is requested', async () => {
+    const execute = vi.fn().mockResolvedValue(undefined);
+    getFlexClient.mockReturnValue({ execute });
+    await setTaskAttributes('WT1', { wrapup_notes: 'x' }, { merge: true });
+    const action = execute.mock.calls[0]![0];
+    expect(action.args).toEqual(['WT1', { wrapup_notes: 'x' }, { mergeExisting: true }]);
+  });
+
   it('throws a client_not_initialized error when there is no client', async () => {
     getFlexClient.mockReturnValue(null);
     await expect(acceptTask('WT1')).rejects.toMatchObject({
