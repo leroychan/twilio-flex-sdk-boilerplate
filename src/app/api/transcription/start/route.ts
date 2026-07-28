@@ -18,7 +18,7 @@ function readEnv() {
 const bool = (v: unknown, envVar: string | undefined, dflt: boolean): boolean =>
   typeof v === 'boolean' ? v : envVar != null ? envVar !== 'false' : dflt;
 const str = (v: unknown, envVar: string | undefined, dflt: string): string =>
-  typeof v === 'string' && v.trim() ? v : envVar && envVar.trim() ? envVar : dflt;
+  typeof v === 'string' ? v : envVar != null ? envVar : dflt;
 
 interface StartBody {
   callSid?: string;
@@ -55,8 +55,9 @@ export async function POST(request: Request): Promise<Response> {
       uniqueName: `session-${callSid}`,
       ttl: 14400,
     });
-  } catch {
-    // stream already exists (409) or transient — publishing tolerates this
+  } catch (err) {
+    if ((err as { status?: number }).status !== 409) throw err;
+    // 409 = stream already exists — idempotent, continue
   }
 
   try {

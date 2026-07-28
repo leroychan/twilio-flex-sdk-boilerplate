@@ -50,7 +50,7 @@ describe('POST /api/transcription/start', () => {
     const res = await POST(req({ callSid: 'CA1' }));
     expect(res.status).toBe(200);
     expect((await res.json()).started).toBe(true);
-    expect(syncStreamsCreate).toHaveBeenCalledWith(expect.objectContaining({ uniqueName: 'session-CA1' }));
+    expect(syncStreamsCreate).toHaveBeenCalledWith(expect.objectContaining({ uniqueName: 'session-CA1', ttl: 14400 }));
     expect(transcriptionsCreate).toHaveBeenCalledWith('CA1', expect.objectContaining({
       track: 'both_tracks',
       inboundTrackLabel: 'customer',
@@ -71,11 +71,36 @@ describe('POST /api/transcription/start', () => {
     }));
   });
 
+  it('body empty-string takes precedence over env for string params (nullish, not falsy)', async () => {
+    setLive();
+    process.env.TRANSCRIPTION_ENGINE = 'deepgram';
+    await POST(req({ callSid: 'CA1', engine: '' }));
+    expect(transcriptionsCreate).toHaveBeenCalledWith('CA1', expect.objectContaining({
+      transcriptionEngine: '', // empty string from body wins; must not fall through to env
+    }));
+  });
+
   it('treats an already-running transcription (409) as started:false, still 200', async () => {
     setLive();
     transcriptionsCreate.mockRejectedValue({ status: 409 });
     const res = await POST(req({ callSid: 'CA1' }));
     expect(res.status).toBe(200);
     expect((await res.json()).started).toBe(false);
+  });
+
+  it('swallows 409 from syncStreams.create (stream already exists) and still starts transcription', async () => {
+    setLive();
+    syncStreamsCreate.mockRejectedValue({ status: 409 });
+    const res = await POST(req({ callSid: 'CA1' }));
+    expect(res.status).toBe(200);
+    expect((await res.json()).started).toBe(true);
+    expect(transcriptionsCreate).toHaveBeenCalled();
+  });
+
+  it('propagates non-409 errors from syncStreams.create (does not silently succeed)', async () => {
+    setLive();
+    syncStreamsCreate.mockRejectedValue({ status: 403, message: 'Forbidden' });
+    await expect(POST(req({ callSid: 'CA1' }))).rejects.toMatchObject({ status: 403 });
+    expect(transcriptionsCreate).not.toHaveBeenCalled();
   });
 });
