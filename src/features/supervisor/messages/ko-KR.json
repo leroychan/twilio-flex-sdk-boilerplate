@@ -1,0 +1,25 @@
+{
+  "title": "수퍼바이저",
+  "workers": {
+    "heading": "상담원",
+    "empty": "표시할 상담원이 없습니다.",
+    "available": "가용",
+    "unavailable": "비가용",
+    "changeActivity": "활동 변경",
+    "attributes": "속성",
+    "saveAttributes": "속성 저장",
+    "invalidJson": "속성은 유효한 JSON이어야 합니다."
+  },
+  "tasks": {
+    "heading": "실시간 작업",
+    "empty": "모니터링할 실시간 작업이 없습니다.",
+    "queue": "대기열",
+    "agent": "상담원"
+  },
+  "controls": {
+    "monitor": "모니터",
+    "coach": "코치",
+    "barge": "끼어들기",
+    "stop": "중지"
+  }
+}

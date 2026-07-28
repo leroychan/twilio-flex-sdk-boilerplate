@@ -1,0 +1,25 @@
+{
+  "title": "Supervisor",
+  "workers": {
+    "heading": "Mga Worker",
+    "empty": "Walang worker na ipapakita.",
+    "available": "Available",
+    "unavailable": "Hindi Available",
+    "changeActivity": "Baguhin ang aktibidad",
+    "attributes": "Mga Katangian",
+    "saveAttributes": "I-save ang mga katangian",
+    "invalidJson": "Ang mga katangian ay dapat valid na JSON."
+  },
+  "tasks": {
+    "heading": "Mga live na gawain",
+    "empty": "Walang live na gawain na susuriin.",
+    "queue": "Queue",
+    "agent": "Agent"
+  },
+  "controls": {
+    "monitor": "Subaybayan",
+    "coach": "Turuan",
+    "barge": "Pumasok",
+    "stop": "Itigil"
+  }
+}

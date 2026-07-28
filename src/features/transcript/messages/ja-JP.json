@@ -1,0 +1,27 @@
+{
+  "title": "リアルタイム文字起こし",
+  "tabs": { "transcript": "リアルタイム文字起こし", "crm": "CRM" },
+  "status": { "live": "ライブ", "waiting": "接続中" },
+  "empty": {
+    "noCall": "アクティブな通話はありません。",
+    "notConfigured": "ライブ文字起こしが設定されていません。",
+    "notConfiguredHint": "TWILIO_SYNC_SERVICE_SID を設定し、文字起こしを有効にして通話ごとの Sync ストリームに結果をストリーミングしてください。",
+    "waiting": "文字起こしを待機中…"
+  },
+  "speaker": {
+    "agent": "エージェント",
+    "customer": "顧客",
+    "other": "話者"
+  },
+  "settings": {
+    "title": "文字起こし",
+    "enabled": "ライブ文字起こしを有効化",
+    "language": "言語",
+    "engine": "エンジン",
+    "speechModel": "音声モデル",
+    "partialResults": "部分的な結果（中間）",
+    "profanityFilter": "不適切語フィルター",
+    "punctuation": "自動句読点",
+    "hints": "ヒント（カンマ区切り）"
+  }
+}

@@ -50,9 +50,9 @@ describe('loadMessages', () => {
     expect(m.voice).toBeUndefined();
   });
 
-  it('loads the real committed shell catalogs for en and es', () => {
+  it('loads the real committed shell catalogs for en and es-ES', () => {
     const en = loadMessages('en');
-    const es = loadMessages('es');
+    const es = loadMessages('es-ES');
     expect((en.common!.app as { title: string }).title).toBe('Twilio Flex SDK Boilerplate');
     expect((es.common!.app as { title: string }).title).toBe('Plantilla del SDK de Twilio Flex');
   });

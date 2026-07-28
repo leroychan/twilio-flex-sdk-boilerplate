@@ -1,0 +1,27 @@
+{
+  "title": "实时转写",
+  "tabs": { "transcript": "实时转写", "crm": "CRM" },
+  "status": { "live": "实时", "waiting": "连接中" },
+  "empty": {
+    "noCall": "暂无活跃通话。",
+    "notConfigured": "实时转写未配置。",
+    "notConfiguredHint": "请设置 TWILIO_SYNC_SERVICE_SID 并启用转写，以将结果流式传输至通话对应的 Sync 流。",
+    "waiting": "等待转写…"
+  },
+  "speaker": {
+    "agent": "坐席",
+    "customer": "客户",
+    "other": "发言者"
+  },
+  "settings": {
+    "title": "转写",
+    "enabled": "启用实时转写",
+    "language": "语言",
+    "engine": "引擎",
+    "speechModel": "语音模型",
+    "partialResults": "部分（中间）结果",
+    "profanityFilter": "敏感词过滤",
+    "punctuation": "自动标点",
+    "hints": "提示词（逗号分隔）"
+  }
+}

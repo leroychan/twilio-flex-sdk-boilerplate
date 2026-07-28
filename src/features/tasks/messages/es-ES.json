@@ -1,0 +1,59 @@
+{
+  "empty": "No hay tareas activas",
+  "listLabel": "Lista de tareas",
+  "elapsed": "Tiempo transcurrido",
+  "accept": "Aceptar",
+  "reject": "Rechazar",
+  "wrapUp": "Finalizar",
+  "complete": "Completar",
+  "incomingCall": "Llamada entrante…",
+  "incomingChat": "Solicitud de chat entrante",
+  "liveVoice": "Llamada en curso",
+  "liveChat": "Chat en vivo",
+  "wrapEnded": "Llamada finalizada — completa para cerrar",
+  "unknownCaller": "Llamante desconocido",
+  "acceptHintVoice": "Revisar la información del cliente no contestará la llamada. Acepta para conectar.",
+  "acceptHintChat": "Revisar la información del cliente no unirá al chat. Acepta para iniciar la conversación.",
+  "channel": {
+    "voice": "Voz",
+    "whatsapp": "WhatsApp",
+    "sms": "SMS",
+    "messenger": "Messenger",
+    "chat": "Chat",
+    "web": "Chat web",
+    "email": "Correo electrónico",
+    "other": "Mensaje"
+  },
+  "info": {
+    "empty": "No hay atributos de tarea"
+  },
+  "notes": {
+    "label": "Notas",
+    "placeholder": "Añade notas sobre esta tarea…",
+    "saved": "Guardado"
+  },
+  "wrapUpForm": {
+    "title": "Finalizar",
+    "dispositionLabel": "Disposición",
+    "notesLabel": "Notas de cierre",
+    "notesPlaceholder": "Resume el resultado…",
+    "complete": "Completar",
+    "completing": "Completando…",
+    "disposition": {
+      "resolved": "Resuelto",
+      "unresolved": "Sin resolver",
+      "callback": "Devolución programada",
+      "other": "Otro"
+    }
+  },
+  "status": {
+    "pending": "Pendiente",
+    "accepted": "Aceptado",
+    "wrapping": "Cerrando",
+    "completed": "Completado",
+    "rejected": "Rechazado",
+    "canceled": "Cancelado",
+    "rescinded": "Revocado",
+    "timeout": "Tiempo agotado"
+  }
+}

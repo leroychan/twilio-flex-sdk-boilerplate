@@ -1,0 +1,59 @@
+{
+  "empty": "कोई सक्रिय कार्य नहीं",
+  "listLabel": "कार्य सूची",
+  "elapsed": "बीता हुआ समय",
+  "accept": "स्वीकार करें",
+  "reject": "अस्वीकार करें",
+  "wrapUp": "रैप अप",
+  "complete": "पूर्ण करें",
+  "incomingCall": "आने वाली कॉल…",
+  "incomingChat": "आने वाली चैट अनुरोध",
+  "liveVoice": "लाइव कॉल",
+  "liveChat": "लाइव चैट",
+  "wrapEnded": "कॉल समाप्त — समाप्त करने के लिए पूर्ण करें",
+  "unknownCaller": "अज्ञात कॉलर",
+  "acceptHintVoice": "ग्राहक जानकारी देखने से कॉल स्वीकार नहीं होगी। कनेक्ट करने के लिए स्वीकार करें।",
+  "acceptHintChat": "ग्राहक जानकारी देखने से चैट में शामिल नहीं होंगे। बातचीत शुरू करने के लिए स्वीकार करें।",
+  "channel": {
+    "voice": "वॉइस",
+    "whatsapp": "WhatsApp",
+    "sms": "SMS",
+    "messenger": "Messenger",
+    "chat": "चैट",
+    "web": "वेब चैट",
+    "email": "ईमेल",
+    "other": "संदेश"
+  },
+  "info": {
+    "empty": "कोई कार्य विशेषता नहीं"
+  },
+  "notes": {
+    "label": "नोट्स",
+    "placeholder": "इस कार्य के बारे में नोट जोड़ें…",
+    "saved": "सहेजा गया"
+  },
+  "wrapUpForm": {
+    "title": "रैप अप",
+    "dispositionLabel": "डिस्पोज़िशन",
+    "notesLabel": "रैप-अप नोट्स",
+    "notesPlaceholder": "परिणाम का सारांश लिखें…",
+    "complete": "पूर्ण करें",
+    "completing": "पूर्ण हो रहा है…",
+    "disposition": {
+      "resolved": "समाधान हुआ",
+      "unresolved": "अनसुलझा",
+      "callback": "कॉलबैक निर्धारित",
+      "other": "अन्य"
+    }
+  },
+  "status": {
+    "pending": "लंबित",
+    "accepted": "स्वीकृत",
+    "wrapping": "रैप अप हो रहा है",
+    "completed": "पूर्ण",
+    "rejected": "अस्वीकृत",
+    "canceled": "रद्द",
+    "rescinded": "वापस लिया गया",
+    "timeout": "समय समाप्त"
+  }
+}

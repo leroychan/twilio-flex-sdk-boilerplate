@@ -1,0 +1,38 @@
+{
+  "title": "登入 Flex",
+  "subtitle": "驗證身份以開始您的客服工作階段。",
+  "demoMode": "以示範模式繼續",
+  "ssoSignIn": "以 SSO 登入",
+  "identityLabel": "客服專員身份",
+  "usernameLabel": "Flex 用戶名稱",
+  "usernamePlaceholder": "您的 Flex 用戶名稱",
+  "signingIn": "登入中…",
+  "signIn": "登入",
+  "error": "登入失敗。請重試。",
+  "errors": {
+    "userNotFound": "找不到使用該用戶名稱的 Flex 用戶。",
+    "usernameRequired": "請輸入您的 Flex 用戶名稱。"
+  },
+  "desktop": {
+    "dial": "撥號",
+    "signOut": "登出",
+    "noSelection": "選擇工作以查看詳細資訊。",
+    "voiceIncoming": "來電 — 接受以連線。",
+    "voiceConnecting": "連接通話中…",
+    "voiceWrapping": "通話已結束 — 完成以結案。",
+    "chatIncoming": "收到對話 — 接受以連線。",
+    "chatWrapping": "對話已結束 — 完成以結案。"
+  },
+  "rail": {
+    "label": "主導覽",
+    "desktop": "客服桌面",
+    "teams": "團隊",
+    "dialpad": "撥號盤",
+    "queues": "佇列統計"
+  },
+  "workspace": {
+    "tabs": { "call": "通話", "conversation": "對話", "notes": "備註", "info": "資訊" },
+    "views": "工作檢視",
+    "status": { "incoming": "來電", "live": "進行中", "wrapping": "結案中", "connecting": "連接中" }
+  }
+}

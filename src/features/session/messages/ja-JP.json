@@ -1,0 +1,38 @@
+{
+  "title": "Flex にサインイン",
+  "subtitle": "エージェントセッションを開始するには認証してください。",
+  "demoMode": "デモモードで続ける",
+  "ssoSignIn": "SSO でサインイン",
+  "identityLabel": "エージェント ID",
+  "usernameLabel": "Flex ユーザー名",
+  "usernamePlaceholder": "Flex ユーザー名を入力",
+  "signingIn": "サインイン中…",
+  "signIn": "サインイン",
+  "error": "サインインに失敗しました。もう一度お試しください。",
+  "errors": {
+    "userNotFound": "そのユーザー名の Flex ユーザーが見つかりません。",
+    "usernameRequired": "Flex ユーザー名を入力してください。"
+  },
+  "desktop": {
+    "dial": "発信",
+    "signOut": "サインアウト",
+    "noSelection": "タスクを選択して詳細を表示。",
+    "voiceIncoming": "着信中 — 応答して接続してください。",
+    "voiceConnecting": "通話に接続中…",
+    "voiceWrapping": "通話終了 — 完了してください。",
+    "chatIncoming": "着信会話 — 応答して接続してください。",
+    "chatWrapping": "会話終了 — 完了してください。"
+  },
+  "rail": {
+    "label": "メインナビゲーション",
+    "desktop": "エージェントデスクトップ",
+    "teams": "チーム",
+    "dialpad": "ダイヤルパッド",
+    "queues": "キュー統計"
+  },
+  "workspace": {
+    "tabs": { "call": "通話", "conversation": "会話", "notes": "メモ", "info": "情報" },
+    "views": "タスクビュー",
+    "status": { "incoming": "着信中", "live": "対応中", "wrapping": "後処理", "connecting": "接続中" }
+  }
+}

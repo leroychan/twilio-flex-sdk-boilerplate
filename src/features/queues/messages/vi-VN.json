@@ -1,0 +1,17 @@
+{
+  "title": "Thống kê hàng đợi",
+  "subtitle": "Giám sát hàng đợi TaskRouter theo thời gian thực",
+  "notConfigured": "Thống kê hàng đợi yêu cầu thông tin xác thực tài khoản Twilio (TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_WORKSPACE_SID).",
+  "error": "Không tải được thống kê hàng đợi",
+  "empty": "Không tìm thấy hàng đợi nào",
+  "updatedAt": "Cập nhật {time}",
+  "columns": {
+    "queue": "Hàng đợi",
+    "waiting": "Chờ",
+    "active": "Đang hoạt động",
+    "longestWait": "Chờ lâu nhất",
+    "available": "Sẵn sàng",
+    "eligible": "Đủ điều kiện",
+    "avgWait": "Chờ TB (30m)"
+  }
+}

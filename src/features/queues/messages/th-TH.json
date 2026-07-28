@@ -1,0 +1,17 @@
+{
+  "title": "สถิติคิว",
+  "subtitle": "การตรวจสอบคิว TaskRouter แบบเรียลไทม์",
+  "notConfigured": "สถิติคิวต้องใช้ข้อมูลรับรองบัญชี Twilio (TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_WORKSPACE_SID)",
+  "error": "โหลดสถิติคิวไม่สำเร็จ",
+  "empty": "ไม่พบคิว",
+  "updatedAt": "อัปเดตเมื่อ {time}",
+  "columns": {
+    "queue": "คิว",
+    "waiting": "รอ",
+    "active": "ใช้งาน",
+    "longestWait": "รอนานที่สุด",
+    "available": "ว่าง",
+    "eligible": "มีสิทธิ์",
+    "avgWait": "เวลารอเฉลี่ย (30 นาที)"
+  }
+}

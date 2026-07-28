@@ -1,0 +1,25 @@
+{
+  "title": "पर्यवेक्षक",
+  "workers": {
+    "heading": "कार्यकर्ता",
+    "empty": "प्रदर्शित करने के लिए कोई कार्यकर्ता नहीं।",
+    "available": "उपलब्ध",
+    "unavailable": "अनुपलब्ध",
+    "changeActivity": "गतिविधि बदलें",
+    "attributes": "विशेषताएँ",
+    "saveAttributes": "विशेषताएँ सहेजें",
+    "invalidJson": "विशेषताएँ वैध JSON होनी चाहिए।"
+  },
+  "tasks": {
+    "heading": "लाइव कार्य",
+    "empty": "निगरानी के लिए कोई लाइव कार्य नहीं।",
+    "queue": "कतार",
+    "agent": "एजेंट"
+  },
+  "controls": {
+    "monitor": "मॉनिटर",
+    "coach": "कोच",
+    "barge": "बार्ज",
+    "stop": "रोकें"
+  }
+}

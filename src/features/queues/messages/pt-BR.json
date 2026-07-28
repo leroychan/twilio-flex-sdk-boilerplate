@@ -1,0 +1,17 @@
+{
+  "title": "Estatísticas de Filas",
+  "subtitle": "Monitoramento em tempo real de filas do TaskRouter",
+  "notConfigured": "As estatísticas de fila exigem credenciais da conta Twilio (TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_WORKSPACE_SID).",
+  "error": "Falha ao carregar estatísticas de fila",
+  "empty": "Nenhuma fila encontrada",
+  "updatedAt": "Atualizado {time}",
+  "columns": {
+    "queue": "Fila",
+    "waiting": "Aguardando",
+    "active": "Ativo",
+    "longestWait": "Maior Espera",
+    "available": "Disponível",
+    "eligible": "Elegível",
+    "avgWait": "Espera Média (30m)"
+  }
+}

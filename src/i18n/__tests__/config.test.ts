@@ -4,7 +4,8 @@ import { isLocale, locales, defaultLocale, LOCALE_COOKIE } from '../config';
 describe('locale config', () => {
   it('recognises supported locales', () => {
     expect(isLocale('en')).toBe(true);
-    expect(isLocale('es')).toBe(true);
+    expect(isLocale('es-ES')).toBe(true);
+    expect(isLocale('zh-CN')).toBe(true);
   });
 
   it('rejects unsupported values and non-strings', () => {

@@ -1,0 +1,25 @@
+{
+  "title": "Supervisor",
+  "workers": {
+    "heading": "Trabajadores",
+    "empty": "No hay trabajadores que mostrar.",
+    "available": "Disponible",
+    "unavailable": "No disponible",
+    "changeActivity": "Cambiar actividad",
+    "attributes": "Atributos",
+    "saveAttributes": "Guardar atributos",
+    "invalidJson": "Los atributos deben ser JSON válido."
+  },
+  "tasks": {
+    "heading": "Tareas en vivo",
+    "empty": "No hay tareas en vivo para monitorizar.",
+    "queue": "Cola",
+    "agent": "Agente"
+  },
+  "controls": {
+    "monitor": "Monitorizar",
+    "coach": "Asesorar",
+    "barge": "Intervenir",
+    "stop": "Detener"
+  }
+}

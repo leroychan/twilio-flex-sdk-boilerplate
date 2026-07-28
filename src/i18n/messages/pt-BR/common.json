@@ -1,16 +1,16 @@
 {
   "app": {
     "title": "Twilio Flex SDK Boilerplate",
-    "subtitle": "Next.js + TypeScript agent desktop foundation."
+    "subtitle": "Base de agent desktop Next.js + TypeScript."
   },
   "buttons": {
-    "primary": "Primary",
-    "secondary": "Secondary",
-    "danger": "Danger"
+    "primary": "Primário",
+    "secondary": "Secundário",
+    "danger": "Perigo"
   },
-  "close": "Close",
+  "close": "Fechar",
   "localeSwitcher": {
-    "label": "Select language",
+    "label": "Selecionar idioma",
     "locale": {
       "en": "English",
       "zh-CN": "中文 (简体)",

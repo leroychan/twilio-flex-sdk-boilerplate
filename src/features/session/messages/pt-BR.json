@@ -1,0 +1,38 @@
+{
+  "title": "Entrar no Flex",
+  "subtitle": "Autentique-se para iniciar sua sessão de agente.",
+  "demoMode": "Continuar no modo de demonstração",
+  "ssoSignIn": "Entrar com SSO",
+  "identityLabel": "Identidade do agente",
+  "usernameLabel": "Nome de usuário do Flex",
+  "usernamePlaceholder": "Seu nome de usuário do Flex",
+  "signingIn": "Entrando…",
+  "signIn": "Entrar",
+  "error": "Falha no login. Tente novamente.",
+  "errors": {
+    "userNotFound": "Nenhum usuário Flex encontrado com esse nome de usuário.",
+    "usernameRequired": "Informe seu nome de usuário do Flex."
+  },
+  "desktop": {
+    "dial": "Discar",
+    "signOut": "Sair",
+    "noSelection": "Selecione uma tarefa para ver seus detalhes.",
+    "voiceIncoming": "Chamada recebida — aceite para conectar.",
+    "voiceConnecting": "Conectando à chamada…",
+    "voiceWrapping": "Chamada encerrada — finalize para concluir.",
+    "chatIncoming": "Conversa recebida — aceite para conectar.",
+    "chatWrapping": "Conversa encerrada — finalize para concluir."
+  },
+  "rail": {
+    "label": "Navegação principal",
+    "desktop": "Agent Desktop",
+    "teams": "Equipes",
+    "dialpad": "Teclado de discagem",
+    "queues": "Estatísticas de Filas"
+  },
+  "workspace": {
+    "tabs": { "call": "Chamada", "conversation": "Conversa", "notes": "Notas", "info": "Informações" },
+    "views": "Visualizações de tarefa",
+    "status": { "incoming": "Recebida", "live": "Ao vivo", "wrapping": "Finalização", "connecting": "Conectando" }
+  }
+}

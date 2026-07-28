@@ -13,8 +13,8 @@ beforeEach(() => {
 
 describe('setLocale', () => {
   it('persists a supported locale in the NEXT_LOCALE cookie', async () => {
-    await setLocale('es');
-    expect(set).toHaveBeenCalledWith('NEXT_LOCALE', 'es', expect.objectContaining({ path: '/' }));
+    await setLocale('es-ES');
+    expect(set).toHaveBeenCalledWith('NEXT_LOCALE', 'es-ES', expect.objectContaining({ path: '/' }));
   });
 
   it('ignores an unsupported locale', async () => {

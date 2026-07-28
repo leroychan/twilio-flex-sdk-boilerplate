@@ -1,0 +1,59 @@
+{
+  "empty": "Walang aktibong gawain",
+  "listLabel": "Listahan ng gawain",
+  "elapsed": "Lumipas na oras",
+  "accept": "Tanggapin",
+  "reject": "Tanggihan",
+  "wrapUp": "Tapusin",
+  "complete": "Kumpletuhin",
+  "incomingCall": "Papasok na tawag…",
+  "incomingChat": "Papasok na kahilingan sa chat",
+  "liveVoice": "Live na tawag",
+  "liveChat": "Live chat",
+  "wrapEnded": "Natapos ang tawag — kumpletuhin para tapusin",
+  "unknownCaller": "Hindi kilalang tumatawag",
+  "acceptHintVoice": "Ang pagrerepaso ng impormasyon ng customer ay hindi sasagot sa tawag. Tanggapin para kumonekta.",
+  "acceptHintChat": "Ang pagrerepaso ng impormasyon ng customer ay hindi sasali sa chat. Tanggapin para simulan ang usapan.",
+  "channel": {
+    "voice": "Boses",
+    "whatsapp": "WhatsApp",
+    "sms": "SMS",
+    "messenger": "Messenger",
+    "chat": "Chat",
+    "web": "Web Chat",
+    "email": "Email",
+    "other": "Mensahe"
+  },
+  "info": {
+    "empty": "Walang mga katangian ng gawain"
+  },
+  "notes": {
+    "label": "Mga Tala",
+    "placeholder": "Magdagdag ng mga tala tungkol sa gawaing ito…",
+    "saved": "Nai-save"
+  },
+  "wrapUpForm": {
+    "title": "Tapusin",
+    "dispositionLabel": "Disposisyon",
+    "notesLabel": "Mga tala sa wrap-up",
+    "notesPlaceholder": "Ibuod ang resulta…",
+    "complete": "Kumpletuhin",
+    "completing": "Kumukumpleto…",
+    "disposition": {
+      "resolved": "Nalutas",
+      "unresolved": "Hindi nalutas",
+      "callback": "Naka-iskedyul na callback",
+      "other": "Iba pa"
+    }
+  },
+  "status": {
+    "pending": "Nakabinbin",
+    "accepted": "Tinanggap",
+    "wrapping": "Nag-ra-wrap up",
+    "completed": "Nakumpleto",
+    "rejected": "Tinanggihan",
+    "canceled": "Nakansela",
+    "rescinded": "Inalis",
+    "timeout": "Nag-timeout"
+  }
+}

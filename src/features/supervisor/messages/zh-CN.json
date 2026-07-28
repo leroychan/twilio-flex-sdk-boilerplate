@@ -1,0 +1,25 @@
+{
+  "title": "主管",
+  "workers": {
+    "heading": "坐席",
+    "empty": "暂无坐席可显示。",
+    "available": "可用",
+    "unavailable": "不可用",
+    "changeActivity": "更改状态",
+    "attributes": "属性",
+    "saveAttributes": "保存属性",
+    "invalidJson": "属性必须为有效的 JSON。"
+  },
+  "tasks": {
+    "heading": "活跃任务",
+    "empty": "暂无活跃任务可监控。",
+    "queue": "队列",
+    "agent": "坐席"
+  },
+  "controls": {
+    "monitor": "监听",
+    "coach": "辅导",
+    "barge": "强插",
+    "stop": "停止"
+  }
+}

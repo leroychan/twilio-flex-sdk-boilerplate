@@ -1,0 +1,38 @@
+{
+  "title": "對話",
+  "composerPlaceholder": "輸入訊息…",
+  "send": "傳送",
+  "pause": "暫存",
+  "resume": "繼續",
+  "leave": "離開",
+  "transfer": "轉接",
+  "warm": "暖轉",
+  "cold": "冷轉",
+  "online": "在線",
+  "offline": "離線",
+  "conversationFallback": "對話",
+  "pausedTitle": "已暫存對話",
+  "noPaused": "沒有已暫存對話",
+  "templates": "範本",
+  "attach": "附加檔案",
+  "media": {
+    "title": "傳送附件",
+    "choose": "選擇檔案",
+    "send": "傳送",
+    "cancel": "取消",
+    "download": "下載附件",
+    "fileMeta": "{name}（{size} KB）"
+  },
+  "email": {
+    "new": "新電郵",
+    "to": "收件人",
+    "cc": "副本",
+    "subject": "主題",
+    "subjectPrefix": "主題：",
+    "body": "訊息",
+    "send": "傳送電郵",
+    "reply": "回覆",
+    "addParticipant": "新增參與者"
+  },
+  "empty": "沒有進行中的對話"
+}

@@ -1,0 +1,17 @@
+{
+  "title": "कतार आँकड़े",
+  "subtitle": "TaskRouter कतार की रियल-टाइम निगरानी",
+  "notConfigured": "कतार आँकड़ों के लिए Twilio खाता क्रेडेंशियल (TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_WORKSPACE_SID) आवश्यक हैं।",
+  "error": "कतार आँकड़े लोड करने में विफल",
+  "empty": "कोई कतार नहीं मिली",
+  "updatedAt": "{time} को अपडेट किया गया",
+  "columns": {
+    "queue": "कतार",
+    "waiting": "प्रतीक्षा",
+    "active": "सक्रिय",
+    "longestWait": "सबसे लंबी प्रतीक्षा",
+    "available": "उपलब्ध",
+    "eligible": "पात्र",
+    "avgWait": "औसत प्रतीक्षा (30m)"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "empty": "沒有進行中的工作",
+  "listLabel": "工作清單",
+  "elapsed": "已用時間",
+  "accept": "接受",
+  "reject": "拒絕",
+  "wrapUp": "結案",
+  "complete": "完成",
+  "incomingCall": "來電中…",
+  "incomingChat": "收到聊天請求",
+  "liveVoice": "通話中",
+  "liveChat": "聊天中",
+  "wrapEnded": "通話已結束 — 完成以結案",
+  "unknownCaller": "未知來電者",
+  "acceptHintVoice": "查看客戶資訊不會接聽來電。按接受以連線。",
+  "acceptHintChat": "查看客戶資訊不會加入聊天。按接受以開始對話。",
+  "channel": {
+    "voice": "語音",
+    "whatsapp": "WhatsApp",
+    "sms": "SMS",
+    "messenger": "Messenger",
+    "chat": "聊天",
+    "web": "網頁聊天",
+    "email": "電郵",
+    "other": "訊息"
+  },
+  "info": {
+    "empty": "沒有工作屬性"
+  },
+  "notes": {
+    "label": "備註",
+    "placeholder": "新增此工作的備註…",
+    "saved": "已儲存"
+  },
+  "wrapUpForm": {
+    "title": "結案",
+    "dispositionLabel": "處置結果",
+    "notesLabel": "結案備註",
+    "notesPlaceholder": "摘要結果…",
+    "complete": "完成",
+    "completing": "完成中…",
+    "disposition": {
+      "resolved": "已解決",
+      "unresolved": "未解決",
+      "callback": "已安排回電",
+      "other": "其他"
+    }
+  },
+  "status": {
+    "pending": "待處理",
+    "accepted": "已接受",
+    "wrapping": "結案中",
+    "completed": "已完成",
+    "rejected": "已拒絕",
+    "canceled": "已取消",
+    "rescinded": "已撤銷",
+    "timeout": "已逾時"
+  }
+}

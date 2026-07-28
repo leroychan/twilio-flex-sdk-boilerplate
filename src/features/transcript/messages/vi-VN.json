@@ -1,0 +1,27 @@
+{
+  "title": "Phiên âm thời gian thực",
+  "tabs": { "transcript": "Phiên âm thời gian thực", "crm": "CRM" },
+  "status": { "live": "Trực tiếp", "waiting": "Đang kết nối" },
+  "empty": {
+    "noCall": "Không có cuộc gọi đang hoạt động.",
+    "notConfigured": "Phiên âm trực tiếp chưa được cấu hình.",
+    "notConfiguredHint": "Đặt TWILIO_SYNC_SERVICE_SID và bật phiên âm để truyền kết quả vào luồng Sync theo cuộc gọi.",
+    "waiting": "Đang chờ phiên âm…"
+  },
+  "speaker": {
+    "agent": "Tổng đài viên",
+    "customer": "Khách hàng",
+    "other": "Người nói"
+  },
+  "settings": {
+    "title": "Phiên âm",
+    "enabled": "Bật phiên âm trực tiếp",
+    "language": "Ngôn ngữ",
+    "engine": "Công cụ",
+    "speechModel": "Mô hình giọng nói",
+    "partialResults": "Kết quả tạm thời",
+    "profanityFilter": "Bộ lọc ngôn ngữ thô tục",
+    "punctuation": "Dấu câu tự động",
+    "hints": "Gợi ý (cách nhau bằng dấu phẩy)"
+  }
+}

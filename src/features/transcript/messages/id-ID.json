@@ -1,0 +1,27 @@
+{
+  "title": "Transkripsi real-time",
+  "tabs": { "transcript": "Transkripsi real-time", "crm": "CRM" },
+  "status": { "live": "Langsung", "waiting": "Menghubungkan" },
+  "empty": {
+    "noCall": "Tidak ada panggilan aktif.",
+    "notConfigured": "Transkripsi langsung belum dikonfigurasi.",
+    "notConfiguredHint": "Atur TWILIO_SYNC_SERVICE_SID dan aktifkan transkripsi untuk mengalirkan hasil ke Sync stream per panggilan.",
+    "waiting": "Menunggu transkripsi…"
+  },
+  "speaker": {
+    "agent": "Agen",
+    "customer": "Pelanggan",
+    "other": "Pembicara"
+  },
+  "settings": {
+    "title": "Transkripsi",
+    "enabled": "Aktifkan transkripsi langsung",
+    "language": "Bahasa",
+    "engine": "Mesin",
+    "speechModel": "Model ucapan",
+    "partialResults": "Hasil parsial (sementara)",
+    "profanityFilter": "Filter kata kasar",
+    "punctuation": "Tanda baca otomatis",
+    "hints": "Petunjuk (pisahkan dengan koma)"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "title": "Conversas",
+  "composerPlaceholder": "Digite uma mensagem…",
+  "send": "Enviar",
+  "pause": "Estacionar",
+  "resume": "Retomar",
+  "leave": "Sair",
+  "transfer": "Transferir",
+  "warm": "Consulta",
+  "cold": "Direto",
+  "online": "Online",
+  "offline": "Offline",
+  "conversationFallback": "Conversa",
+  "pausedTitle": "Conversas estacionadas",
+  "noPaused": "Nenhuma conversa estacionada",
+  "templates": "Modelos",
+  "attach": "Anexar arquivo",
+  "media": {
+    "title": "Enviar anexo",
+    "choose": "Escolher arquivo",
+    "send": "Enviar",
+    "cancel": "Cancelar",
+    "download": "Baixar anexo",
+    "fileMeta": "{name} ({size} KB)"
+  },
+  "email": {
+    "new": "Novo e-mail",
+    "to": "Para",
+    "cc": "Cc",
+    "subject": "Assunto",
+    "subjectPrefix": "Assunto: ",
+    "body": "Mensagem",
+    "send": "Enviar e-mail",
+    "reply": "Responder",
+    "addParticipant": "Adicionar participante"
+  },
+  "empty": "Nenhuma conversa ativa"
+}

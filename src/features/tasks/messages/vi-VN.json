@@ -1,0 +1,59 @@
+{
+  "empty": "Không có tác vụ đang hoạt động",
+  "listLabel": "Danh sách tác vụ",
+  "elapsed": "Thời gian đã trôi qua",
+  "accept": "Chấp nhận",
+  "reject": "Từ chối",
+  "wrapUp": "Kết thúc",
+  "complete": "Hoàn tất",
+  "incomingCall": "Cuộc gọi đến…",
+  "incomingChat": "Yêu cầu trò chuyện đến",
+  "liveVoice": "Cuộc gọi trực tiếp",
+  "liveChat": "Trò chuyện trực tiếp",
+  "wrapEnded": "Cuộc gọi đã kết thúc — hoàn tất để đóng",
+  "unknownCaller": "Người gọi không xác định",
+  "acceptHintVoice": "Xem thông tin khách hàng sẽ không trả lời cuộc gọi. Chấp nhận để kết nối.",
+  "acceptHintChat": "Xem thông tin khách hàng sẽ không tham gia trò chuyện. Chấp nhận để bắt đầu hội thoại.",
+  "channel": {
+    "voice": "Thoại",
+    "whatsapp": "WhatsApp",
+    "sms": "SMS",
+    "messenger": "Messenger",
+    "chat": "Trò chuyện",
+    "web": "Trò chuyện Web",
+    "email": "Email",
+    "other": "Tin nhắn"
+  },
+  "info": {
+    "empty": "Không có thuộc tính tác vụ"
+  },
+  "notes": {
+    "label": "Ghi chú",
+    "placeholder": "Thêm ghi chú về tác vụ này…",
+    "saved": "Đã lưu"
+  },
+  "wrapUpForm": {
+    "title": "Kết thúc",
+    "dispositionLabel": "Phân loại",
+    "notesLabel": "Ghi chú kết thúc",
+    "notesPlaceholder": "Tóm tắt kết quả…",
+    "complete": "Hoàn tất",
+    "completing": "Đang hoàn tất…",
+    "disposition": {
+      "resolved": "Đã giải quyết",
+      "unresolved": "Chưa giải quyết",
+      "callback": "Đã lên lịch gọi lại",
+      "other": "Khác"
+    }
+  },
+  "status": {
+    "pending": "Đang chờ",
+    "accepted": "Đã chấp nhận",
+    "wrapping": "Đang kết thúc",
+    "completed": "Đã hoàn tất",
+    "rejected": "Đã từ chối",
+    "canceled": "Đã hủy",
+    "rescinded": "Đã rút lại",
+    "timeout": "Hết thời gian"
+  }
+}

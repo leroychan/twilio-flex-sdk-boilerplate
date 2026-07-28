@@ -1,0 +1,38 @@
+{
+  "title": "การสนทนา",
+  "composerPlaceholder": "พิมพ์ข้อความ…",
+  "send": "ส่ง",
+  "pause": "พัก",
+  "resume": "ดำเนินการต่อ",
+  "leave": "ออก",
+  "transfer": "โอน",
+  "warm": "แบบอุ่น",
+  "cold": "แบบเย็น",
+  "online": "ออนไลน์",
+  "offline": "ออฟไลน์",
+  "conversationFallback": "การสนทนา",
+  "pausedTitle": "การสนทนาที่พัก",
+  "noPaused": "ไม่มีการสนทนาที่พัก",
+  "templates": "เทมเพลต",
+  "attach": "แนบไฟล์",
+  "media": {
+    "title": "ส่งไฟล์แนบ",
+    "choose": "เลือกไฟล์",
+    "send": "ส่ง",
+    "cancel": "ยกเลิก",
+    "download": "ดาวน์โหลดไฟล์แนบ",
+    "fileMeta": "{name} ({size} KB)"
+  },
+  "email": {
+    "new": "อีเมลใหม่",
+    "to": "ถึง",
+    "cc": "Cc",
+    "subject": "หัวเรื่อง",
+    "subjectPrefix": "หัวเรื่อง: ",
+    "body": "ข้อความ",
+    "send": "ส่งอีเมล",
+    "reply": "ตอบกลับ",
+    "addParticipant": "เพิ่มผู้เข้าร่วม"
+  },
+  "empty": "ไม่มีการสนทนาที่ใช้งาน"
+}

@@ -1,0 +1,17 @@
+{
+  "title": "キュー統計",
+  "subtitle": "TaskRouter キューのリアルタイム監視",
+  "notConfigured": "キュー統計には Twilio アカウント資格情報 (TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_WORKSPACE_SID) が必要です。",
+  "error": "キュー統計の読み込みに失敗しました",
+  "empty": "キューが見つかりません",
+  "updatedAt": "{time} に更新",
+  "columns": {
+    "queue": "キュー",
+    "waiting": "待機中",
+    "active": "対応中",
+    "longestWait": "最長待機",
+    "available": "対応可能",
+    "eligible": "対象",
+    "avgWait": "平均待機 (30分)"
+  }
+}

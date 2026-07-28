@@ -1,0 +1,17 @@
+{
+  "title": "Estadistika ng Queue",
+  "subtitle": "Real-time na pagsubaybay ng TaskRouter queue",
+  "notConfigured": "Nangangailangan ang queue stats ng mga kredensyal ng Twilio account (TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_WORKSPACE_SID).",
+  "error": "Nabigo ang pag-load ng queue stats",
+  "empty": "Walang nahanap na queue",
+  "updatedAt": "Na-update noong {time}",
+  "columns": {
+    "queue": "Queue",
+    "waiting": "Naghihintay",
+    "active": "Aktibo",
+    "longestWait": "Pinakamahabang Paghihintay",
+    "available": "Available",
+    "eligible": "Kwalipikado",
+    "avgWait": "Avg na Paghihintay (30m)"
+  }
+}

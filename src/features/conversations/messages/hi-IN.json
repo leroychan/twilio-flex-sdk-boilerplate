@@ -1,0 +1,38 @@
+{
+  "title": "बातचीत",
+  "composerPlaceholder": "संदेश लिखें…",
+  "send": "भेजें",
+  "pause": "पार्क",
+  "resume": "जारी रखें",
+  "leave": "छोड़ें",
+  "transfer": "स्थानांतरित करें",
+  "warm": "वॉर्म",
+  "cold": "कोल्ड",
+  "online": "ऑनलाइन",
+  "offline": "ऑफलाइन",
+  "conversationFallback": "बातचीत",
+  "pausedTitle": "पार्क की गई बातचीत",
+  "noPaused": "कोई पार्क बातचीत नहीं",
+  "templates": "टेम्पलेट",
+  "attach": "फ़ाइल संलग्न करें",
+  "media": {
+    "title": "अटैचमेंट भेजें",
+    "choose": "फ़ाइल चुनें",
+    "send": "भेजें",
+    "cancel": "रद्द करें",
+    "download": "अटैचमेंट डाउनलोड करें",
+    "fileMeta": "{name} ({size} KB)"
+  },
+  "email": {
+    "new": "नया ईमेल",
+    "to": "प्रति",
+    "cc": "Cc",
+    "subject": "विषय",
+    "subjectPrefix": "विषय: ",
+    "body": "संदेश",
+    "send": "ईमेल भेजें",
+    "reply": "उत्तर दें",
+    "addParticipant": "प्रतिभागी जोड़ें"
+  },
+  "empty": "कोई सक्रिय बातचीत नहीं"
+}

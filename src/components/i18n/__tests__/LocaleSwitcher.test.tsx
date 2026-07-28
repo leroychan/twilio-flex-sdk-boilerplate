@@ -13,7 +13,20 @@ const messages = {
   common: {
     localeSwitcher: {
       label: 'Select language',
-      locale: { en: 'English', es: 'Español' },
+      locale: {
+        en: 'English',
+        'zh-CN': '中文 (简体)',
+        'zh-HK': '中文 (繁體)',
+        'ja-JP': '日本語',
+        'ko-KR': '한국어',
+        'es-ES': 'Español',
+        'hi-IN': 'हिन्दी',
+        'id-ID': 'Bahasa Indonesia',
+        'pt-BR': 'Português',
+        'th-TH': 'ภาษาไทย',
+        'vi-VN': 'Tiếng Việt',
+        'tl-PH': 'Filipino',
+      },
     },
   },
 };
@@ -32,20 +45,21 @@ describe('LocaleSwitcher', () => {
     vi.mocked(setLocale).mockClear();
   });
 
-  it('renders a labelled selector listing both locales', () => {
+  it('renders a labelled selector listing the supported locales', () => {
     renderSwitcher();
     expect(screen.getByRole('combobox', { name: 'Select language' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'English' })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: 'Español' })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: '日本語' })).toBeInTheDocument();
   });
 
   it('persists the chosen locale and refreshes without a full reload', async () => {
     renderSwitcher();
     await userEvent.selectOptions(
       screen.getByRole('combobox', { name: 'Select language' }),
-      'es',
+      'es-ES',
     );
-    expect(setLocale).toHaveBeenCalledWith('es');
+    expect(setLocale).toHaveBeenCalledWith('es-ES');
     await waitFor(() => expect(refresh).toHaveBeenCalledOnce());
   });
 });

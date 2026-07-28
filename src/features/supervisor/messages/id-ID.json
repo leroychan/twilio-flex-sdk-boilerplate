@@ -1,0 +1,25 @@
+{
+  "title": "Supervisor",
+  "workers": {
+    "heading": "Pekerja",
+    "empty": "Tidak ada pekerja untuk ditampilkan.",
+    "available": "Tersedia",
+    "unavailable": "Tidak tersedia",
+    "changeActivity": "Ubah aktivitas",
+    "attributes": "Atribut",
+    "saveAttributes": "Simpan atribut",
+    "invalidJson": "Atribut harus berupa JSON yang valid."
+  },
+  "tasks": {
+    "heading": "Tugas aktif",
+    "empty": "Tidak ada tugas aktif untuk dipantau.",
+    "queue": "Antrean",
+    "agent": "Agen"
+  },
+  "controls": {
+    "monitor": "Pantau",
+    "coach": "Bimbing",
+    "barge": "Intervensi",
+    "stop": "Hentikan"
+  }
+}

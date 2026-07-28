@@ -1,0 +1,38 @@
+{
+  "title": "대화",
+  "composerPlaceholder": "메시지를 입력하세요…",
+  "send": "보내기",
+  "pause": "보류",
+  "resume": "재개",
+  "leave": "나가기",
+  "transfer": "전환",
+  "warm": "웜",
+  "cold": "콜드",
+  "online": "온라인",
+  "offline": "오프라인",
+  "conversationFallback": "대화",
+  "pausedTitle": "보류 중인 대화",
+  "noPaused": "보류 중인 대화 없음",
+  "templates": "템플릿",
+  "attach": "파일 첨부",
+  "media": {
+    "title": "첨부 파일 전송",
+    "choose": "파일 선택",
+    "send": "보내기",
+    "cancel": "취소",
+    "download": "첨부 파일 다운로드",
+    "fileMeta": "{name} ({size} KB)"
+  },
+  "email": {
+    "new": "새 이메일",
+    "to": "받는 사람",
+    "cc": "참조",
+    "subject": "제목",
+    "subjectPrefix": "제목: ",
+    "body": "메시지",
+    "send": "이메일 보내기",
+    "reply": "답장",
+    "addParticipant": "참가자 추가"
+  },
+  "empty": "활성 대화 없음"
+}

@@ -1,0 +1,27 @@
+{
+  "title": "Real-time na transcription",
+  "tabs": { "transcript": "Real-time na transcription", "crm": "CRM" },
+  "status": { "live": "Live", "waiting": "Kumokonekta" },
+  "empty": {
+    "noCall": "Walang aktibong tawag.",
+    "notConfigured": "Hindi naka-configure ang live transcript.",
+    "notConfiguredHint": "Itakda ang TWILIO_SYNC_SERVICE_SID at paganahin ang transcription para i-stream ang mga resulta sa bawat Sync stream ng tawag.",
+    "waiting": "Naghihintay ng transcription…"
+  },
+  "speaker": {
+    "agent": "Agent",
+    "customer": "Customer",
+    "other": "Nagsasalita"
+  },
+  "settings": {
+    "title": "Transcription",
+    "enabled": "Paganahin ang live transcription",
+    "language": "Wika",
+    "engine": "Engine",
+    "speechModel": "Speech model",
+    "partialResults": "Bahagyang (interim) na mga resulta",
+    "profanityFilter": "Filter ng malaswang salita",
+    "punctuation": "Awtomatikong bantas",
+    "hints": "Mga pahiwatig (pinaghiwalay ng kuwit)"
+  }
+}

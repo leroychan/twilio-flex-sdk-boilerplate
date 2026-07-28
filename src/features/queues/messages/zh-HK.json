@@ -1,0 +1,17 @@
+{
+  "title": "佇列統計",
+  "subtitle": "TaskRouter 佇列即時監控",
+  "notConfigured": "佇列統計需要 Twilio 帳戶憑證（TWILIO_ACCOUNT_SID、TWILIO_AUTH_TOKEN、TWILIO_WORKSPACE_SID）。",
+  "error": "載入佇列統計失敗",
+  "empty": "找不到佇列",
+  "updatedAt": "更新於 {time}",
+  "columns": {
+    "queue": "佇列",
+    "waiting": "等待中",
+    "active": "進行中",
+    "longestWait": "最長等待",
+    "available": "可用",
+    "eligible": "符合資格",
+    "avgWait": "平均等待（30分鐘）"
+  }
+}

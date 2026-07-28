@@ -1,0 +1,38 @@
+{
+  "title": "Flex에 로그인",
+  "subtitle": "에이전트 세션을 시작하려면 인증하세요.",
+  "demoMode": "데모 모드로 계속",
+  "ssoSignIn": "SSO로 로그인",
+  "identityLabel": "에이전트 ID",
+  "usernameLabel": "Flex 사용자 이름",
+  "usernamePlaceholder": "Flex 사용자 이름",
+  "signingIn": "로그인 중…",
+  "signIn": "로그인",
+  "error": "로그인에 실패했습니다. 다시 시도하세요.",
+  "errors": {
+    "userNotFound": "해당 사용자 이름으로 Flex 사용자를 찾을 수 없습니다.",
+    "usernameRequired": "Flex 사용자 이름을 입력하세요."
+  },
+  "desktop": {
+    "dial": "전화 걸기",
+    "signOut": "로그아웃",
+    "noSelection": "작업을 선택하면 세부 정보를 볼 수 있습니다.",
+    "voiceIncoming": "수신 전화 — 수락하여 연결하세요.",
+    "voiceConnecting": "통화에 연결 중…",
+    "voiceWrapping": "통화 종료 — 완료하여 마무리하세요.",
+    "chatIncoming": "수신 대화 — 수락하여 연결하세요.",
+    "chatWrapping": "대화 종료 — 완료하여 마무리하세요."
+  },
+  "rail": {
+    "label": "기본 탐색",
+    "desktop": "에이전트 데스크탑",
+    "teams": "팀",
+    "dialpad": "다이얼패드",
+    "queues": "대기열 통계"
+  },
+  "workspace": {
+    "tabs": { "call": "통화", "conversation": "대화", "notes": "메모", "info": "정보" },
+    "views": "작업 보기",
+    "status": { "incoming": "수신 중", "live": "진행 중", "wrapping": "마무리 중", "connecting": "연결 중" }
+  }
+}

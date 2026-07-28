@@ -1,0 +1,27 @@
+{
+  "title": "即時轉錄",
+  "tabs": { "transcript": "即時轉錄", "crm": "CRM" },
+  "status": { "live": "直播中", "waiting": "連接中" },
+  "empty": {
+    "noCall": "沒有進行中的通話。",
+    "notConfigured": "即時轉錄未配置。",
+    "notConfiguredHint": "設定 TWILIO_SYNC_SERVICE_SID 並啟用轉錄，以將結果串流至每通通話的 Sync 串流。",
+    "waiting": "等待轉錄…"
+  },
+  "speaker": {
+    "agent": "客服專員",
+    "customer": "客戶",
+    "other": "說話者"
+  },
+  "settings": {
+    "title": "轉錄",
+    "enabled": "啟用即時轉錄",
+    "language": "語言",
+    "engine": "引擎",
+    "speechModel": "語音模型",
+    "partialResults": "部分（臨時）結果",
+    "profanityFilter": "不雅用語過濾",
+    "punctuation": "自動標點符號",
+    "hints": "提示（以逗號分隔）"
+  }
+}

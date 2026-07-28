@@ -1,0 +1,38 @@
+{
+  "title": "Percakapan",
+  "composerPlaceholder": "Ketik pesan…",
+  "send": "Kirim",
+  "pause": "Parkir",
+  "resume": "Lanjutkan",
+  "leave": "Tinggalkan",
+  "transfer": "Transfer",
+  "warm": "Warm",
+  "cold": "Cold",
+  "online": "Online",
+  "offline": "Offline",
+  "conversationFallback": "Percakapan",
+  "pausedTitle": "Percakapan diparkir",
+  "noPaused": "Tidak ada percakapan diparkir",
+  "templates": "Templat",
+  "attach": "Lampirkan file",
+  "media": {
+    "title": "Kirim lampiran",
+    "choose": "Pilih file",
+    "send": "Kirim",
+    "cancel": "Batal",
+    "download": "Unduh lampiran",
+    "fileMeta": "{name} ({size} KB)"
+  },
+  "email": {
+    "new": "Email baru",
+    "to": "Kepada",
+    "cc": "Cc",
+    "subject": "Subjek",
+    "subjectPrefix": "Subjek: ",
+    "body": "Pesan",
+    "send": "Kirim email",
+    "reply": "Balas",
+    "addParticipant": "Tambah peserta"
+  },
+  "empty": "Tidak ada percakapan aktif"
+}

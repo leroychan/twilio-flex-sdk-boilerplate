@@ -1,0 +1,59 @@
+{
+  "empty": "ไม่มีงานที่ใช้งาน",
+  "listLabel": "รายการงาน",
+  "elapsed": "เวลาที่ผ่านไป",
+  "accept": "รับ",
+  "reject": "ปฏิเสธ",
+  "wrapUp": "สรุปงาน",
+  "complete": "เสร็จสิ้น",
+  "incomingCall": "สายเรียกเข้า…",
+  "incomingChat": "คำขอสนทนาเรียกเข้า",
+  "liveVoice": "สายดำเนินอยู่",
+  "liveChat": "แชทดำเนินอยู่",
+  "wrapEnded": "สายสิ้นสุดแล้ว — ดำเนินการให้เสร็จสิ้น",
+  "unknownCaller": "ผู้โทรไม่ทราบชื่อ",
+  "acceptHintVoice": "การตรวจสอบข้อมูลลูกค้าจะไม่รับสาย กด 'รับ' เพื่อเชื่อมต่อ",
+  "acceptHintChat": "การตรวจสอบข้อมูลลูกค้าจะไม่เข้าร่วมแชท กด 'รับ' เพื่อเริ่มการสนทนา",
+  "channel": {
+    "voice": "เสียง",
+    "whatsapp": "WhatsApp",
+    "sms": "SMS",
+    "messenger": "Messenger",
+    "chat": "แชท",
+    "web": "เว็บแชท",
+    "email": "อีเมล",
+    "other": "ข้อความ"
+  },
+  "info": {
+    "empty": "ไม่มีแอตทริบิวต์งาน"
+  },
+  "notes": {
+    "label": "บันทึก",
+    "placeholder": "เพิ่มบันทึกเกี่ยวกับงานนี้…",
+    "saved": "บันทึกแล้ว"
+  },
+  "wrapUpForm": {
+    "title": "สรุปงาน",
+    "dispositionLabel": "ผลลัพธ์",
+    "notesLabel": "บันทึกสรุปงาน",
+    "notesPlaceholder": "สรุปผลลัพธ์…",
+    "complete": "เสร็จสิ้น",
+    "completing": "กำลังดำเนินการ…",
+    "disposition": {
+      "resolved": "แก้ไขแล้ว",
+      "unresolved": "ยังไม่แก้ไข",
+      "callback": "นัดโทรกลับ",
+      "other": "อื่นๆ"
+    }
+  },
+  "status": {
+    "pending": "รอดำเนินการ",
+    "accepted": "รับแล้ว",
+    "wrapping": "กำลังสรุปงาน",
+    "completed": "เสร็จสิ้น",
+    "rejected": "ปฏิเสธแล้ว",
+    "canceled": "ยกเลิกแล้ว",
+    "rescinded": "ถอนคืนแล้ว",
+    "timeout": "หมดเวลา"
+  }
+}

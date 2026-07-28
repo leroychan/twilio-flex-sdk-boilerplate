@@ -1,0 +1,59 @@
+{
+  "empty": "暂无活跃任务",
+  "listLabel": "任务列表",
+  "elapsed": "已用时间",
+  "accept": "接受",
+  "reject": "拒绝",
+  "wrapUp": "收尾",
+  "complete": "完成",
+  "incomingCall": "来电…",
+  "incomingChat": "来话请求",
+  "liveVoice": "通话中",
+  "liveChat": "聊天中",
+  "wrapEnded": "通话已结束 — 完成以结束任务",
+  "unknownCaller": "未知来电",
+  "acceptHintVoice": "查看客户信息不会接听来电，请接受以接通。",
+  "acceptHintChat": "查看客户信息不会加入聊天，请接受以开始对话。",
+  "channel": {
+    "voice": "语音",
+    "whatsapp": "WhatsApp",
+    "sms": "SMS",
+    "messenger": "Messenger",
+    "chat": "聊天",
+    "web": "网页聊天",
+    "email": "邮件",
+    "other": "消息"
+  },
+  "info": {
+    "empty": "暂无任务属性"
+  },
+  "notes": {
+    "label": "备注",
+    "placeholder": "添加此任务的备注…",
+    "saved": "已保存"
+  },
+  "wrapUpForm": {
+    "title": "收尾",
+    "dispositionLabel": "处置结果",
+    "notesLabel": "收尾备注",
+    "notesPlaceholder": "概述处理结果…",
+    "complete": "完成",
+    "completing": "正在完成…",
+    "disposition": {
+      "resolved": "已解决",
+      "unresolved": "未解决",
+      "callback": "已安排回拨",
+      "other": "其他"
+    }
+  },
+  "status": {
+    "pending": "待处理",
+    "accepted": "已接受",
+    "wrapping": "收尾中",
+    "completed": "已完成",
+    "rejected": "已拒绝",
+    "canceled": "已取消",
+    "rescinded": "已撤销",
+    "timeout": "已超时"
+  }
+}

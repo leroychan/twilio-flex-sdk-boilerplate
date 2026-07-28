@@ -1,0 +1,25 @@
+{
+  "title": "スーパーバイザー",
+  "workers": {
+    "heading": "ワーカー",
+    "empty": "表示するワーカーはありません。",
+    "available": "対応可能",
+    "unavailable": "対応不可",
+    "changeActivity": "アクティビティを変更",
+    "attributes": "属性",
+    "saveAttributes": "属性を保存",
+    "invalidJson": "属性は有効な JSON である必要があります。"
+  },
+  "tasks": {
+    "heading": "ライブタスク",
+    "empty": "監視中のライブタスクはありません。",
+    "queue": "キュー",
+    "agent": "エージェント"
+  },
+  "controls": {
+    "monitor": "モニタリング",
+    "coach": "コーチング",
+    "barge": "割り込み",
+    "stop": "停止"
+  }
+}

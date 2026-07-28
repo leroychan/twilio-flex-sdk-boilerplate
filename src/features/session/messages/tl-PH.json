@@ -1,0 +1,38 @@
+{
+  "title": "Mag-sign in sa Flex",
+  "subtitle": "Mag-authenticate para simulan ang iyong agent session.",
+  "demoMode": "Magpatuloy sa demo mode",
+  "ssoSignIn": "Mag-sign in gamit ang SSO",
+  "identityLabel": "Pagkakakilanlan ng agent",
+  "usernameLabel": "Flex username",
+  "usernamePlaceholder": "Ang iyong Flex username",
+  "signingIn": "Nagsa-sign in…",
+  "signIn": "Mag-sign in",
+  "error": "Nabigo ang pag-sign in. Subukan muli.",
+  "errors": {
+    "userNotFound": "Walang nahanap na Flex user sa username na iyon.",
+    "usernameRequired": "Mangyaring ilagay ang iyong Flex username."
+  },
+  "desktop": {
+    "dial": "I-dial",
+    "signOut": "Mag-sign out",
+    "noSelection": "Pumili ng gawain para makita ang mga detalye nito.",
+    "voiceIncoming": "Papasok na tawag — tanggapin para kumonekta.",
+    "voiceConnecting": "Kumokonekta sa tawag…",
+    "voiceWrapping": "Natapos ang tawag — kumpletuhin para tapusin.",
+    "chatIncoming": "Papasok na usapan — tanggapin para kumonekta.",
+    "chatWrapping": "Natapos ang usapan — kumpletuhin para tapusin."
+  },
+  "rail": {
+    "label": "Pangunahing nabigasyon",
+    "desktop": "Agent Desktop",
+    "teams": "Mga Team",
+    "dialpad": "Dialpad",
+    "queues": "Estadistika ng Queue"
+  },
+  "workspace": {
+    "tabs": { "call": "Tawag", "conversation": "Usapan", "notes": "Mga Tala", "info": "Impormasyon" },
+    "views": "Mga view ng gawain",
+    "status": { "incoming": "Papasok", "live": "Live", "wrapping": "Wrap-up", "connecting": "Kumokonekta" }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "title": "Statistik Antrean",
+  "subtitle": "Pemantauan antrean TaskRouter real-time",
+  "notConfigured": "Statistik antrean memerlukan kredensial akun Twilio (TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_WORKSPACE_SID).",
+  "error": "Gagal memuat statistik antrean",
+  "empty": "Tidak ada antrean ditemukan",
+  "updatedAt": "Diperbarui {time}",
+  "columns": {
+    "queue": "Antrean",
+    "waiting": "Menunggu",
+    "active": "Aktif",
+    "longestWait": "Tunggu Terlama",
+    "available": "Tersedia",
+    "eligible": "Memenuhi Syarat",
+    "avgWait": "Rata-rata Tunggu (30m)"
+  }
+}

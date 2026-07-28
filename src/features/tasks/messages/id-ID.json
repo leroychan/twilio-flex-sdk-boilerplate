@@ -1,0 +1,59 @@
+{
+  "empty": "Tidak ada tugas aktif",
+  "listLabel": "Daftar tugas",
+  "elapsed": "Waktu berjalan",
+  "accept": "Terima",
+  "reject": "Tolak",
+  "wrapUp": "Selesaikan",
+  "complete": "Selesai",
+  "incomingCall": "Panggilan masuk…",
+  "incomingChat": "Permintaan obrolan masuk",
+  "liveVoice": "Panggilan aktif",
+  "liveChat": "Obrolan aktif",
+  "wrapEnded": "Panggilan berakhir — selesaikan untuk menuntaskan",
+  "unknownCaller": "Penelepon tidak dikenal",
+  "acceptHintVoice": "Meninjau info pelanggan tidak akan menjawab panggilan. Terima untuk terhubung.",
+  "acceptHintChat": "Meninjau info pelanggan tidak akan bergabung ke obrolan. Terima untuk memulai percakapan.",
+  "channel": {
+    "voice": "Suara",
+    "whatsapp": "WhatsApp",
+    "sms": "SMS",
+    "messenger": "Messenger",
+    "chat": "Obrolan",
+    "web": "Obrolan Web",
+    "email": "Email",
+    "other": "Pesan"
+  },
+  "info": {
+    "empty": "Tidak ada atribut tugas"
+  },
+  "notes": {
+    "label": "Catatan",
+    "placeholder": "Tambahkan catatan tentang tugas ini…",
+    "saved": "Tersimpan"
+  },
+  "wrapUpForm": {
+    "title": "Selesaikan",
+    "dispositionLabel": "Disposisi",
+    "notesLabel": "Catatan penyelesaian",
+    "notesPlaceholder": "Ringkaskan hasil…",
+    "complete": "Selesai",
+    "completing": "Menyelesaikan…",
+    "disposition": {
+      "resolved": "Terselesaikan",
+      "unresolved": "Belum terselesaikan",
+      "callback": "Panggilan balik dijadwalkan",
+      "other": "Lainnya"
+    }
+  },
+  "status": {
+    "pending": "Menunggu",
+    "accepted": "Diterima",
+    "wrapping": "Menyelesaikan",
+    "completed": "Selesai",
+    "rejected": "Ditolak",
+    "canceled": "Dibatalkan",
+    "rescinded": "Dicabut",
+    "timeout": "Waktu habis"
+  }
+}

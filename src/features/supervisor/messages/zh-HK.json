@@ -1,0 +1,25 @@
+{
+  "title": "主管",
+  "workers": {
+    "heading": "員工",
+    "empty": "沒有員工可顯示。",
+    "available": "可用",
+    "unavailable": "不可用",
+    "changeActivity": "更改狀態",
+    "attributes": "屬性",
+    "saveAttributes": "儲存屬性",
+    "invalidJson": "屬性必須為有效的 JSON。"
+  },
+  "tasks": {
+    "heading": "即時工作",
+    "empty": "沒有即時工作可監控。",
+    "queue": "佇列",
+    "agent": "客服專員"
+  },
+  "controls": {
+    "monitor": "監聽",
+    "coach": "輔導",
+    "barge": "插話",
+    "stop": "停止"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "title": "Masuk ke Flex",
+  "subtitle": "Autentikasi untuk memulai sesi agen Anda.",
+  "demoMode": "Lanjutkan dalam mode demo",
+  "ssoSignIn": "Masuk dengan SSO",
+  "identityLabel": "Identitas agen",
+  "usernameLabel": "Nama pengguna Flex",
+  "usernamePlaceholder": "Nama pengguna Flex Anda",
+  "signingIn": "Masuk…",
+  "signIn": "Masuk",
+  "error": "Masuk gagal. Silakan coba lagi.",
+  "errors": {
+    "userNotFound": "Tidak ada pengguna Flex dengan nama pengguna tersebut.",
+    "usernameRequired": "Masukkan nama pengguna Flex Anda."
+  },
+  "desktop": {
+    "dial": "Hubungi",
+    "signOut": "Keluar",
+    "noSelection": "Pilih tugas untuk melihat detailnya.",
+    "voiceIncoming": "Panggilan masuk — terima untuk terhubung.",
+    "voiceConnecting": "Menghubungkan ke panggilan…",
+    "voiceWrapping": "Panggilan berakhir — selesaikan untuk menuntaskan.",
+    "chatIncoming": "Percakapan masuk — terima untuk terhubung.",
+    "chatWrapping": "Percakapan berakhir — selesaikan untuk menuntaskan."
+  },
+  "rail": {
+    "label": "Navigasi utama",
+    "desktop": "Agent Desktop",
+    "teams": "Tim",
+    "dialpad": "Dialpad",
+    "queues": "Statistik Antrean"
+  },
+  "workspace": {
+    "tabs": { "call": "Panggilan", "conversation": "Percakapan", "notes": "Catatan", "info": "Info" },
+    "views": "Tampilan tugas",
+    "status": { "incoming": "Masuk", "live": "Langsung", "wrapping": "Penyelesaian", "connecting": "Menghubungkan" }
+  }
+}

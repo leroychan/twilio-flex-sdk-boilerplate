@@ -1,0 +1,38 @@
+{
+  "title": "Đăng nhập vào Flex",
+  "subtitle": "Xác thực để bắt đầu phiên làm việc của tổng đài viên.",
+  "demoMode": "Tiếp tục ở chế độ demo",
+  "ssoSignIn": "Đăng nhập bằng SSO",
+  "identityLabel": "Danh tính tổng đài viên",
+  "usernameLabel": "Tên đăng nhập Flex",
+  "usernamePlaceholder": "Tên đăng nhập Flex của bạn",
+  "signingIn": "Đang đăng nhập…",
+  "signIn": "Đăng nhập",
+  "error": "Đăng nhập thất bại. Vui lòng thử lại.",
+  "errors": {
+    "userNotFound": "Không tìm thấy người dùng Flex với tên đăng nhập đó.",
+    "usernameRequired": "Vui lòng nhập tên đăng nhập Flex của bạn."
+  },
+  "desktop": {
+    "dial": "Quay số",
+    "signOut": "Đăng xuất",
+    "noSelection": "Chọn một tác vụ để xem chi tiết.",
+    "voiceIncoming": "Cuộc gọi đến — chấp nhận để kết nối.",
+    "voiceConnecting": "Đang kết nối cuộc gọi…",
+    "voiceWrapping": "Cuộc gọi đã kết thúc — hoàn tất để đóng.",
+    "chatIncoming": "Hội thoại đến — chấp nhận để kết nối.",
+    "chatWrapping": "Hội thoại đã kết thúc — hoàn tất để đóng."
+  },
+  "rail": {
+    "label": "Điều hướng chính",
+    "desktop": "Màn hình tổng đài viên",
+    "teams": "Nhóm",
+    "dialpad": "Bàn phím quay số",
+    "queues": "Thống kê hàng đợi"
+  },
+  "workspace": {
+    "tabs": { "call": "Cuộc gọi", "conversation": "Hội thoại", "notes": "Ghi chú", "info": "Thông tin" },
+    "views": "Chế độ xem tác vụ",
+    "status": { "incoming": "Đến", "live": "Trực tiếp", "wrapping": "Kết thúc", "connecting": "Đang kết nối" }
+  }
+}

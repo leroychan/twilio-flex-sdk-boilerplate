@@ -1,0 +1,38 @@
+{
+  "title": "Mga Usapan",
+  "composerPlaceholder": "Mag-type ng mensahe…",
+  "send": "Ipadala",
+  "pause": "I-park",
+  "resume": "Ituloy",
+  "leave": "Umalis",
+  "transfer": "I-transfer",
+  "warm": "Warm",
+  "cold": "Cold",
+  "online": "Online",
+  "offline": "Offline",
+  "conversationFallback": "Usapan",
+  "pausedTitle": "Mga naka-park na usapan",
+  "noPaused": "Walang naka-park na usapan",
+  "templates": "Mga Template",
+  "attach": "Mag-attach ng file",
+  "media": {
+    "title": "Magpadala ng attachment",
+    "choose": "Pumili ng file",
+    "send": "Ipadala",
+    "cancel": "Kanselahin",
+    "download": "I-download ang attachment",
+    "fileMeta": "{name} ({size} KB)"
+  },
+  "email": {
+    "new": "Bagong email",
+    "to": "Para kay",
+    "cc": "Cc",
+    "subject": "Paksa",
+    "subjectPrefix": "Paksa: ",
+    "body": "Mensahe",
+    "send": "Magpadala ng email",
+    "reply": "Tumugon",
+    "addParticipant": "Magdagdag ng kalahok"
+  },
+  "empty": "Walang aktibong usapan"
+}

@@ -1,0 +1,38 @@
+{
+  "title": "登录 Flex",
+  "subtitle": "验证身份以开始坐席会话。",
+  "demoMode": "以演示模式继续",
+  "ssoSignIn": "使用 SSO 登录",
+  "identityLabel": "坐席身份",
+  "usernameLabel": "Flex 用户名",
+  "usernamePlaceholder": "您的 Flex 用户名",
+  "signingIn": "正在登录…",
+  "signIn": "登录",
+  "error": "登录失败，请重试。",
+  "errors": {
+    "userNotFound": "未找到该用户名对应的 Flex 用户。",
+    "usernameRequired": "请输入您的 Flex 用户名。"
+  },
+  "desktop": {
+    "dial": "拨号",
+    "signOut": "退出登录",
+    "noSelection": "选择一个任务以查看详情。",
+    "voiceIncoming": "来电 — 接受以接通。",
+    "voiceConnecting": "正在接通通话…",
+    "voiceWrapping": "通话已结束 — 完成以结束任务。",
+    "chatIncoming": "来话 — 接受以接入。",
+    "chatWrapping": "对话已结束 — 完成以结束任务。"
+  },
+  "rail": {
+    "label": "主导航",
+    "desktop": "坐席桌面",
+    "teams": "团队",
+    "dialpad": "拨号盘",
+    "queues": "队列统计"
+  },
+  "workspace": {
+    "tabs": { "call": "通话", "conversation": "对话", "notes": "备注", "info": "信息" },
+    "views": "任务视图",
+    "status": { "incoming": "来电", "live": "进行中", "wrapping": "收尾", "connecting": "连接中" }
+  }
+}

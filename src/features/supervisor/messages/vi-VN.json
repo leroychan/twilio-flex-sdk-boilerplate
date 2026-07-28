@@ -1,0 +1,25 @@
+{
+  "title": "Giám sát viên",
+  "workers": {
+    "heading": "Nhân viên",
+    "empty": "Không có nhân viên để hiển thị.",
+    "available": "Sẵn sàng",
+    "unavailable": "Không sẵn sàng",
+    "changeActivity": "Thay đổi hoạt động",
+    "attributes": "Thuộc tính",
+    "saveAttributes": "Lưu thuộc tính",
+    "invalidJson": "Thuộc tính phải là JSON hợp lệ."
+  },
+  "tasks": {
+    "heading": "Tác vụ trực tiếp",
+    "empty": "Không có tác vụ trực tiếp để theo dõi.",
+    "queue": "Hàng đợi",
+    "agent": "Tổng đài viên"
+  },
+  "controls": {
+    "monitor": "Theo dõi",
+    "coach": "Huấn luyện",
+    "barge": "Tham gia",
+    "stop": "Dừng"
+  }
+}

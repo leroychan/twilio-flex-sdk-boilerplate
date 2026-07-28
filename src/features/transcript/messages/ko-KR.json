@@ -1,0 +1,27 @@
+{
+  "title": "실시간 전사",
+  "tabs": { "transcript": "실시간 전사", "crm": "CRM" },
+  "status": { "live": "진행 중", "waiting": "연결 중" },
+  "empty": {
+    "noCall": "활성 통화 없음.",
+    "notConfigured": "라이브 전사가 구성되지 않았습니다.",
+    "notConfiguredHint": "TWILIO_SYNC_SERVICE_SID를 설정하고 전사를 활성화하여 통화별 Sync 스트림으로 결과를 스트리밍하세요.",
+    "waiting": "전사 대기 중…"
+  },
+  "speaker": {
+    "agent": "상담원",
+    "customer": "고객",
+    "other": "발화자"
+  },
+  "settings": {
+    "title": "전사",
+    "enabled": "실시간 전사 활성화",
+    "language": "언어",
+    "engine": "엔진",
+    "speechModel": "음성 모델",
+    "partialResults": "부분 (중간) 결과",
+    "profanityFilter": "비속어 필터",
+    "punctuation": "자동 구두점",
+    "hints": "힌트 (쉼표로 구분)"
+  }
+}

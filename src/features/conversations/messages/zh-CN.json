@@ -1,0 +1,38 @@
+{
+  "title": "对话",
+  "composerPlaceholder": "输入消息…",
+  "send": "发送",
+  "pause": "挂起",
+  "resume": "恢复",
+  "leave": "离开",
+  "transfer": "转接",
+  "warm": "协商转接",
+  "cold": "直接转接",
+  "online": "在线",
+  "offline": "离线",
+  "conversationFallback": "对话",
+  "pausedTitle": "已挂起的对话",
+  "noPaused": "无挂起的对话",
+  "templates": "模板",
+  "attach": "附加文件",
+  "media": {
+    "title": "发送附件",
+    "choose": "选择文件",
+    "send": "发送",
+    "cancel": "取消",
+    "download": "下载附件",
+    "fileMeta": "{name}（{size} KB）"
+  },
+  "email": {
+    "new": "新建邮件",
+    "to": "收件人",
+    "cc": "抄送",
+    "subject": "主题",
+    "subjectPrefix": "主题： ",
+    "body": "正文",
+    "send": "发送邮件",
+    "reply": "回复",
+    "addParticipant": "添加参与者"
+  },
+  "empty": "暂无活跃对话"
+}

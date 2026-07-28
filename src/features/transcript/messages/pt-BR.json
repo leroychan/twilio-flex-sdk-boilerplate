@@ -1,0 +1,27 @@
+{
+  "title": "Transcrição em tempo real",
+  "tabs": { "transcript": "Transcrição em tempo real", "crm": "CRM" },
+  "status": { "live": "Ao vivo", "waiting": "Conectando" },
+  "empty": {
+    "noCall": "Nenhuma chamada ativa.",
+    "notConfigured": "A transcrição ao vivo não está configurada.",
+    "notConfiguredHint": "Defina TWILIO_SYNC_SERVICE_SID e ative a transcrição para transmitir resultados ao stream Sync de cada chamada.",
+    "waiting": "Aguardando transcrição…"
+  },
+  "speaker": {
+    "agent": "Agente",
+    "customer": "Cliente",
+    "other": "Locutor"
+  },
+  "settings": {
+    "title": "Transcrição",
+    "enabled": "Ativar transcrição ao vivo",
+    "language": "Idioma",
+    "engine": "Motor",
+    "speechModel": "Modelo de fala",
+    "partialResults": "Resultados parciais (provisórios)",
+    "profanityFilter": "Filtro de profanidade",
+    "punctuation": "Pontuação automática",
+    "hints": "Dicas (separadas por vírgula)"
+  }
+}

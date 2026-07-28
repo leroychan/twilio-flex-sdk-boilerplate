@@ -1,0 +1,17 @@
+{
+  "title": "Estadísticas de colas",
+  "subtitle": "Monitorización en tiempo real de colas TaskRouter",
+  "notConfigured": "Las estadísticas de cola requieren credenciales de cuenta Twilio (TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_WORKSPACE_SID).",
+  "error": "Error al cargar estadísticas de cola",
+  "empty": "No se encontraron colas",
+  "updatedAt": "Actualizado {time}",
+  "columns": {
+    "queue": "Cola",
+    "waiting": "En espera",
+    "active": "Activo",
+    "longestWait": "Espera más larga",
+    "available": "Disponible",
+    "eligible": "Elegible",
+    "avgWait": "Espera media (30 min)"
+  }
+}

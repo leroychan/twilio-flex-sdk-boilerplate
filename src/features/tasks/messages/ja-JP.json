@@ -1,0 +1,59 @@
+{
+  "empty": "アクティブなタスクはありません",
+  "listLabel": "タスク一覧",
+  "elapsed": "経過時間",
+  "accept": "応答",
+  "reject": "拒否",
+  "wrapUp": "後処理",
+  "complete": "完了",
+  "incomingCall": "着信中…",
+  "incomingChat": "チャット着信",
+  "liveVoice": "通話中",
+  "liveChat": "チャット中",
+  "wrapEnded": "通話終了 — 完了してください",
+  "unknownCaller": "不明な発信者",
+  "acceptHintVoice": "顧客情報を確認しても着信には応答しません。応答して接続してください。",
+  "acceptHintChat": "顧客情報を確認してもチャットには参加しません。応答して会話を開始してください。",
+  "channel": {
+    "voice": "音声",
+    "whatsapp": "WhatsApp",
+    "sms": "SMS",
+    "messenger": "Messenger",
+    "chat": "チャット",
+    "web": "Web チャット",
+    "email": "メール",
+    "other": "メッセージ"
+  },
+  "info": {
+    "empty": "タスク属性はありません"
+  },
+  "notes": {
+    "label": "メモ",
+    "placeholder": "このタスクにメモを追加…",
+    "saved": "保存済み"
+  },
+  "wrapUpForm": {
+    "title": "後処理",
+    "dispositionLabel": "ディスポジション",
+    "notesLabel": "後処理メモ",
+    "notesPlaceholder": "結果を要約…",
+    "complete": "完了",
+    "completing": "完了中…",
+    "disposition": {
+      "resolved": "解決済み",
+      "unresolved": "未解決",
+      "callback": "コールバック予定",
+      "other": "その他"
+    }
+  },
+  "status": {
+    "pending": "保留中",
+    "accepted": "受付済み",
+    "wrapping": "後処理中",
+    "completed": "完了",
+    "rejected": "拒否済み",
+    "canceled": "キャンセル",
+    "rescinded": "取り消し",
+    "timeout": "タイムアウト"
+  }
+}
