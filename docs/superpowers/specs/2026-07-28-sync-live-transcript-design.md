@@ -31,6 +31,11 @@ This project has no such backend. Per the approved design decisions:
   POSTs the resolved `call.callSid` to `/api/transcription/start`, which starts Real-Time
   Transcription on exactly that CallSid. This requires no Studio/TwiML changes and guarantees the
   transcript stream matches the CallSid the UI holds (solves the CallSid-matching problem).
+- **Settings:** a full in-app settings panel (header gear popover) exposes `enabled` + `language` +
+  `engine` + `speechModel` + `partialResults` + `profanityFilter` + `punctuation` + `hints`,
+  persisted client-side in a Zustand `settings` slice and sent to `/start` as overrides on top of
+  env defaults. Default **enabled** when Sync is configured; the toggle gates the *next* call only —
+  no mid-call stop and no `/stop` route (Real-Time Transcription auto-stops at call end).
 - **UI placement:** right column, tabbed (**Transcript / CRM**) — the truest port of
   flex-template-builder's `InfoPanel`, keeping the transcript visible beside the live call while
   preserving the CRM panel and its `side-panel` plugin slot.
@@ -45,6 +50,11 @@ This project has no such backend. Per the approved design decisions:
 - New env: `TWILIO_SYNC_SERVICE_SID` (consumer + publisher), `PUBLIC_BASE_URL` (the publicly
   reachable base URL Twilio posts transcription callbacks to — a tunnel like ngrok in local dev),
   and `TWILIO_AUTH_TOKEN` (already documented; used to validate the callback's Twilio signature).
+- New transcription-default env (all optional; `/start` falls back to these when the client sends no
+  override, then to hardcoded defaults): `TRANSCRIPTION_LANGUAGE` (`en-US`), `TRANSCRIPTION_ENGINE`
+  (`google`), `TRANSCRIPTION_SPEECH_MODEL` (`telephony`), `TRANSCRIPTION_PARTIAL_RESULTS` (`true`),
+  `TRANSCRIPTION_PROFANITY_FILTER` (`true`), `TRANSCRIPTION_PUNCTUATION` (`true`),
+  `TRANSCRIPTION_HINTS` (empty).
 - Styling: Tailwind semantic tokens only (`bg-surface`, `text-muted`, `bg-primary`, etc.) — no raw
   hex, no new colors.
 - i18n: all user-visible strings go through `next-intl`; `react/jsx-no-literals` is an error-level
@@ -62,8 +72,8 @@ This project has no such backend. Per the approved design decisions:
 
 ## Architecture
 
-Four layers (token route, Sync client boundary, in-app producer, transcript feature) plus the UI
-integration — each honoring an existing boundary in the codebase.
+Five layers (token route, Sync client boundary, in-app producer, transcript feature, settings) plus
+the UI integration — each honoring an existing boundary in the codebase.
 
 ### 1. Sync token route — `src/app/api/sync-token/route.ts`
 
@@ -120,14 +130,20 @@ Everything needed to produce transcript data, hosted as Next route handlers (ser
 SDK; never `@twilio/flex-sdk` or `twilio-sync`). All routes `runtime = 'nodejs'` and degrade to a
 no-op/503 when creds/config are absent (stub mode).
 
-- `src/app/api/transcription/start/route.ts` (+ `__tests__/route.test.ts`) — `POST { callSid }`.
+- `src/app/api/transcription/start/route.ts` (+ `__tests__/route.test.ts`) — `POST` with body
+  `{ callSid, language?, engine?, speechModel?, partialResults?, profanityFilter?, punctuation?,
+  hints? }` (all but `callSid` optional overrides).
   - Guard: requires `TWILIO_ACCOUNT_SID`/`API_KEY`/`API_SECRET`/`TWILIO_SYNC_SERVICE_SID`/
     `PUBLIC_BASE_URL`; missing → `503 { configured: false }` (no throw).
+  - Resolve each param `body.X ?? env.TRANSCRIPTION_X ?? hardcoded default` (see Global Constraints).
   - Idempotently ensure the Sync Stream exists: create a stream with uniqueName
     `session-{callSid}` (with a TTL so it self-expires), catching the "already exists" (409) case.
   - Start Real-Time Transcription on the call:
-    `client.calls(callSid).transcriptions.create({ track: 'both_tracks', partialResults: true,
-    statusCallbackUrl: `${PUBLIC_BASE_URL}/api/transcription/callback` })`.
+    `client.calls(callSid).transcriptions.create({ track: 'both_tracks',
+    inboundTrackLabel: 'customer', outboundTrackLabel: 'agent', languageCode, transcriptionEngine,
+    speechModel, partialResults, profanityFilter, enableAutomaticPunctuation, hints,
+    statusCallbackUrl: `${PUBLIC_BASE_URL}/api/transcription/callback` })`. (The track labels make
+    the callback's role mapping robust and read well in Voice Intelligence later.)
   - Returns `{ started: true }` (or `{ started: false }` when already running — 409 caught).
 - `src/app/api/transcription/callback/route.ts` (+ `__tests__/route.test.ts`) — Twilio posts
   transcription events here (form-encoded).
@@ -135,7 +151,8 @@ no-op/503 when creds/config are absent (stub mode).
     signature, url, params)` when `TWILIO_AUTH_TOKEN` is set; reject with `403` on mismatch. If the
     auth token is absent (pure stub/dev), skip validation and continue.
   - Parse `CallSid`, `TranscriptionData` (JSON string → `{ transcript }`), `Track`, `Final`.
-  - Map: `Track === 'inbound_track' → role 'customer'`, else `'agent'`; `isFinal = Final === 'true'`.
+  - Map role: prefer the track label when present (`customer`/`agent`, set by `/start`), else fall
+    back to `Track` (`inbound_track → 'customer'`, else `'agent'`); `isFinal = Final === 'true'`.
     Skip empty transcripts.
   - Publish to the stream:
     `client.sync.v1.services(SYNC_SERVICE_SID).syncStreams('session-'+CallSid).streamMessages
@@ -143,10 +160,12 @@ no-op/503 when creds/config are absent (stub mode).
     consumer reads.
   - Always respond `200` to Twilio quickly (publish failures are logged, not surfaced).
 - `src/features/transcript/hooks/useTranscriptionStarter.ts` (+ test) — `'use client'`; mounted
-  once in `DesktopBody` alongside the other event-bridge hooks. Watches `call.callSid` + `call.status`;
-  when a voice call becomes `connected` with a callSid not yet started, fires a single
-  `POST /api/transcription/start`. Tracks started callSids in a ref to avoid duplicate starts;
-  ignores 503 (not configured). Runs regardless of whether the Transcript tab is visible.
+  once in `DesktopBody` alongside the other event-bridge hooks. Reads `settings.transcription` from
+  the store; watches `call.callSid` + `call.status`. When a voice call becomes `connected` with a
+  callSid not yet started **and `settings.transcription.enabled` is true**, fires a single
+  `POST /api/transcription/start` with the current settings (language/engine/… as body overrides).
+  Tracks started callSids in a ref to avoid duplicate starts; ignores 503 (not configured). Runs
+  regardless of whether the Transcript tab is visible.
 
 Explicit stop is unnecessary: Real-Time Transcription ends automatically when the call ends, and the
 Sync stream self-expires via its TTL.
@@ -191,6 +210,38 @@ Follows the vertical-slice convention (`components/` + `hooks/` + `lib/` + `mess
 - `messages/en.json` — `transcript` namespace strings.
 - `index.ts` — barrel exporting `TranscriptPanel` (and `useLiveTranscript` for tests/consumers).
 
+### 5. Transcription settings — store slice + header popover
+
+- `src/store/slices/settings.ts` (+ `__tests__` coverage) — a new `SettingsSlice` composed into
+  `store/index.ts` by spread (two-line change, per the slice convention):
+  ```ts
+  export interface TranscriptionSettings {
+    enabled: boolean;        // default true
+    language: string;        // BCP-47, default 'en-US'
+    engine: string;          // 'google' | 'deepgram', default 'google'
+    speechModel: string;     // default 'telephony'
+    partialResults: boolean; // default true
+    profanityFilter: boolean;// default true
+    punctuation: boolean;    // default true
+    hints: string;           // comma-separated, default ''
+  }
+  interface SettingsSlice {
+    transcription: TranscriptionSettings;
+    setTranscriptionSettings(patch: Partial<TranscriptionSettings>): void;
+  }
+  ```
+  Client-side defaults live here (the server env defaults are only a fallback for omitted fields).
+- **Persistence:** extend the `persist` `partialize` in `store/index.ts` (currently token-only) to
+  also persist `transcription`. `hasHydrated` gating is unchanged.
+- `src/features/transcript/components/TranscriptionSettingsMenu.tsx` (+ test) — a header gear
+  `Popover` mirroring `AudioSettingsMenu` (native `<select>` + checkbox + text inputs; no new
+  primitive). Controls: enable checkbox; language `<select>` (curated BCP-47 list); engine
+  `<select>` (`google`/`deepgram`); speechModel text input; partialResults / profanityFilter /
+  punctuation checkboxes; hints text input. Reads/writes the `settings` slice via
+  `setTranscriptionSettings`. All labels localized (`transcript` namespace).
+- Wire-in: add `<TranscriptionSettingsMenu />` to the `AgentDesktopShell` header cluster, beside
+  `AudioSettingsMenu`.
+
 ### UI integration — `src/components/layout/RightPanel.tsx`
 
 - Tabbed container using the existing `Tabs` primitive: tabs **Transcript** and **CRM**.
@@ -212,21 +263,26 @@ Follows the vertical-slice convention (`components/` + `hooks/` + `lib/` + `mess
 - `resetSyncClient(): void` — internal teardown.
 - `toTranscriptEntry(msg: SyncStreamMessage, callSid: string, index: number): TranscriptEntry | null`
 - `useLiveTranscript(callSid: string | null): { entries: TranscriptEntry[]; status: 'idle' | 'not_configured' | 'listening' }`
-- `useTranscriptionStarter(): void` — side-effect hook; watches the store, POSTs `/api/transcription/start`.
-- `POST /api/transcription/start` — body `{ callSid: string }` → `{ started: boolean }` | `503 { configured: false }`.
+- `useTranscriptionStarter(): void` — side-effect hook; reads `settings.transcription`, watches the
+  store, POSTs `/api/transcription/start` with settings overrides when enabled.
+- `POST /api/transcription/start` — body `{ callSid: string, language?, engine?, speechModel?,
+  partialResults?, profanityFilter?, punctuation?, hints? }` → `{ started: boolean }` |
+  `503 { configured: false }`.
 - `POST /api/transcription/callback` — Twilio form-encoded transcription event → `200` always
   (or `403` on bad signature). Publishes to Sync.
-- Store dependency (already present): `useFlexStore(s => s.call.callSid)` and `s.call.status`.
+- `SettingsSlice`: `transcription: TranscriptionSettings` + `setTranscriptionSettings(patch)` (see §5).
+- Store dependencies: `useFlexStore(s => s.call.callSid)`, `s.call.status`, `s.transcription`.
 
 ## Data Flow
 
 **Producer (in-app):**
 1. An active voice call sets `call.callSid` + `call.status='connected'` in the store (existing
    voice event bridge — unchanged).
-2. `useTranscriptionStarter` (mounted in `DesktopBody`) fires once → `POST /api/transcription/start`
-   `{ callSid }`.
+2. `useTranscriptionStarter` (mounted in `DesktopBody`) — if `settings.transcription.enabled` — fires
+   once → `POST /api/transcription/start` `{ callSid, ...settings overrides }`.
 3. The route ensures the `session-{callSid}` Sync stream exists and starts Real-Time Transcription
-   on that CallSid, pointing its `statusCallbackUrl` at `/api/transcription/callback`.
+   on that CallSid with the resolved params (override → env → default), pointing its
+   `statusCallbackUrl` at `/api/transcription/callback`.
 4. Twilio streams transcription events to `/api/transcription/callback`; the route maps
    Track→role, Final→isFinal, and publishes `{ type:'transcription', text, role, isFinal }` to the
    Sync stream.
@@ -253,12 +309,18 @@ Every failure degrades silently to an empty / not-configured panel — never thr
 - `src/app/api/sync-token/__tests__/route.test.ts` — stub 503 (missing each key) / live mint shape /
   identity fallback order.
 - `src/app/api/transcription/start/__tests__/route.test.ts` — 503 when unconfigured; ensures stream
-  (create + 409-already-exists caught); starts transcription with correct callback URL + track.
+  (create + 409-already-exists caught); starts transcription with correct callback URL + track +
+  labels; param resolution (body override beats env beats default).
 - `src/app/api/transcription/callback/__tests__/route.test.ts` — signature validation (valid /
   invalid 403 / skipped when no auth token); Track→role + Final→isFinal mapping; empty-transcript
   skip; Sync publish payload; always-200.
 - `src/features/transcript/hooks/__tests__/useTranscriptionStarter.test.tsx` — fires once per
-  connected callSid, no duplicate starts, no fire in stub/idle.
+  connected callSid with settings overrides in the body, no duplicate starts, no fire when
+  `enabled` is false or when idle.
+- `src/store/slices/__tests__/settings.test.ts` — defaults + `setTranscriptionSettings` patch merge;
+  persist partialize includes `transcription`.
+- `src/features/transcript/components/__tests__/TranscriptionSettingsMenu.test.tsx` — renders all
+  controls, edits write to the slice, enable toggle reflects state.
 - `src/lib/sync/__tests__/client.test.ts` — mock `twilio-sync` dynamic import + `fetch`:
   subscribe/unsubscribe lifecycle, double-subscribe guard (one underlying handler), not-configured
   no-op (`configured: false`), token-refresh path.
@@ -273,13 +335,14 @@ Every failure degrades silently to an empty / not-configured panel — never thr
 
 ## Docs / Config
 
-- `.env.example` — add `TWILIO_SYNC_SERVICE_SID` and `PUBLIC_BASE_URL` with comments (both required
-  only for live transcript; app runs without them). Note `TWILIO_AUTH_TOKEN` is reused for callback
-  signature validation.
+- `.env.example` — add `TWILIO_SYNC_SERVICE_SID`, `PUBLIC_BASE_URL`, and the optional
+  `TRANSCRIPTION_*` defaults with comments (all required only for live transcript; app runs without
+  them). Note `TWILIO_AUTH_TOKEN` is reused for callback signature validation.
 - `package.json` — add `twilio-sync` dependency.
 - `README.md` — new "Live transcript" subsection: what it does, the full in-app pipeline
   (start → callback → Sync → panel), the required env (`TWILIO_SYNC_SERVICE_SID`, `PUBLIC_BASE_URL`,
-  `TWILIO_AUTH_TOKEN`), the dev tunnel requirement for the callback, and the message contract.
+  `TWILIO_AUTH_TOKEN`) and the optional `TRANSCRIPTION_*` defaults, the settings popover, the dev
+  tunnel requirement for the callback, and the message contract.
 
 ## Out of Scope (explicit)
 
@@ -308,13 +371,18 @@ Every failure degrades silently to an empty / not-configured panel — never thr
 - `src/features/transcript/hooks/useLiveTranscript.ts` (+ `__tests__/useLiveTranscript.test.tsx`)
 - `src/features/transcript/hooks/useTranscriptionStarter.ts` (+ `__tests__/useTranscriptionStarter.test.tsx`)
 - `src/features/transcript/components/TranscriptPanel.tsx` (+ `__tests__/TranscriptPanel.test.tsx`)
+- `src/features/transcript/components/TranscriptionSettingsMenu.tsx` (+ `__tests__/TranscriptionSettingsMenu.test.tsx`)
 - `src/features/transcript/messages/en.json`
 - `src/features/transcript/index.ts`
+
+**New — settings slice:**
+- `src/store/slices/settings.ts` (+ `src/store/slices/__tests__/settings.test.ts`)
 
 **New — layout:**
 - `src/components/layout/RightPanel.tsx` (+ `__tests__/RightPanel.test.tsx`)
 
 **Modified:**
 - `src/features/session/components/AgentDesktopShell.tsx` (right column → `RightPanel`;
-  mount `useTranscriptionStarter` in `DesktopBody`)
+  mount `useTranscriptionStarter` in `DesktopBody`; add `TranscriptionSettingsMenu` to header)
+- `src/store/index.ts` (compose `SettingsSlice`; extend `persist` partialize to include `transcription`)
 - `.env.example`, `package.json`, `README.md`
