@@ -6,6 +6,7 @@ import { createTasksSlice, type TasksSlice } from './slices/tasks';
 import { createVoiceSlice, type VoiceSlice } from './slices/voice';
 import { createConversationsSlice, type ConversationsSlice } from './slices/conversations';
 import { createSupervisorSlice, type SupervisorSlice } from './slices/supervisor';
+import { createSettingsSlice, type SettingsSlice } from './slices/settings';
 
 // Composition pattern — each feature part contributes one slice:
 //   1. Add `& <Name>Slice` to FlexStore below.
@@ -16,7 +17,8 @@ export type FlexStore = SessionSlice &
   TasksSlice &
   VoiceSlice &
   ConversationsSlice &
-  SupervisorSlice;
+  SupervisorSlice &
+  SettingsSlice;
 
 export const useFlexStore = create<FlexStore>()(
   persist(
@@ -27,13 +29,14 @@ export const useFlexStore = create<FlexStore>()(
       ...createVoiceSlice(...a),
       ...createConversationsSlice(...a),
       ...createSupervisorSlice(...a),
+      ...createSettingsSlice(...a),
     }),
     {
       name: 'flex-session',
       storage: createJSONStorage(() => localStorage),
-      // Persist ONLY the token. `worker` is a live non-serializable SDK object and
-      // must not be persisted; nor should any other slice state.
-      partialize: (state) => ({ token: state.token }),
+      // Persist the token and transcription settings. `worker` is a live
+      // non-serializable SDK object and must not be persisted.
+      partialize: (state) => ({ token: state.token, transcription: state.transcription }),
       onRehydrateStorage: () => (state) => {
         state?.setHasHydrated(true);
       },
