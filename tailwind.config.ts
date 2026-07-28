@@ -45,11 +45,16 @@ const config: Config = {
         'status-ping': {
           '75%, 100%': { transform: 'scale(2)', opacity: '0' },
         },
+        'bubble-in': {
+          from: { opacity: '0', transform: 'translateY(6px) scale(0.98)' },
+          to: { opacity: '1', transform: 'translateY(0) scale(1)' },
+        },
       },
       animation: {
         'shimmer-slide': 'shimmer-slide var(--speed, 3s) ease-in-out infinite alternate',
         'spin-around': 'spin-around calc(var(--speed, 3s) * 2) infinite linear',
         'status-ping': 'status-ping 1.6s cubic-bezier(0, 0, 0.2, 1) infinite',
+        'bubble-in': 'bubble-in 0.22s cubic-bezier(0.16, 1, 0.3, 1)',
       },
     },
   },

@@ -12,18 +12,20 @@ function makeStore() {
 }
 
 describe('settings slice', () => {
-  it('defaults transcription to enabled en-US google', () => {
+  it('defaults transcription to enabled en-US deepgram nova-3', () => {
     const { get } = makeStore();
     expect(get().transcription).toEqual(DEFAULT_TRANSCRIPTION_SETTINGS);
     expect(get().transcription.enabled).toBe(true);
     expect(get().transcription.language).toBe('en-US');
+    expect(get().transcription.engine).toBe('deepgram');
+    expect(get().transcription.speechModel).toBe('nova-3');
   });
 
   it('merges a partial patch', () => {
     const { get } = makeStore();
-    get().setTranscriptionSettings({ enabled: false, language: 'es-MX' });
+    get().setTranscriptionSettings({ enabled: false, language: 'es' });
     expect(get().transcription.enabled).toBe(false);
-    expect(get().transcription.language).toBe('es-MX');
-    expect(get().transcription.engine).toBe('google'); // untouched
+    expect(get().transcription.language).toBe('es');
+    expect(get().transcription.engine).toBe('deepgram'); // untouched
   });
 });

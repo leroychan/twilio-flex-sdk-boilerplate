@@ -28,7 +28,7 @@ describe('RightPanel', () => {
   it('auto-selects Transcript when a call is active', () => {
     mockCallSid('CA1');
     renderPanel();
-    expect(screen.getByRole('tab', { name: 'Transcript' })).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByRole('tab', { name: 'Real-time transcription' })).toHaveAttribute('aria-selected', 'true');
   });
 
   it('defaults to CRM when no call is active', () => {

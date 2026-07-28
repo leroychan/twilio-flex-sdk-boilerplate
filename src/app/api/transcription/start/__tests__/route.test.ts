@@ -56,7 +56,7 @@ describe('POST /api/transcription/start', () => {
       inboundTrackLabel: 'customer',
       outboundTrackLabel: 'agent',
       languageCode: 'en-US',
-      transcriptionEngine: 'google',
+      transcriptionEngine: 'deepgram',
       statusCallbackUrl: 'https://demo.test/api/transcription/callback',
     }));
   });

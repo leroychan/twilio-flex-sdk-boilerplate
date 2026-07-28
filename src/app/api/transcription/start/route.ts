@@ -40,8 +40,8 @@ export async function POST(request: Request): Promise<Response> {
   if (!callSid) return NextResponse.json({ error: 'callSid_required' }, { status: 400 });
 
   const languageCode = str(body.language, process.env.TRANSCRIPTION_LANGUAGE, 'en-US');
-  const transcriptionEngine = str(body.engine, process.env.TRANSCRIPTION_ENGINE, 'google');
-  const speechModel = str(body.speechModel, process.env.TRANSCRIPTION_SPEECH_MODEL, 'telephony');
+  const transcriptionEngine = str(body.engine, process.env.TRANSCRIPTION_ENGINE, 'deepgram');
+  const speechModel = str(body.speechModel, process.env.TRANSCRIPTION_SPEECH_MODEL, 'nova-3');
   const partialResults = bool(body.partialResults, process.env.TRANSCRIPTION_PARTIAL_RESULTS, true);
   const profanityFilter = bool(body.profanityFilter, process.env.TRANSCRIPTION_PROFANITY_FILTER, true);
   const enableAutomaticPunctuation = bool(body.punctuation, process.env.TRANSCRIPTION_PUNCTUATION, true);
@@ -59,6 +59,16 @@ export async function POST(request: Request): Promise<Response> {
     if ((err as { status?: number }).status !== 409) throw err;
     // 409 = stream already exists — idempotent, continue
   }
+
+  // TEMP DIAGNOSTIC — remove once the pipeline is confirmed.
+  console.log('[transcription/start]', {
+    callSid,
+    stream: `session-${callSid}`,
+    callbackUrl: `${env.baseUrl}/api/transcription/callback`,
+    languageCode,
+    transcriptionEngine,
+    partialResults,
+  });
 
   try {
     await client.calls(callSid).transcriptions.create({

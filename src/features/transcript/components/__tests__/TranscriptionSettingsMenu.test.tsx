@@ -45,7 +45,7 @@ describe('TranscriptionSettingsMenu', () => {
   it('writes a language change to the store', async () => {
     renderMenu();
     await userEvent.click(screen.getByRole('button', { name: 'Transcription' }));
-    await userEvent.selectOptions(screen.getByLabelText('Language'), 'es-MX');
-    expect(setTranscriptionSettings).toHaveBeenCalledWith({ language: 'es-MX' });
+    await userEvent.selectOptions(screen.getByLabelText('Language'), 'es');
+    expect(setTranscriptionSettings).toHaveBeenCalledWith({ language: 'es' });
   });
 });

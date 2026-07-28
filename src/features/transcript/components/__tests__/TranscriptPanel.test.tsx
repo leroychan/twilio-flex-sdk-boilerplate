@@ -13,6 +13,12 @@ vi.mock('../../hooks/useLiveTranscript', () => ({ useLiveTranscript }));
 const { useFlexStore } = vi.hoisted(() => ({ useFlexStore: vi.fn() }));
 vi.mock('@/store', () => ({ useFlexStore }));
 
+// The in-panel settings gear is covered by its own test; stub it here so this
+// suite doesn't depend on the store's transcription slice.
+vi.mock('../TranscriptionSettingsMenu', () => ({
+  TranscriptionSettingsMenu: () => <div data-testid="settings-menu" />,
+}));
+
 import { TranscriptPanel } from '../TranscriptPanel';
 
 function renderPanel() {

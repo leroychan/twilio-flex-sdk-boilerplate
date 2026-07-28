@@ -40,20 +40,22 @@ describe('POST /api/transcription/callback', () => {
   });
   afterEach(() => { for (const k of KEYS) { if (saved[k] === undefined) delete process.env[k]; else process.env[k] = saved[k]; } });
 
-  it('publishes a customer transcription (inbound track) and returns 200', async () => {
+  // Transcription runs on the agent's call leg: inbound_track = the agent's mic,
+  // outbound_track = the audio played to the agent (the customer).
+  it('publishes an agent transcription (inbound track) and returns 200', async () => {
     const res = await POST(formReq({
       CallSid: 'CA1', Track: 'inbound_track', Final: 'true',
-      TranscriptionData: JSON.stringify({ transcript: 'I need help' }),
+      TranscriptionData: JSON.stringify({ transcript: 'Happy to help' }),
     }));
     expect(res.status).toBe(200);
     expect(streamMessagesCreate).toHaveBeenCalledWith({
-      data: { type: 'transcription', text: 'I need help', role: 'customer', isFinal: true },
+      data: { type: 'transcription', text: 'Happy to help', role: 'agent', isFinal: true },
     });
   });
 
-  it('maps outbound track to agent', async () => {
-    await POST(formReq({ CallSid: 'CA1', Track: 'outbound_track', Final: 'false', TranscriptionData: JSON.stringify({ transcript: 'Hi' }) }));
-    expect(streamMessagesCreate).toHaveBeenCalledWith({ data: expect.objectContaining({ role: 'agent', isFinal: false }) });
+  it('maps outbound track to customer', async () => {
+    await POST(formReq({ CallSid: 'CA1', Track: 'outbound_track', Final: 'false', TranscriptionData: JSON.stringify({ transcript: 'I need help' }) }));
+    expect(streamMessagesCreate).toHaveBeenCalledWith({ data: expect.objectContaining({ role: 'customer', isFinal: false }) });
   });
 
   it('skips empty transcripts but still 200s', async () => {

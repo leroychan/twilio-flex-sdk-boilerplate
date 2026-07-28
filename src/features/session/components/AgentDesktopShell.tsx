@@ -28,7 +28,7 @@ import {
   useVoiceEvents,
 } from '@/features/voice';
 import { useConversationEvents } from '@/features/conversations';
-import { TranscriptionSettingsMenu, useTranscriptionStarter } from '@/features/transcript';
+import { useTranscriptionStarter } from '@/features/transcript';
 import { SupervisorPanel } from '@/features/supervisor';
 import { QueuesView } from '@/features/queues';
 import { useIsSupervisor } from '../hooks/useIsSupervisor';
@@ -80,9 +80,9 @@ function DesktopBody() {
             <LocaleSwitcher />
             <Separator />
 
-            {/* audio devices + transcription (dial + teams now live in the rail) */}
+            {/* audio devices (transcription settings now live in the transcript panel;
+                dial + teams live in the rail) */}
             <AudioSettingsMenu />
-            <TranscriptionSettingsMenu />
             <Separator />
 
             {/* presence */}

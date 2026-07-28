@@ -1,6 +1,7 @@
 {
-  "title": "Transcript",
-  "tabs": { "transcript": "Transcript", "crm": "CRM" },
+  "title": "Real-time transcription",
+  "tabs": { "transcript": "Real-time transcription", "crm": "CRM" },
+  "status": { "live": "Live", "waiting": "Connecting" },
   "empty": {
     "noCall": "No active call.",
     "notConfigured": "Live transcript isn't configured.",

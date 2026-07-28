@@ -14,8 +14,8 @@ export interface TranscriptionSettings {
 export const DEFAULT_TRANSCRIPTION_SETTINGS: TranscriptionSettings = {
   enabled: true,
   language: 'en-US',
-  engine: 'google',
-  speechModel: 'telephony',
+  engine: 'deepgram',
+  speechModel: 'nova-3',
   partialResults: true,
   profanityFilter: true,
   punctuation: true,

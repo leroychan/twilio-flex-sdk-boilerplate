@@ -54,7 +54,8 @@ body {
   .mui-border-beam,
   .animate-shimmer-slide,
   .animate-spin-around,
-  .animate-status-ping {
+  .animate-status-ping,
+  .animate-bubble-in {
     animation: none !important;
   }
 }
