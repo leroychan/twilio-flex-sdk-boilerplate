@@ -1,5 +1,6 @@
 {
   "title": "Transcript",
+  "tabs": { "transcript": "Transcript", "crm": "CRM" },
   "empty": {
     "noCall": "No active call.",
     "notConfigured": "Live transcript isn't configured.",
