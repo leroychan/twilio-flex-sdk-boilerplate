@@ -22,6 +22,7 @@
     "react-resizable-panels": "^2.1.9",
     "react-simple-wysiwyg": "^3.4.1",
     "twilio": "^6.0.2",
+    "twilio-sync": "^3.4.0",
     "zustand": "^5.0.14"
   },
   "devDependencies": {
