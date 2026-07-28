@@ -23,9 +23,13 @@ export async function POST(request: Request): Promise<Response> {
   const params = Object.fromEntries(new URLSearchParams(raw));
 
   // Validate Twilio's signature when we have an auth token; skip in pure dev/stub.
+  // Use PUBLIC_BASE_URL to match what /start registered as statusCallbackUrl;
+  // fall back to request.url only when PUBLIC_BASE_URL is unset (e.g. pure dev).
   if (env.authToken) {
     const signature = request.headers.get('x-twilio-signature') ?? '';
-    const url = request.url;
+    const url = process.env.PUBLIC_BASE_URL
+      ? `${process.env.PUBLIC_BASE_URL}/api/transcription/callback`
+      : request.url;
     const ok = twilio.validateRequest(env.authToken, signature, url, params);
     if (!ok) return NextResponse.json({ error: 'bad_signature' }, { status: 403 });
   }

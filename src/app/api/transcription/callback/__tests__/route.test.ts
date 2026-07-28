@@ -13,7 +13,7 @@ vi.mock('twilio', () => ({ default: Object.assign(vi.fn(() => twilioClient), { v
 
 import { POST } from '../route';
 
-const KEYS = ['TWILIO_ACCOUNT_SID', 'TWILIO_API_KEY', 'TWILIO_API_SECRET', 'TWILIO_SYNC_SERVICE_SID', 'TWILIO_AUTH_TOKEN'] as const;
+const KEYS = ['TWILIO_ACCOUNT_SID', 'TWILIO_API_KEY', 'TWILIO_API_SECRET', 'TWILIO_SYNC_SERVICE_SID', 'TWILIO_AUTH_TOKEN', 'PUBLIC_BASE_URL'] as const;
 
 function formReq(fields: Record<string, string>, sig = 'sig'): Request {
   const body = new URLSearchParams(fields).toString();
@@ -68,5 +68,31 @@ describe('POST /api/transcription/callback', () => {
     const res = await POST(formReq({ CallSid: 'CA1', Track: 'inbound_track', Final: 'true', TranscriptionData: '{}' }));
     expect(res.status).toBe(403);
     expect(streamMessagesCreate).not.toHaveBeenCalled();
+  });
+
+  it('validates signature against PUBLIC_BASE_URL not request.url', async () => {
+    process.env.TWILIO_AUTH_TOKEN = 'authy';
+    process.env.PUBLIC_BASE_URL = 'https://example.ngrok.app';
+    validateRequest.mockReturnValue(true);
+    await POST(formReq({ CallSid: 'CA1', Track: 'inbound_track', Final: 'false', TranscriptionData: JSON.stringify({ transcript: 'hello' }) }));
+    expect(validateRequest).toHaveBeenCalledWith(
+      'authy',
+      'sig',
+      'https://example.ngrok.app/api/transcription/callback',
+      expect.any(Object),
+    );
+  });
+
+  it('falls back to request.url when PUBLIC_BASE_URL is not set', async () => {
+    process.env.TWILIO_AUTH_TOKEN = 'authy';
+    delete process.env.PUBLIC_BASE_URL;
+    validateRequest.mockReturnValue(true);
+    await POST(formReq({ CallSid: 'CA1', Track: 'inbound_track', Final: 'false', TranscriptionData: JSON.stringify({ transcript: 'hello' }) }));
+    expect(validateRequest).toHaveBeenCalledWith(
+      'authy',
+      'sig',
+      'http://localhost/api/transcription/callback',
+      expect.any(Object),
+    );
   });
 });
