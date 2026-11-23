@@ -1,0 +1,25 @@
+{
+  "signIn": "Iniciar sesión",
+  "gettingStarted": {
+    "title": "Primeros pasos",
+    "intro": "Requiere Node.js 20 o superior. Sigue estos pasos para ejecutar el escritorio de agente en local.",
+    "steps": {
+      "install": {
+        "title": "Instalar dependencias",
+        "body": "Instala los paquetes del proyecto desde la raíz del repositorio."
+      },
+      "configure": {
+        "title": "Configurar credenciales (opcional)",
+        "body": "Copia el archivo env de ejemplo y completa tus valores de Twilio. Sin ellos, la aplicación se ejecuta en modo simulado y se puede explorar por completo sin conexión."
+      },
+      "run": {
+        "title": "Iniciar el servidor de desarrollo",
+        "body": "Ejecuta la aplicación en local y abre http://localhost:3000."
+      },
+      "signIn": {
+        "title": "Iniciar sesión",
+        "body": "Abre la página de inicio de sesión e introduce tu nombre de usuario de Flex, o continúa en modo demo para obtener un token simulado."
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "signIn": "Đăng nhập",
+  "gettingStarted": {
+    "title": "Bắt đầu",
+    "intro": "Yêu cầu Node.js 20 trở lên. Làm theo các bước sau để chạy màn hình nhân viên trên máy cục bộ.",
+    "steps": {
+      "install": {
+        "title": "Cài đặt phụ thuộc",
+        "body": "Cài đặt các gói của dự án từ thư mục gốc của kho mã."
+      },
+      "configure": {
+        "title": "Cấu hình thông tin xác thực (tùy chọn)",
+        "body": "Sao chép tệp env mẫu và điền các giá trị Twilio của bạn. Nếu không có, ứng dụng chạy ở chế độ giả lập và có thể khám phá hoàn toàn ngoại tuyến."
+      },
+      "run": {
+        "title": "Khởi động máy chủ phát triển",
+        "body": "Chạy ứng dụng trên máy cục bộ, sau đó mở http://localhost:3000."
+      },
+      "signIn": {
+        "title": "Đăng nhập",
+        "body": "Mở trang đăng nhập và nhập tên người dùng Flex của bạn, hoặc tiếp tục ở chế độ demo để nhận token giả lập."
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "signIn": "Masuk",
+  "gettingStarted": {
+    "title": "Memulai",
+    "intro": "Memerlukan Node.js 20+. Ikuti langkah-langkah ini untuk menjalankan desktop agen secara lokal.",
+    "steps": {
+      "install": {
+        "title": "Instal dependensi",
+        "body": "Instal paket proyek dari root repositori."
+      },
+      "configure": {
+        "title": "Konfigurasikan kredensial (opsional)",
+        "body": "Salin file env contoh dan isi nilai Twilio Anda. Tanpa nilai tersebut, aplikasi berjalan dalam mode stub dan dapat dijelajahi sepenuhnya secara offline."
+      },
+      "run": {
+        "title": "Jalankan server pengembangan",
+        "body": "Jalankan aplikasi secara lokal, lalu buka http://localhost:3000."
+      },
+      "signIn": {
+        "title": "Masuk",
+        "body": "Buka halaman login dan masukkan nama pengguna Flex Anda, atau lanjutkan dalam mode demo untuk mendapatkan token stub."
+      }
+    }
+  }
+}

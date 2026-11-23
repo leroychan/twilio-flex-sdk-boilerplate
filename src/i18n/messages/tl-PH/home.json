@@ -1,0 +1,25 @@
+{
+  "signIn": "Mag-sign in",
+  "gettingStarted": {
+    "title": "Pagsisimula",
+    "intro": "Kailangan ang Node.js 20+. Sundin ang mga hakbang na ito para patakbuhin ang agent desktop nang lokal.",
+    "steps": {
+      "install": {
+        "title": "I-install ang mga dependency",
+        "body": "I-install ang mga package ng proyekto mula sa root ng repository."
+      },
+      "configure": {
+        "title": "I-configure ang mga kredensyal (opsyonal)",
+        "body": "Kopyahin ang halimbawang env file at punan ang iyong mga Twilio value. Kung wala ang mga ito, tatakbo ang app sa stub mode at ganap na magagamit offline."
+      },
+      "run": {
+        "title": "Simulan ang dev server",
+        "body": "Patakbuhin ang app nang lokal, pagkatapos ay buksan ang http://localhost:3000."
+      },
+      "signIn": {
+        "title": "Mag-sign in",
+        "body": "Buksan ang login page at ilagay ang iyong Flex username, o magpatuloy sa demo mode para makakuha ng stub token."
+      }
+    }
+  }
+}
