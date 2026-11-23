@@ -106,6 +106,41 @@ export async function listActivities(
   }
 }
 
+export interface FlexUserDTO {
+  username: string;
+  fullName: string;
+}
+
+/**
+ * List the Flex users the login form can sign in as: active users with a
+ * linked TaskRouter worker (deactivated users have their worker deleted).
+ * Reads a single page of up to 1000 users. Returns [] on any failure — this
+ * only seeds login suggestions, the username can always be typed.
+ */
+export async function listFlexUsers(creds: FlexTokenCreds): Promise<FlexUserDTO[]> {
+  try {
+    const instanceSid = await resolveInstanceSid(creds);
+    const res = await fetch(`${FLEX_API}/v1/Instances/${instanceSid}/Users?PageSize=1000`, {
+      headers: { Authorization: basicAuthHeader(creds.apiKey, creds.apiSecret) },
+    });
+    if (!res.ok) return [];
+    const json = (await res.json()) as {
+      users?: Array<{
+        username: string;
+        full_name?: string;
+        worker_sid?: string | null;
+        deactivated?: boolean;
+      }>;
+    };
+    return (json.users ?? [])
+      .filter((u) => u.worker_sid && !u.deactivated)
+      .map((u) => ({ username: u.username, fullName: u.full_name ?? '' }))
+      .sort((a, b) => a.username.localeCompare(b.username));
+  } catch {
+    return [];
+  }
+}
+
 export async function mintFlexUserToken(
   creds: FlexTokenCreds,
   username: string,

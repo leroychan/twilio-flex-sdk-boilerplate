@@ -1,7 +1,7 @@
 'use client';
 
 import { exchangeToken } from '@twilio/flex-sdk';
-import type { TokenResponse } from './types';
+import type { FlexUsersResponse, TokenResponse } from './types';
 
 export async function requestToken(username?: string): Promise<TokenResponse> {
   const res = await fetch('/api/token', {
@@ -20,6 +20,17 @@ export async function requestToken(username?: string): Promise<TokenResponse> {
     throw new Error(code);
   }
   return (await res.json()) as TokenResponse;
+}
+
+/** Existing Flex users to suggest on the login form. Best-effort: [] on failure. */
+export async function fetchFlexUsers(): Promise<FlexUsersResponse> {
+  try {
+    const res = await fetch('/api/flex-users');
+    if (!res.ok) return { users: [], stub: false };
+    return (await res.json()) as FlexUsersResponse;
+  } catch {
+    return { users: [], stub: false };
+  }
 }
 
 export async function exchangeSsoToken(params: {

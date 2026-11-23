@@ -4,6 +4,7 @@ import {
   mintFlexUserToken,
   resetInstanceSidCache,
   listActivities,
+  listFlexUsers,
   FlexTokenError,
 } from '../flexToken';
 
@@ -133,6 +134,47 @@ describe('flexToken', () => {
       vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('network down'));
       const result = await listActivities({ apiKey: 'SK1', apiSecret: 'secret' }, 'WSxxx');
       expect(result).toEqual([]);
+    });
+  });
+
+  describe('listFlexUsers', () => {
+    const user = (over: Record<string, unknown>) => ({
+      username: 'u',
+      full_name: 'U',
+      worker_sid: 'WK1',
+      deactivated: false,
+      ...over,
+    });
+
+    it('returns active users with a linked worker, sorted by username', async () => {
+      const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+        jsonResponse(200, {
+          users: [
+            user({ username: 'zoe', full_name: 'Zoe Z' }),
+            user({ username: 'ann', full_name: 'Ann A' }),
+            user({ username: 'gone', worker_sid: null, deactivated: true }),
+            user({ username: 'noworker', worker_sid: null }),
+          ],
+        }),
+      );
+      const users = await listFlexUsers({ ...CREDS, instanceSid: 'GO1' });
+      expect(users).toEqual([
+        { username: 'ann', fullName: 'Ann A' },
+        { username: 'zoe', fullName: 'Zoe Z' },
+      ]);
+      expect(String(fetchSpy.mock.calls[0]?.[0])).toBe(
+        'https://flex-api.twilio.com/v1/Instances/GO1/Users?PageSize=1000',
+      );
+    });
+
+    it('returns [] when the fetch is non-ok', async () => {
+      vi.spyOn(globalThis, 'fetch').mockResolvedValue(jsonResponse(403, {}));
+      expect(await listFlexUsers({ ...CREDS, instanceSid: 'GO1' })).toEqual([]);
+    });
+
+    it('returns [] when fetch throws', async () => {
+      vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('boom'));
+      expect(await listFlexUsers({ ...CREDS, instanceSid: 'GO1' })).toEqual([]);
     });
   });
 });

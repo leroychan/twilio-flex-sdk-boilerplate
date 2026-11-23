@@ -97,6 +97,7 @@ Copy `.env.example` to `.env.local` and fill in your Twilio values to switch fro
 Two login paths are supported, both minted server-side by `POST /api/token`:
 
 - **Custom token (default / demo).** The login form mints a Flex user token for a username (falling back to `TWILIO_FLEX_USERNAME`). With no live credentials this returns a stub token so the UI still boots.
+  The username must belong to an **existing** Flex user with a linked worker — minting never creates users or workers. In live mode the form suggests these users (via `GET /api/flex-users`, which lists active Flex users that have a `worker_sid`); you can pick one or type any username.
 - **SSO / OAuth.** When `NEXT_PUBLIC_FLEX_SSO_PROFILE_SID` is set, the SDK's `exchangeToken` OAuth callback (`?code&state`) is exchanged for an access token on the login page.
 
 **Token refresh.** Flex custom tokens have a 1-hour TTL. On the custom-token path the app runs a self-managed refresh loop (mirroring the reference `flex-template-builder`): a proactive timer re-mints ~1 minute before expiry and rotates the token in place via `client.updateToken(...)`, plus a reactive `TokenAutoUpdateFailed` listener for an emergency re-mint. Because the mint is keyed on a username (there's no server session), the login **identity** is persisted in the store and replayed on every refresh — so the session also survives a page reload. The SSO path uses the SDK's native `autoUpdateToken` instead and is unchanged.

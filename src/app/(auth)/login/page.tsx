@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useFlexStore } from '@/store';
-import { requestToken, exchangeSsoToken } from '@/lib/flex/auth';
+import { requestToken, exchangeSsoToken, fetchFlexUsers } from '@/lib/flex/auth';
+import type { FlexUsersResponse } from '@/lib/flex/types';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 
@@ -20,6 +21,18 @@ export default function LoginPage() {
   const [busy, setBusy] = useState(false);
   const [username, setUsername] = useState('');
   const [errorCode, setErrorCode] = useState<string | null>(null);
+  const [flexUsers, setFlexUsers] = useState<FlexUsersResponse | null>(null);
+
+  // Suggest existing Flex users (with a linked worker) — sign-in never creates one.
+  useEffect(() => {
+    let cancelled = false;
+    fetchFlexUsers().then((res) => {
+      if (!cancelled) setFlexUsers(res);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // SSO OAuth callback: exchange ?code&state for an access token, then continue.
   useEffect(() => {
@@ -61,6 +74,14 @@ export default function LoginPage() {
     }
   }
 
+  const query = username.trim().toLowerCase();
+  const suggestions = (flexUsers?.users ?? []).filter(
+    (u) =>
+      !query ||
+      u.username.toLowerCase().includes(query) ||
+      u.fullName.toLowerCase().includes(query),
+  );
+
   const errorText =
     errorCode === 'flex_user_not_found'
       ? t('errors.userNotFound')
@@ -84,9 +105,40 @@ export default function LoginPage() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder={t('usernamePlaceholder')}
+              autoComplete="off"
               className="rounded-md border border-border bg-surface px-3 py-2 text-text"
             />
           </label>
+          {flexUsers?.stub ? (
+            <p className="text-xs text-muted">{t('usernameHintStub')}</p>
+          ) : (
+            <p className="text-xs text-muted">
+              {t('usernameHint')}
+              {flexUsers && flexUsers.users.length > 0 && (
+                <span className="block">{t('usernamePickHint')}</span>
+              )}
+            </p>
+          )}
+          {suggestions.length > 0 && (
+            <ul className="max-h-48 overflow-y-auto rounded-md border border-border bg-surface">
+              {suggestions.map((u) => {
+                const selected = u.username === username.trim();
+                return (
+                  <li key={u.username}>
+                    <button
+                      type="button"
+                      aria-pressed={selected}
+                      onClick={() => setUsername(u.username)}
+                      className={`flex w-full flex-col px-3 py-2 text-left text-sm transition-colors hover:bg-surface-2 ${selected ? 'bg-surface-2' : ''}`}
+                    >
+                      <span className="font-semibold text-text">{u.fullName || u.username}</span>
+                      {u.fullName && <span className="text-xs text-muted">{u.username}</span>}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
           <Button onClick={handleCustomToken} disabled={busy}>
             {busy ? t('signingIn') : t('demoMode')}
           </Button>

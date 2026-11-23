@@ -13,6 +13,12 @@ export interface TokenResponse {
   activities?: { sid: string; name: string; available: boolean }[];
 }
 
+export interface FlexUsersResponse {
+  /** Active Flex users with a linked worker — login suggestions. Empty in stub mode. */
+  users: { username: string; fullName: string }[];
+  stub: boolean;
+}
+
 export interface FlexClientOptions {
   logLevel?: 'debug' | 'info' | 'warn' | 'error' | 'silent';
   autoAcceptIncomingCalls?: boolean;
