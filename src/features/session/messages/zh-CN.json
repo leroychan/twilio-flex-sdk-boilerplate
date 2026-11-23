@@ -1,7 +1,6 @@
 {
   "title": "登录 Flex",
   "subtitle": "验证身份以开始坐席会话。",
-  "demoMode": "以演示模式继续",
   "ssoSignIn": "使用 SSO 登录",
   "identityLabel": "坐席身份",
   "usernameLabel": "Flex 用户名",

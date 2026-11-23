@@ -40,13 +40,13 @@ describe('LoginPage', () => {
     vi.restoreAllMocks();
   });
 
-  it('demo-mode sign-in fetches a token, stores it, and navigates to the desktop', async () => {
+  it('sign-in fetches a token, stores it, and navigates to the desktop', async () => {
     mockFetch({
       token: () => json(200, { token: 'STUB.abc.STUB', identity: 'demo-agent', stub: true }),
     });
 
     render(<LoginPage />);
-    await userEvent.click(screen.getByRole('button', { name: 'demoMode' }));
+    await userEvent.click(screen.getByRole('button', { name: 'signIn' }));
 
     await waitFor(() => expect(useFlexStore.getState().token).toBe('STUB.abc.STUB'));
     // The minting identity is persisted so the refresh loop can replay it.
@@ -57,7 +57,7 @@ describe('LoginPage', () => {
   it('shows an error message when the token request fails', async () => {
     mockFetch({ token: () => new Response('nope', { status: 500 }) });
     render(<LoginPage />);
-    await userEvent.click(screen.getByRole('button', { name: 'demoMode' }));
+    await userEvent.click(screen.getByRole('button', { name: 'signIn' }));
     await waitFor(() => expect(screen.getByText('error')).toBeInTheDocument());
     expect(push).not.toHaveBeenCalled();
   });
@@ -76,7 +76,7 @@ describe('LoginPage', () => {
     // Picking a suggestion fills the input, same as typing it.
     await userEvent.click(pick);
     expect(screen.getByRole('textbox')).toHaveValue('ann@acme.com');
-    await userEvent.click(screen.getByRole('button', { name: 'demoMode' }));
+    await userEvent.click(screen.getByRole('button', { name: 'signIn' }));
 
     await waitFor(() => expect(push).toHaveBeenCalledWith('/agent-desktop'));
     const tokenCall = fetchSpy.mock.calls.find(([url]) => url === '/api/token');

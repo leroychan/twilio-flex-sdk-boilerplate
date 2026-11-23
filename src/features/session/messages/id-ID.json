@@ -1,7 +1,6 @@
 {
   "title": "Masuk ke Flex",
   "subtitle": "Autentikasi untuk memulai sesi agen Anda.",
-  "demoMode": "Lanjutkan dalam mode demo",
   "ssoSignIn": "Masuk dengan SSO",
   "identityLabel": "Identitas agen",
   "usernameLabel": "Nama pengguna Flex",

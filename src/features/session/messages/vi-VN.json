@@ -1,7 +1,6 @@
 {
   "title": "Đăng nhập vào Flex",
   "subtitle": "Xác thực để bắt đầu phiên làm việc của tổng đài viên.",
-  "demoMode": "Tiếp tục ở chế độ demo",
   "ssoSignIn": "Đăng nhập bằng SSO",
   "identityLabel": "Danh tính tổng đài viên",
   "usernameLabel": "Tên đăng nhập Flex",

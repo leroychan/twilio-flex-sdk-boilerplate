@@ -1,7 +1,6 @@
 {
   "title": "Mag-sign in sa Flex",
   "subtitle": "Mag-authenticate para simulan ang iyong agent session.",
-  "demoMode": "Magpatuloy sa demo mode",
   "ssoSignIn": "Mag-sign in gamit ang SSO",
   "identityLabel": "Pagkakakilanlan ng agent",
   "usernameLabel": "Flex username",

@@ -1,7 +1,6 @@
 {
   "title": "登入 Flex",
   "subtitle": "驗證身份以開始您的客服工作階段。",
-  "demoMode": "以示範模式繼續",
   "ssoSignIn": "以 SSO 登入",
   "identityLabel": "客服專員身份",
   "usernameLabel": "Flex 用戶名稱",

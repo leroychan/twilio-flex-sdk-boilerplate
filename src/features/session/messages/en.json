@@ -1,7 +1,6 @@
 {
   "title": "Sign in to Flex",
   "subtitle": "Authenticate to start your agent session.",
-  "demoMode": "Continue in demo mode",
   "ssoSignIn": "Sign in with SSO",
   "identityLabel": "Agent identity",
   "usernameLabel": "Flex username",

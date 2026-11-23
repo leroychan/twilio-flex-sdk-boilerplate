@@ -1,7 +1,6 @@
 {
   "title": "Flex에 로그인",
   "subtitle": "에이전트 세션을 시작하려면 인증하세요.",
-  "demoMode": "데모 모드로 계속",
   "ssoSignIn": "SSO로 로그인",
   "identityLabel": "에이전트 ID",
   "usernameLabel": "Flex 사용자 이름",

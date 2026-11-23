@@ -140,7 +140,7 @@ export default function LoginPage() {
             </ul>
           )}
           <Button onClick={handleCustomToken} disabled={busy}>
-            {busy ? t('signingIn') : t('demoMode')}
+            {busy ? t('signingIn') : t('signIn')}
           </Button>
         </div>
       </Card>

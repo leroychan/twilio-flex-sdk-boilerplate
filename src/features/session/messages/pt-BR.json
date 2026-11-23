@@ -1,7 +1,6 @@
 {
   "title": "Entrar no Flex",
   "subtitle": "Autentique-se para iniciar sua sessão de agente.",
-  "demoMode": "Continuar no modo de demonstração",
   "ssoSignIn": "Entrar com SSO",
   "identityLabel": "Identidade do agente",
   "usernameLabel": "Nome de usuário do Flex",

@@ -1,7 +1,6 @@
 {
   "title": "Flex にサインイン",
   "subtitle": "エージェントセッションを開始するには認証してください。",
-  "demoMode": "デモモードで続ける",
   "ssoSignIn": "SSO でサインイン",
   "identityLabel": "エージェント ID",
   "usernameLabel": "Flex ユーザー名",
